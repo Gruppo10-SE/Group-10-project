@@ -19,6 +19,7 @@ public class Gruppo10SE {
         System.out.println("Hello world by Stefano");
         System.out.println("Hello world by Giacomo");
         System.out.println("Hello world by Federicaa");
+        System.out.println("Hello world by Gerry");
     }
 
 }
