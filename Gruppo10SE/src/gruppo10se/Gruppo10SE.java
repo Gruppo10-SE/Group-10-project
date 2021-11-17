@@ -17,7 +17,8 @@ public class Gruppo10SE {
     public static void main(String[] args) {
         // TODO code application logic here
         System.out.println("Hello world by Stefano");
-        System.out.println("Hello worl by Giacomo");
+        System.out.println("Hello world by Giacomo");
+        System.out.println("Hello world by Federica");
     }
 
 }
