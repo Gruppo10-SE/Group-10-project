@@ -18,7 +18,7 @@ public class Gruppo10SE {
         // TODO code application logic here
         System.out.println("Hello world by Stefano");
         System.out.println("Hello world by Giacomo");
-        System.out.println("Hello world by Federica");
+        System.out.println("Hello world by Federicaa");
     }
 
 }
