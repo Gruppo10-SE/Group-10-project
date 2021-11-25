@@ -26,7 +26,7 @@ public class NewJFrame extends javax.swing.JFrame {
             basicOperationComboBox.addItem(operazione);
     }
     
-    List<Integer> lista = new LinkedList<Integer>();
+    StackDataStructure stack = new StackDataStructure();
     
 
     /**
@@ -42,12 +42,12 @@ public class NewJFrame extends javax.swing.JFrame {
         inputTextField = new javax.swing.JTextField();
         outputTextField = new javax.swing.JTextField();
         basicOperationComboBox = new javax.swing.JComboBox<>();
-        tabTabbedPane = new javax.swing.JTabbedPane();
-        stackTextField = new javax.swing.JTextField();
         insertButton = new javax.swing.JButton();
         complexOperationLabel = new javax.swing.JLabel();
         infoLabel = new javax.swing.JLabel();
         inputLabel = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        textAreaNumbers = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -69,13 +69,6 @@ public class NewJFrame extends javax.swing.JFrame {
             }
         });
 
-        stackTextField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                stackTextFieldActionPerformed(evt);
-            }
-        });
-        tabTabbedPane.addTab("Memory", stackTextField);
-
         insertButton.setText("Insert");
         insertButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -89,6 +82,10 @@ public class NewJFrame extends javax.swing.JFrame {
 
         inputLabel.setText("Input");
 
+        textAreaNumbers.setColumns(20);
+        textAreaNumbers.setRows(5);
+        jScrollPane1.setViewportView(textAreaNumbers);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -100,15 +97,15 @@ public class NewJFrame extends javax.swing.JFrame {
                     .addComponent(infoLabel))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(outputTextField)
-                    .addComponent(inputTextField)
-                    .addComponent(tabTabbedPane, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 258, Short.MAX_VALUE)
+                    .addComponent(outputTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 258, Short.MAX_VALUE)
+                    .addComponent(inputTextField))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(insertButton)
                     .addComponent(basicOperationComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(complexOperationLabel))
-                .addGap(0, 63, Short.MAX_VALUE))
+                .addGap(0, 44, Short.MAX_VALUE))
         );
 
         layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {basicOperationComboBox, insertButton});
@@ -125,14 +122,13 @@ public class NewJFrame extends javax.swing.JFrame {
                     .addComponent(inputTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(insertButton)
                     .addComponent(inputLabel, javax.swing.GroupLayout.Alignment.LEADING))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(complexOperationLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(complexOperationLabel)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(basicOperationComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(tabTabbedPane, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(142, 142, 142))
+                    .addComponent(basicOperationComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(420, 420, 420))
         );
 
         pack();
@@ -161,35 +157,27 @@ public class NewJFrame extends javax.swing.JFrame {
         if(inputTextField.getText().compareTo("") == 0){
             outputTextField.setText("Devi inserire almeno un numero!");
             inputTextField.requestFocusInWindow();
-            return;
         }
          
-        else if(inputTextField.getText().compareTo("sum") == 0 && lista.size() >= 2){
-            int a, b, len;
-            len = lista.size();
-            a = lista.remove(len-1);
-            b = lista.remove(len-2);
-            lista.add(a + b);
+        else if(inputTextField.getText().compareTo("sum") == 0 && stack.size() >= 2){
+            int a, b;
+            a = stack.pop();
+            b = stack.pop();
+            stack.push(a + b);
             outputTextField.setText("Sommato i numeri " + a + " " + b);
-            stackTextField.setText(lista.toString());
-            return;
+            textAreaNumbers.setText(stack.toString());
         }
         else {
         
         outputTextField.setText("");
-        lista.add(Integer.parseInt(inputTextField.getText()));
+        stack.push(Integer.parseInt(inputTextField.getText()));
         inputTextField.setText("");
-        stackTextField.setText(lista.toString());
+        textAreaNumbers.setText(stack.toString());
         inputTextField.requestFocusInWindow();
         }
         
         
     }//GEN-LAST:event_insertButtonActionPerformed
-
-    private void stackTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_stackTextFieldActionPerformed
-        // TODO add your handling code here:
-        
-    }//GEN-LAST:event_stackTextFieldActionPerformed
 
     /**
      * @param args the command line arguments
@@ -235,8 +223,8 @@ public class NewJFrame extends javax.swing.JFrame {
     private javax.swing.JLabel inputLabel;
     private javax.swing.JTextField inputTextField;
     private javax.swing.JButton insertButton;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField outputTextField;
-    private javax.swing.JTextField stackTextField;
-    private javax.swing.JTabbedPane tabTabbedPane;
+    private javax.swing.JTextArea textAreaNumbers;
     // End of variables declaration//GEN-END:variables
 }
