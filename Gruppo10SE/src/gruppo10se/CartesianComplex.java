@@ -96,8 +96,8 @@ public class CartesianComplex {
     // return a new Complex object whose value is the conjugate of cartComplex
     public CartesianComplex conjugate(CartesianComplex cartComplex) {
         
-        re = cartComplex.re;
-        im = cartComplex.im;
+        double re = cartComplex.re;
+        double im = cartComplex.im;
                 
        CartesianComplex cartConj= new CartesianComplex(re,(-im));
        return cartConj; 
