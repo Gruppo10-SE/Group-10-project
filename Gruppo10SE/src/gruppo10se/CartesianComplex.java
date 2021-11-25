@@ -111,7 +111,7 @@ public class CartesianComplex {
 
     // return a new Complex object whose value is (a - b)
     public CartesianComplex subtract(CartesianComplex a, CartesianComplex b) {
-        return new CartesianComplex(a.re + b.re, a.im + b.im);
+        return new CartesianComplex(a.re - b.re, a.im - b.im);
     }
 
     // return a new Complex object whose value is (a * b)
