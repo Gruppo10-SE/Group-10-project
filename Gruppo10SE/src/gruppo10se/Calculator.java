@@ -9,14 +9,18 @@ import java.util.*;
  *
  * @author giaco
  */
-public class NewJFrame extends javax.swing.JFrame {
+
+
+
+
+public class Calculator extends javax.swing.JFrame {
 
     /**
      * Creates new form NewJFrame
      */
-    public NewJFrame() {
+    public Calculator() {
         initComponents();
-        String[] operazioni = {"", "sum", "dif"};
+        String[] operazioni = {"", "+", "-", "*", "/", "sqrt", "+-"};
         
         outputTextField.setEditable(false);
         inputTextField.requestFocusInWindow();
@@ -46,8 +50,9 @@ public class NewJFrame extends javax.swing.JFrame {
         complexOperationLabel = new javax.swing.JLabel();
         infoLabel = new javax.swing.JLabel();
         inputLabel = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        textAreaNumbers = new javax.swing.JTextArea();
+        tabTabbedPane = new javax.swing.JTabbedPane();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        stackTextArea = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -82,9 +87,11 @@ public class NewJFrame extends javax.swing.JFrame {
 
         inputLabel.setText("Input");
 
-        textAreaNumbers.setColumns(20);
-        textAreaNumbers.setRows(5);
-        jScrollPane1.setViewportView(textAreaNumbers);
+        stackTextArea.setColumns(20);
+        stackTextArea.setRows(5);
+        jScrollPane2.setViewportView(stackTextArea);
+
+        tabTabbedPane.addTab("tab1", jScrollPane2);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -97,9 +104,10 @@ public class NewJFrame extends javax.swing.JFrame {
                     .addComponent(infoLabel))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 258, Short.MAX_VALUE)
-                    .addComponent(outputTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 258, Short.MAX_VALUE)
-                    .addComponent(inputTextField))
+                    .addComponent(tabTabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 258, Short.MAX_VALUE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(outputTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 258, Short.MAX_VALUE)
+                        .addComponent(inputTextField)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(insertButton)
@@ -122,13 +130,14 @@ public class NewJFrame extends javax.swing.JFrame {
                     .addComponent(inputTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(insertButton)
                     .addComponent(inputLabel, javax.swing.GroupLayout.Alignment.LEADING))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(complexOperationLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(basicOperationComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(420, 420, 420))
+                    .addComponent(tabTabbedPane, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(complexOperationLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(basicOperationComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(459, 459, 459))
         );
 
         pack();
@@ -150,29 +159,64 @@ public class NewJFrame extends javax.swing.JFrame {
         inputTextField.setText((String)basicOperationComboBox.getSelectedItem());
         
         
+        
     }//GEN-LAST:event_basicOperationComboBoxActionPerformed
 
     private void insertButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_insertButtonActionPerformed
         // TODO add your handling code here:
+        
+        //"+", "-", "*", "/", "sqrt", "+-"
+        
+        if(inputTextField.getText().compareTo("+") == 0 && stack.size() >= 2){
+            //do sum
+            //outputTextField.setText("Sommato i numeri " + a + " " + b);
+            stackTextArea.setText(stack.toString());
+        }
+        if(inputTextField.getText().compareTo("-") == 0 && stack.size() >= 2){
+            //do difference
+            //outputTextField.setText("Sommato i numeri " + a + " " + b);
+            stackTextArea.setText(stack.toString());
+            
+        }
+        if(inputTextField.getText().compareTo("*") == 0 && stack.size() >= 2){
+            //do multiplication
+            //outputTextField.setText("Sommato i numeri " + a + " " + b);
+            stackTextArea.setText(stack.toString());
+        }
+        if(inputTextField.getText().compareTo("/") == 0 && stack.size() >= 2){
+            //do division
+            //outputTextField.setText("Sommato i numeri " + a + " " + b);
+            stackTextArea.setText(stack.toString());
+        }
+        if(inputTextField.getText().compareTo("sqrt") == 0 && stack.size() >= 1){
+            //do square root
+            //outputTextField.setText("Sommato i numeri " + a + " " + b);
+            stackTextArea.setText(stack.toString());
+        }
+        if(inputTextField.getText().compareTo("+-") == 0 && stack.size() >= 1){
+            //do sum
+            //outputTextField.setText("Sommato i numeri " + a + " " + b);
+            stackTextArea.setText(stack.toString());
+        }
         if(inputTextField.getText().compareTo("") == 0){
-            outputTextField.setText("Devi inserire almeno un numero!");
+            //outputTextField.setText("Devi inserire almeno un numero!");
             inputTextField.requestFocusInWindow();
         }
          
-        else if(inputTextField.getText().compareTo("sum") == 0 && stack.size() >= 2){
+        /*else if(inputTextField.getText().compareTo("+") == 0 && stack.size() >= 2){
             int a, b;
             a = stack.pop();
             b = stack.pop();
             stack.push(a + b);
             outputTextField.setText("Sommato i numeri " + a + " " + b);
-            textAreaNumbers.setText(stack.toString());
-        }
+            stackTextArea.setText(stack.toString());
+        }*/
         else {
         
         outputTextField.setText("");
         stack.push(Integer.parseInt(inputTextField.getText()));
         inputTextField.setText("");
-        textAreaNumbers.setText(stack.toString());
+        stackTextArea.setText(stack.toString());
         inputTextField.requestFocusInWindow();
         }
         
@@ -196,20 +240,21 @@ public class NewJFrame extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(NewJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Calculator.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(NewJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Calculator.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(NewJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Calculator.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(NewJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Calculator.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new NewJFrame().setVisible(true);
+                new Calculator().setVisible(true);
             }
         });
         
@@ -223,8 +268,9 @@ public class NewJFrame extends javax.swing.JFrame {
     private javax.swing.JLabel inputLabel;
     private javax.swing.JTextField inputTextField;
     private javax.swing.JButton insertButton;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextField outputTextField;
-    private javax.swing.JTextArea textAreaNumbers;
+    private javax.swing.JTextArea stackTextArea;
+    private javax.swing.JTabbedPane tabTabbedPane;
     // End of variables declaration//GEN-END:variables
 }
