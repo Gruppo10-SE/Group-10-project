@@ -102,29 +102,49 @@ public class CartesianComplex {
        CartesianComplex cartConj= new CartesianComplex(re,(-im));
        return cartConj; 
     }
+    
+    // return a new Complex object whose value is the reciprocal of cartComplex
+    public CartesianComplex reciprocal() {
+        
+        double re = this.re;
+        double im = this.im;
+        
+        double scale = re*re + im*im;
+        return new CartesianComplex((re / scale),(-im / scale));
+    }
 
     
-    // return a new Complex object whose value is (a + b)
-    public CartesianComplex sum(CartesianComplex a, CartesianComplex b) {
-        return new CartesianComplex(a.re + b.re, a.im + b.im);
-    }
-
-    // return a new Complex object whose value is (a - b)
-    public CartesianComplex subtract(CartesianComplex a, CartesianComplex b) {
-        return new CartesianComplex(a.re + b.re, a.im + b.im);
-    }
-
-    // return a new Complex object whose value is (a * b)
-    public CartesianComplex multiply(CartesianComplex a, CartesianComplex b) {
+    // return a new Complex object whose value is (this + b)
+    public CartesianComplex sum(CartesianComplex a) {
         return new CartesianComplex();
+    }
+
+    // return a new Complex object whose value is (this - b)
+    public CartesianComplex subtract(CartesianComplex b) {
+        return new CartesianComplex();
+    }
+
+    // return a new Complex object whose value is (this * b)
+    public CartesianComplex multiply(CartesianComplex b) {
+        
+        double reA = this.re;
+        double imA = this.im;
+        double reB = b.re;
+        double imB = b.im;
+        
+        double reCart = (reA * reB) - (imA * imB);
+        double imCart = (imA * reB) + (imB * reA);
+        
+        CartesianComplex cartComplMult = new CartesianComplex( reCart,imCart);
+       
+        return cartComplMult;       
     }
 
     // return a / b
-    public CartesianComplex divides(CartesianComplex a, CartesianComplex b) {
+    public CartesianComplex divides(CartesianComplex a) {
         return new CartesianComplex();
     }
 
-    
     
     
     
