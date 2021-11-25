@@ -36,11 +36,11 @@ public class CartesianComplex {
        
     //getter methods
     public double getRealPart(){
-        return re;
+        return this.re;
     }
     
      public double getImagPart(){
-        return im;
+        return this.im;
     }
     
     // return a string representation 
@@ -94,37 +94,61 @@ public class CartesianComplex {
     }
 
     // return a new Complex object whose value is the conjugate of cartComplex
-    public CartesianComplex conjugate(CartesianComplex cartComplex) {
+    public CartesianComplex conjugate() {
         
-        double re = cartComplex.re;
-        double im = cartComplex.im;
+        double re = this.re;
+        double im = this.im;
                 
        CartesianComplex cartConj= new CartesianComplex(re,(-im));
        return cartConj; 
     }
+    
+    // return a new Complex object whose value is the reciprocal of cartComplex
+    public CartesianComplex reciprocal() {
+        
+        double re = this.re;
+        double im = this.im;
+        
+        double scale = re*re + im*im;
+        return new CartesianComplex((re / scale),(-im / scale));
+    }
 
     
-    // return a new Complex object whose value is (a + b)
+    // return a new Complex object whose value is (this + b)
     public CartesianComplex sum(CartesianComplex b) {
         return new CartesianComplex(this.re + b.re, this.im + b.im);
     }
 
-    // return a new Complex object whose value is (a - b)
+    // return a new Complex object whose value is (this - b)
     public CartesianComplex subtract(CartesianComplex b) {
         return new CartesianComplex(this.re - b.re, this.im - b.im);
     }
 
-    // return a new Complex object whose value is (a * b)
-    public CartesianComplex multiply(CartesianComplex a, CartesianComplex b) {
-        return new CartesianComplex();
+    // return a new Complex object whose value is (this * b)
+    public CartesianComplex multiply(CartesianComplex b) {
+        
+        double reA = this.re;
+        double imA = this.im;
+        double reB = b.re;
+        double imB = b.im;
+        
+        double reCart = (reA * reB) - (imA * imB);
+        double imCart = (imA * reB) + (imB * reA);
+        
+        CartesianComplex cartComplMult = new CartesianComplex( reCart,imCart);
+       
+        return cartComplMult;       
     }
 
-    // return a / b
-    public CartesianComplex divides(CartesianComplex a, CartesianComplex b) {
-        return new CartesianComplex();
+    // return a new Complex object whose value is this / b
+    public CartesianComplex divides(CartesianComplex b) {
+        
+        CartesianComplex num = this.multiply(b.conjugate());
+        CartesianComplex div = b.multiply(b.conjugate()); //num/div -> div^-1-> num*(div^-1)-> complex
+        
+        return num.multiply(div.reciprocal());
     }
 
-    
     
     
     
