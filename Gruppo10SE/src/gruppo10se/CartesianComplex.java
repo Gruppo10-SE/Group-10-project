@@ -105,13 +105,13 @@ public class CartesianComplex {
 
     
     // return a new Complex object whose value is (a + b)
-    public CartesianComplex sum(CartesianComplex a, CartesianComplex b) {
-        return new CartesianComplex(a.re + b.re, a.im + b.im);
+    public CartesianComplex sum(CartesianComplex b) {
+        return new CartesianComplex(this.re + b.re, this.im + b.im);
     }
 
     // return a new Complex object whose value is (a - b)
-    public CartesianComplex subtract(CartesianComplex a, CartesianComplex b) {
-        return new CartesianComplex(a.re - b.re, a.im - b.im);
+    public CartesianComplex subtract(CartesianComplex b) {
+        return new CartesianComplex(this.re - b.re, this.im - b.im);
     }
 
     // return a new Complex object whose value is (a * b)
