@@ -16,6 +16,14 @@ public class NewJFrame extends javax.swing.JFrame {
      */
     public NewJFrame() {
         initComponents();
+        String[] operazioni = {"", "sum", "dif"};
+        
+        outputTextField.setEditable(false);
+        inputTextField.requestFocusInWindow();
+        
+        basicOperationComboBox.setEditable(false);
+        for(String operazione : operazioni)
+            basicOperationComboBox.addItem(operazione);
     }
     
     List<Integer> lista = new LinkedList<Integer>();
@@ -55,7 +63,6 @@ public class NewJFrame extends javax.swing.JFrame {
             }
         });
 
-        basicOperationComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         basicOperationComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 basicOperationComboBoxActionPerformed(evt);
@@ -131,8 +138,10 @@ public class NewJFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    
+    
     private void outputTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_outputTextFieldActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_outputTextFieldActionPerformed
 
     private void inputTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputTextFieldActionPerformed
@@ -142,15 +151,38 @@ public class NewJFrame extends javax.swing.JFrame {
     private void basicOperationComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_basicOperationComboBoxActionPerformed
         // TODO add your handling code here:
         
+        inputTextField.setText((String)basicOperationComboBox.getSelectedItem());
+        
         
     }//GEN-LAST:event_basicOperationComboBoxActionPerformed
 
     private void insertButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_insertButtonActionPerformed
         // TODO add your handling code here:
+        if(inputTextField.getText().compareTo("") == 0){
+            outputTextField.setText("Devi inserire almeno un numero!");
+            inputTextField.requestFocusInWindow();
+            return;
+        }
+         
+        else if(inputTextField.getText().compareTo("sum") == 0 && lista.size() >= 2){
+            int a, b, len;
+            len = lista.size();
+            a = lista.remove(len-1);
+            b = lista.remove(len-2);
+            lista.add(a + b);
+            outputTextField.setText("Sommato i numeri " + a + " " + b);
+            stackTextField.setText(lista.toString());
+            return;
+        }
+        else {
         
+        outputTextField.setText("");
         lista.add(Integer.parseInt(inputTextField.getText()));
         inputTextField.setText("");
         stackTextField.setText(lista.toString());
+        inputTextField.requestFocusInWindow();
+        }
+        
         
     }//GEN-LAST:event_insertButtonActionPerformed
 
@@ -192,6 +224,7 @@ public class NewJFrame extends javax.swing.JFrame {
                 new NewJFrame().setVisible(true);
             }
         });
+        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
