@@ -53,10 +53,10 @@ public class CartesianComplex {
     }
     
     // return abs/modulus of cartComplex
-    public double abs(CartesianComplex cartComplex) {
+    public double abs() {
         
-        double re = cartComplex.re;
-        double im = cartComplex.im;
+        double re = this.re;
+        double im = this.im;
         
         double abs= Math.hypot(re,im);
         
@@ -65,10 +65,10 @@ public class CartesianComplex {
     }
 
     // return angle/phase of cartComplex
-    public double phase(CartesianComplex cartComplex) {
+    public double phase() {
         
-        double re = cartComplex.re;
-        double im = cartComplex.im;
+        double re = this.re;
+        double im = this.im;
         
         double teta = Math.toRadians(0);
         
