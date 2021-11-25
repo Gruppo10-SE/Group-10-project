@@ -36,11 +36,11 @@ public class CartesianComplex {
        
     //getter methods
     public double getRealPart(){
-        return re;
+        return this.re;
     }
     
      public double getImagPart(){
-        return im;
+        return this.im;
     }
     
     // return a string representation 
@@ -94,10 +94,10 @@ public class CartesianComplex {
     }
 
     // return a new Complex object whose value is the conjugate of cartComplex
-    public CartesianComplex conjugate(CartesianComplex cartComplex) {
+    public CartesianComplex conjugate() {
         
-        double re = cartComplex.re;
-        double im = cartComplex.im;
+        double re = this.re;
+        double im = this.im;
                 
        CartesianComplex cartConj= new CartesianComplex(re,(-im));
        return cartConj; 
@@ -115,13 +115,13 @@ public class CartesianComplex {
 
     
     // return a new Complex object whose value is (this + b)
-    public CartesianComplex sum(CartesianComplex a) {
-        return new CartesianComplex();
+    public CartesianComplex sum(CartesianComplex b) {
+        return new CartesianComplex(this.re + b.re, this.im + b.im);
     }
 
     // return a new Complex object whose value is (this - b)
     public CartesianComplex subtract(CartesianComplex b) {
-        return new CartesianComplex();
+        return new CartesianComplex(this.re - b.re, this.im - b.im);
     }
 
     // return a new Complex object whose value is (this * b)
@@ -140,9 +140,13 @@ public class CartesianComplex {
         return cartComplMult;       
     }
 
-    // return a / b
-    public CartesianComplex divides(CartesianComplex a) {
-        return new CartesianComplex();
+    // return a new Complex object whose value is this / b
+    public CartesianComplex divides(CartesianComplex b) {
+        
+        CartesianComplex num = this.multiply(b.conjugate());
+        CartesianComplex div = b.multiply(b.conjugate()); //num/div -> div^-1-> num*(div^-1)-> complex
+        
+        return num.multiply(div.reciprocal());
     }
 
     
