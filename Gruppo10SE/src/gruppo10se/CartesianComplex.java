@@ -36,11 +36,11 @@ public class CartesianComplex {
        
     //getter methods
     public double getRealPart(){
-        return this.re;
+        return re;
     }
     
      public double getImagPart(){
-        return this.im;
+        return im;
     }
     
     // return a string representation 
