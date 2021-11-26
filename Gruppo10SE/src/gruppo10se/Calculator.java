@@ -23,15 +23,72 @@ public class Calculator extends javax.swing.JFrame {
         String[] operazioni = {"", "+", "-", "*", "/", "sqrt", "+-"};
         
         outputTextField.setEditable(false);
-        inputTextField.requestFocusInWindow();
+        
         
         basicOperationComboBox.setEditable(false);
         for(String operazione : operazioni)
             basicOperationComboBox.addItem(operazione);
+        
+        inputTextField.requestFocusInWindow();
+        
+        inputButton.setText("Insert!");
+        
+        
     }
+        
     
     StackDataStructure stack = new StackDataStructure();
+    List<Integer> lista = new LinkedList();
     
+    //"+", "-", "*", "/", "sqrt", "+-"
+    
+    private int doSum(){
+        if(stack.size() >= 2){
+            CartesianComplex a, b;
+            a = stack.pop();
+            b = stack.pop();
+            stack.push(a.sum(b));
+            return 0;
+        }
+        else return 1;
+    }
+    private int doSubtraction(){
+        if(stack.size() >= 2){
+            CartesianComplex a, b;
+            a = stack.pop();
+            b = stack.pop();
+            stack.push(a.subtract(b));
+            return 0;
+        }
+        else return 1;
+    }
+    private int doMultiplication(){
+        if(stack.size() >= 2){
+            CartesianComplex a, b;
+            a = stack.pop();
+            b = stack.pop();
+            stack.push(a.multiply(b));
+            return 0;
+        }
+        else return 1;
+    }
+    private int doDivision(){
+        if(stack.size() >= 2){
+            CartesianComplex a, b;
+            a = stack.pop();
+            b = stack.pop();
+            stack.push(a.divides(b));
+            return 0;
+        }
+        else return 1;
+    }
+    private void doSqrt(){
+        //***DA DEFINIRE IN CARTESIAN COMPLEX***
+    }
+    private void doInvertSign(){
+        //***DA DEFINIRE IN CARTESIAN COMPLEX***
+
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -46,7 +103,7 @@ public class Calculator extends javax.swing.JFrame {
         inputTextField = new javax.swing.JTextField();
         outputTextField = new javax.swing.JTextField();
         basicOperationComboBox = new javax.swing.JComboBox<>();
-        insertButton = new javax.swing.JButton();
+        inputButton = new javax.swing.JButton();
         complexOperationLabel = new javax.swing.JLabel();
         infoLabel = new javax.swing.JLabel();
         inputLabel = new javax.swing.JLabel();
@@ -74,10 +131,10 @@ public class Calculator extends javax.swing.JFrame {
             }
         });
 
-        insertButton.setText("Insert");
-        insertButton.addActionListener(new java.awt.event.ActionListener() {
+        inputButton.setText("Insert!");
+        inputButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                insertButtonActionPerformed(evt);
+                inputButtonActionPerformed(evt);
             }
         });
 
@@ -91,7 +148,7 @@ public class Calculator extends javax.swing.JFrame {
         stackTextArea.setRows(5);
         jScrollPane2.setViewportView(stackTextArea);
 
-        tabTabbedPane.addTab("tab1", jScrollPane2);
+        tabTabbedPane.addTab("Memory", jScrollPane2);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -105,18 +162,17 @@ public class Calculator extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(tabTabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 258, Short.MAX_VALUE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(outputTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 258, Short.MAX_VALUE)
-                        .addComponent(inputTextField)))
+                    .addComponent(outputTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 258, Short.MAX_VALUE)
+                    .addComponent(inputTextField))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(insertButton)
+                    .addComponent(inputButton)
                     .addComponent(basicOperationComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(complexOperationLabel))
                 .addGap(0, 44, Short.MAX_VALUE))
         );
 
-        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {basicOperationComboBox, insertButton});
+        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {basicOperationComboBox, inputButton});
 
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -128,22 +184,21 @@ public class Calculator extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(inputTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(insertButton)
+                    .addComponent(inputButton)
                     .addComponent(inputLabel, javax.swing.GroupLayout.Alignment.LEADING))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(tabTabbedPane, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(complexOperationLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(basicOperationComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(459, 459, 459))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    
     
     private void outputTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_outputTextFieldActionPerformed
         
@@ -157,71 +212,100 @@ public class Calculator extends javax.swing.JFrame {
         // TODO add your handling code here:
         
         inputTextField.setText((String)basicOperationComboBox.getSelectedItem());
-        
+        inputButton.setText("Calculate!");
+        if(inputTextField.getText().compareTo("+") == 0 && stack.size() >= 2){
+            if (doSum() == 0){
+            //outputTextField.setText("Sommato i numeri " + a + " " + b);
+                stackTextArea.setText(stack.toString());
+                inputTextField.setText("");
+                inputTextField.requestFocusInWindow();
+                inputButton.setText("Insert!");
+            }
+            else outputTextField.setText("Insufficient number of operands!");
+        }
+        else if(inputTextField.getText().compareTo("-") == 0 && stack.size() >= 2){
+            if (doSubtraction() == 0){
+            //outputTextField.setText("Sommato i numeri " + a + " " + b);
+                stackTextArea.setText(stack.toString());
+                inputTextField.setText("");
+                inputTextField.requestFocusInWindow();
+                inputButton.setText("Insert!");
+            }
+            else outputTextField.setText("Insufficient number of operands!");            
+        }
+        else if(inputTextField.getText().compareTo("*") == 0 && stack.size() >= 2){
+            if (doMultiplication() == 0){
+            //outputTextField.setText("Sommato i numeri " + a + " " + b);
+                stackTextArea.setText(stack.toString());
+                inputTextField.setText("");
+                inputTextField.requestFocusInWindow();
+                inputButton.setText("Insert!");
+            }
+            else outputTextField.setText("Insufficient number of operands!");
+        }
+        else if(inputTextField.getText().compareTo("/") == 0 && stack.size() >= 2){
+            if (doDivision() == 0){
+            //outputTextField.setText("Sommato i numeri " + a + " " + b);
+                stackTextArea.setText(stack.toString());
+                inputTextField.setText("");
+                inputTextField.requestFocusInWindow();
+                inputButton.setText("Insert!");
+            }
+            else outputTextField.setText("Insufficient number of operands!");
+        }
+        else if(inputTextField.getText().compareTo("sqrt") == 0 && stack.size() >= 1){
+            //do square root
+            //outputTextField.setText("Sommato i numeri " + a + " " + b);
+            
+            stackTextArea.setText(stack.toString());
+            inputTextField.setText("");
+            inputTextField.requestFocusInWindow();
+            inputButton.setText("Insert!");
+        }
+        else if(inputTextField.getText().compareTo("+-") == 0 && stack.size() >= 1){
+            //do sum
+            //outputTextField.setText("Sommato i numeri " + a + " " + b);
+            stackTextArea.setText(stack.toString());
+            inputTextField.setText("");
+            inputTextField.requestFocusInWindow();
+            inputButton.setText("Insert!");
+        }
         
         
     }//GEN-LAST:event_basicOperationComboBoxActionPerformed
 
-    private void insertButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_insertButtonActionPerformed
+    private void inputButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputButtonActionPerformed
         // TODO add your handling code here:
         
         //"+", "-", "*", "/", "sqrt", "+-"
-        
-        if(inputTextField.getText().compareTo("+") == 0 && stack.size() >= 2){
-            //do sum
-            //outputTextField.setText("Sommato i numeri " + a + " " + b);
-            stackTextArea.setText(stack.toString());
-        }
-        if(inputTextField.getText().compareTo("-") == 0 && stack.size() >= 2){
-            //do difference
-            //outputTextField.setText("Sommato i numeri " + a + " " + b);
-            stackTextArea.setText(stack.toString());
-            
-        }
-        if(inputTextField.getText().compareTo("*") == 0 && stack.size() >= 2){
-            //do multiplication
-            //outputTextField.setText("Sommato i numeri " + a + " " + b);
-            stackTextArea.setText(stack.toString());
-        }
-        if(inputTextField.getText().compareTo("/") == 0 && stack.size() >= 2){
-            //do division
-            //outputTextField.setText("Sommato i numeri " + a + " " + b);
-            stackTextArea.setText(stack.toString());
-        }
-        if(inputTextField.getText().compareTo("sqrt") == 0 && stack.size() >= 1){
-            //do square root
-            //outputTextField.setText("Sommato i numeri " + a + " " + b);
-            stackTextArea.setText(stack.toString());
-        }
-        if(inputTextField.getText().compareTo("+-") == 0 && stack.size() >= 1){
-            //do sum
-            //outputTextField.setText("Sommato i numeri " + a + " " + b);
-            stackTextArea.setText(stack.toString());
-        }
+
         if(inputTextField.getText().compareTo("") == 0){
-            //outputTextField.setText("Devi inserire almeno un numero!");
+            outputTextField.setText("Campo input vuoto!");
             inputTextField.requestFocusInWindow();
+            inputButton.setText("Insert!");
         }
-         
-        /*else if(inputTextField.getText().compareTo("+") == 0 && stack.size() >= 2){
-            int a, b;
-            a = stack.pop();
-            b = stack.pop();
-            stack.push(a + b);
-            outputTextField.setText("Sommato i numeri " + a + " " + b);
-            stackTextArea.setText(stack.toString());
-        }*/
         else {
-        
-        outputTextField.setText("");
-        stack.push(Integer.parseInt(inputTextField.getText()));
-        inputTextField.setText("");
-        stackTextArea.setText(stack.toString());
-        inputTextField.requestFocusInWindow();
+            
+            if(inputTextField.getText().contains("j")){
+            
+                outputTextField.setText("");
+            
+                stack.push(new CartesianComplex(inputTextField.getText()));
+                inputTextField.setText("");
+                if(!stack.isEmpty())
+                    stackTextArea.setText(stack.toString());
+                inputTextField.requestFocusInWindow();
+                inputButton.setText("Insert!");
+            }
+            else{
+                outputTextField.setText("Insert a Number!");
+                inputTextField.setText("");
+                inputButton.setText("Insert!");
+            }
         }
         
         
-    }//GEN-LAST:event_insertButtonActionPerformed
+    }//GEN-LAST:event_inputButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -265,9 +349,9 @@ public class Calculator extends javax.swing.JFrame {
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JLabel complexOperationLabel;
     private javax.swing.JLabel infoLabel;
+    private javax.swing.JButton inputButton;
     private javax.swing.JLabel inputLabel;
     private javax.swing.JTextField inputTextField;
-    private javax.swing.JButton insertButton;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextField outputTextField;
     private javax.swing.JTextArea stackTextArea;
