@@ -13,7 +13,7 @@ import java.util.ArrayList;
  * @author user
  */
 public class StackDataStructure {
-    private List<Integer> stack = new ArrayList<>();
+    private List<CartesianComplex> stack = new ArrayList<>();
     
     public boolean isEmpty() {
         return stack.isEmpty();
@@ -23,25 +23,25 @@ public class StackDataStructure {
         return stack.size();
     }
     
-    public Integer top() {
+    public CartesianComplex top() {
         if (stack.isEmpty())
             return null;
         return stack.get(size() - 1);
     }
     
-    public Integer pop() {
+    public CartesianComplex pop() {
         if (stack.isEmpty())
             return null;
-        Integer top = top();
+        CartesianComplex top = top();
         stack.remove(top);
         return top;
     }
     
-    public void push(Integer element) {
+    public void push(CartesianComplex element) {
         stack.add(element);
     }
     
-    public Integer search(Integer element) {
+    public Integer search(CartesianComplex element) {
         if (stack.isEmpty())
             return null;
         return stack.indexOf(element);
@@ -49,7 +49,11 @@ public class StackDataStructure {
     
     @Override
     public String toString() {
-        return "Elements: " + stack;
+        String stringa = "";
+        for(CartesianComplex single: stack){
+            stringa += single.toString() + "\n";
+        }
+        return stringa;
     }
     
 }

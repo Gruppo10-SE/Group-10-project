@@ -14,6 +14,37 @@ import java.lang.Exception;
 public class CartesianComplex {
     double re,im;
     
+    //10+5j
+    public CartesianComplex(String number){
+        
+        boolean firstPositive = true;
+        boolean secondPositive = true;
+        
+        if (number.charAt(0) == '-')     // See if first expr is negative
+            firstPositive = false;
+        if (number.substring(1).contains("-"))
+            secondPositive = false;
+        
+        String[] split = number.split("[+-]");
+        if (split[0].equals("")) {  // Handle expr beginning with `-`
+            split[0] = split[1];
+            split[1] = split[2];
+        }
+        
+        if (split[0].contains("j")) // Assumes input is not empty
+            this.im = Double.parseDouble((firstPositive ? "+" : "-") + split[0].substring(0,split[0].length() - 1));
+        else
+            
+            this.re = Double.parseDouble((firstPositive ? "+" : "-") + split[0]);
+        if (split.length > 1) {     // Parse second part of expr if it exists
+            if (split[1].contains("j"))
+                this.im = Double.parseDouble((secondPositive ? "+" : "-") + split[1].substring(0,split[1].length() - 1));
+            else
+                this.re = Double.parseDouble((secondPositive ? "+" : "-") + split[1]);
+
+    }
+    }
+    
     //constructors
     public CartesianComplex(double r, double i){
         this.re = r;
@@ -44,13 +75,14 @@ public class CartesianComplex {
     }
     
     // return a string representation 
-    @Override
+         @Override
     public String toString() {
-        if (im == 0) return re + "";
-        if (re == 0) return im + "j";
-        if (im <  0) return re + " - " + (-im) + "j";
-        return re + " + " + im + "j";
+        if (im == 0) return Double.toString(re) + "";
+        if (re == 0) return Double.toString(im) + "j";
+        if (im <  0) return Double.toString(re) + " - " + (Double.toString(-1*im)) + "j";
+        return Double.toString(re) + " + " + Double.toString(im) + "j";
     }
+
     
     // return abs/modulus of cartComplex
     public double abs() {
@@ -148,7 +180,13 @@ public class CartesianComplex {
         
         return num.multiply(div.reciprocal());
     }
-
+    
+    /*
+    @Override
+    public String toString(){
+        return (Double.toString((this.re)) + Double.toString(this.im)+ "j");
+    }
+*/
     
     
     
