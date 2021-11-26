@@ -20,7 +20,7 @@ public class Calculator extends javax.swing.JFrame {
      */
     public Calculator() {
         initComponents();
-        String[] operazioni = {"", "+", "-", "*", "/", "sqrt", "+-"};
+        String[] operazioni = {"Select an operation", "+", "-", "*", "/", "sqrt", "+-"};
         
         outputTextField.setEditable(false);
         
@@ -30,15 +30,14 @@ public class Calculator extends javax.swing.JFrame {
             basicOperationComboBox.addItem(operazione);
         
         inputTextField.requestFocusInWindow();
+        inputTextField.setText("");
         
         inputButton.setText("Insert!");
         
         
     }
         
-    
     StackDataStructure stack = new StackDataStructure();
-    List<Integer> lista = new LinkedList();
     
     //"+", "-", "*", "/", "sqrt", "+-"
     
@@ -57,7 +56,7 @@ public class Calculator extends javax.swing.JFrame {
             CartesianComplex a, b;
             a = stack.pop();
             b = stack.pop();
-            stack.push(a.subtract(b));
+            stack.push(b.subtract(a));
             return 0;
         }
         else return 1;
@@ -77,7 +76,7 @@ public class Calculator extends javax.swing.JFrame {
             CartesianComplex a, b;
             a = stack.pop();
             b = stack.pop();
-            stack.push(a.divides(b));
+            stack.push(b.divides(a));
             return 0;
         }
         else return 1;
@@ -85,9 +84,15 @@ public class Calculator extends javax.swing.JFrame {
     private void doSqrt(){
         //***DA DEFINIRE IN CARTESIAN COMPLEX***
     }
-    private void doInvertSign(){
+    private int doInvertSign(){
         //***DA DEFINIRE IN CARTESIAN COMPLEX***
-
+        if (stack.size() >= 1) {
+            CartesianComplex a;
+            a = stack.pop();
+            stack.push(a.invertSign());
+            return 0;
+        }
+        else return 1;
     }
 
     /**
@@ -211,9 +216,9 @@ public class Calculator extends javax.swing.JFrame {
     private void basicOperationComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_basicOperationComboBoxActionPerformed
         // TODO add your handling code here:
         
-        inputTextField.setText((String)basicOperationComboBox.getSelectedItem());
-        inputButton.setText("Calculate!");
-        if(inputTextField.getText().compareTo("+") == 0 && stack.size() >= 2){
+        //inputTextField.setText((String)basicOperationComboBox.getSelectedItem());
+        //inputButton.setText("Calculate!");
+        if(((String)basicOperationComboBox.getSelectedItem()).compareTo("+") == 0 && stack.size() >= 2){
             if (doSum() == 0){
             //outputTextField.setText("Sommato i numeri " + a + " " + b);
                 stackTextArea.setText(stack.toString());
@@ -223,7 +228,7 @@ public class Calculator extends javax.swing.JFrame {
             }
             else outputTextField.setText("Insufficient number of operands!");
         }
-        else if(inputTextField.getText().compareTo("-") == 0 && stack.size() >= 2){
+        else if(((String)basicOperationComboBox.getSelectedItem()).compareTo("-") == 0 && stack.size() >= 2){
             if (doSubtraction() == 0){
             //outputTextField.setText("Sommato i numeri " + a + " " + b);
                 stackTextArea.setText(stack.toString());
@@ -233,7 +238,7 @@ public class Calculator extends javax.swing.JFrame {
             }
             else outputTextField.setText("Insufficient number of operands!");            
         }
-        else if(inputTextField.getText().compareTo("*") == 0 && stack.size() >= 2){
+        else if(((String)basicOperationComboBox.getSelectedItem()).compareTo("*") == 0 && stack.size() >= 2){
             if (doMultiplication() == 0){
             //outputTextField.setText("Sommato i numeri " + a + " " + b);
                 stackTextArea.setText(stack.toString());
@@ -243,7 +248,7 @@ public class Calculator extends javax.swing.JFrame {
             }
             else outputTextField.setText("Insufficient number of operands!");
         }
-        else if(inputTextField.getText().compareTo("/") == 0 && stack.size() >= 2){
+        else if(((String)basicOperationComboBox.getSelectedItem()).compareTo("/") == 0 && stack.size() >= 2){
             if (doDivision() == 0){
             //outputTextField.setText("Sommato i numeri " + a + " " + b);
                 stackTextArea.setText(stack.toString());
@@ -253,7 +258,7 @@ public class Calculator extends javax.swing.JFrame {
             }
             else outputTextField.setText("Insufficient number of operands!");
         }
-        else if(inputTextField.getText().compareTo("sqrt") == 0 && stack.size() >= 1){
+        else if(((String)basicOperationComboBox.getSelectedItem()).compareTo("sqrt") == 0 && stack.size() >= 1){
             //do square root
             //outputTextField.setText("Sommato i numeri " + a + " " + b);
             
@@ -262,13 +267,15 @@ public class Calculator extends javax.swing.JFrame {
             inputTextField.requestFocusInWindow();
             inputButton.setText("Insert!");
         }
-        else if(inputTextField.getText().compareTo("+-") == 0 && stack.size() >= 1){
-            //do sum
-            //outputTextField.setText("Sommato i numeri " + a + " " + b);
-            stackTextArea.setText(stack.toString());
-            inputTextField.setText("");
-            inputTextField.requestFocusInWindow();
-            inputButton.setText("Insert!");
+        else if(((String)basicOperationComboBox.getSelectedItem()).compareTo("+-") == 0 && stack.size() >= 1){
+            if (doInvertSign() == 0) {
+                outputTextField.setText("Segno invertito eseguito");
+                stackTextArea.setText(stack.toString());
+                inputTextField.setText("");
+                inputTextField.requestFocusInWindow();
+                inputButton.setText("Insert!");
+            }
+            else outputTextField.setText("Insufficient number of operands!");
         }
         
         
