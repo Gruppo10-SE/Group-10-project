@@ -148,11 +148,13 @@ public class CartesianComplex {
     
     // return a new Complex object whose value is (this + b)
     public CartesianComplex sum(CartesianComplex b) {
+        
         return new CartesianComplex(this.re + b.re, this.im + b.im);
     }
 
     // return a new Complex object whose value is (this - b)
     public CartesianComplex subtract(CartesianComplex b) {
+        
         return new CartesianComplex(this.re - b.re, this.im - b.im);
     }
 
@@ -174,17 +176,25 @@ public class CartesianComplex {
 
     // return a new Complex object whose value is this / b
     public CartesianComplex divides(CartesianComplex b) {
+       
+         CartesianComplex num = this.multiply(b.conjugate());
+         CartesianComplex div = b.multiply(b.conjugate()); //num/div -> div^-1-> num*(div^-1)-> complex
         
-        CartesianComplex num = this.multiply(b.conjugate());
-        CartesianComplex div = b.multiply(b.conjugate()); //num/div -> div^-1-> num*(div^-1)-> complex
-        
-        return num.multiply(div.reciprocal());
+         return num.multiply(div.reciprocal());
     }
     
     // return a new Complex object whose value is -this
     public CartesianComplex invertSign() {
         
-        return new CartesianComplex(-(this.re), -(this.im));
+        double re = this.re;
+        double im = this.im;
+        
+        if( re == 0 && im == 0){
+            
+           return new CartesianComplex(re,im);
+        }
+        else
+           return new CartesianComplex(-(this.re), -(this.im));
     }
     
     
