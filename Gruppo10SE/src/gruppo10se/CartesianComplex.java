@@ -181,12 +181,11 @@ public class CartesianComplex {
         return num.multiply(div.reciprocal());
     }
     
-    /*
-    @Override
-    public String toString(){
-        return (Double.toString((this.re)) + Double.toString(this.im)+ "j");
+    // return a new Complex object whose value is -this
+    public CartesianComplex invertSign() {
+        
+        return new CartesianComplex(-(this.re), -(this.im));
     }
-*/
     
     
     
