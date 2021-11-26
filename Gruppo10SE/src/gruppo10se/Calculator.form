@@ -36,38 +36,30 @@
           <Group type="102" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="tabTabbedPane" alignment="1" min="-2" pref="258" max="-2" attributes="0"/>
+                  <Component id="inputLabel" min="-2" max="-2" attributes="0"/>
+                  <Component id="infoLabel" alignment="0" max="32767" attributes="0"/>
+              </Group>
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
-                      <Component id="infoLabel" pref="45" max="32767" attributes="0"/>
-                      <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="tabTabbedPane" alignment="1" min="-2" pref="258" max="-2" attributes="0"/>
                           <Component id="outputTextField" min="-2" pref="258" max="-2" attributes="0"/>
                           <Component id="inputTextField" min="-2" pref="258" max="-2" attributes="0"/>
                       </Group>
+                      <EmptySpace pref="136" max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="2" attributes="0">
+                          <Component id="basicOperationComboBox" alignment="2" min="-2" pref="171" max="-2" attributes="0"/>
+                          <Component id="complexOperationLabel" alignment="2" min="-2" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
-                      <Component id="inputLabel" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="32767" attributes="0"/>
-                  </Group>
-              </Group>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
-                      <EmptySpace max="32767" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="basicOperationComboBox" alignment="0" min="-2" pref="171" max="-2" attributes="0"/>
-                          <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
-                              <Component id="complexOperationLabel" min="-2" max="-2" attributes="0"/>
-                          </Group>
-                      </Group>
-                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="1" attributes="0">
-                      <EmptySpace pref="102" max="32767" attributes="0"/>
+                      <EmptySpace min="-2" pref="286" max="-2" attributes="0"/>
                       <Component id="inputButton" min="-2" pref="134" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="110" max="-2" attributes="0"/>
+                      <EmptySpace min="110" pref="110" max="-2" attributes="0"/>
                   </Group>
               </Group>
+              <EmptySpace min="-2" pref="57" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -161,7 +153,7 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Consolas" size="11" style="0"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Basic Operation"/>
+        <Property name="text" type="java.lang.String" value="Select an operation"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="infoLabel">
