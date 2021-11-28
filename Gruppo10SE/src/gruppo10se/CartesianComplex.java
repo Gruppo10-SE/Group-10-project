@@ -79,8 +79,8 @@ public class CartesianComplex {
     public String toString() {
         if (im == 0) return Double.toString(re) + "";
         if (re == 0) return Double.toString(im) + "j";
-        if (im <  0) return Double.toString(re) + " - " + (Double.toString(-1*im)) + "j";
-        return Double.toString(re) + " + " + Double.toString(im) + "j";
+        if (im <  0) return Double.toString(re) + "-" + (Double.toString(-1*im)) + "j";
+        return Double.toString(re) + "+" + Double.toString(im) + "j";
     }
 
     
@@ -107,19 +107,19 @@ public class CartesianComplex {
         if (re == 0){
             if(im > 0)
             teta = (Math.PI)/2;
-            else teta = Math.toRadians(-((Math.PI)/2));
+            else teta =(-((Math.PI)/2));
         }
         else if(re==0 && im==0){
            teta = NaN;
         }
         else if(re>0){
-           teta = Math.toRadians(Math.atan(im/re));
+           teta =(Math.atan(im/re));
         }
         else if(re<0){
             if (im>=0){
-              teta = Math.toRadians(Math.atan(im/re) + Math.PI);  
+              teta = ((Math.atan(im/re)) + Math.PI);  
             }
-            else teta = Math.toRadians(Math.atan(im/re) - Math.PI);
+            else teta = ((Math.atan(im/re)) - Math.PI);
         }
         
         return teta;
@@ -179,11 +179,11 @@ public class CartesianComplex {
        
          CartesianComplex num = this.multiply(b.conjugate());
          CartesianComplex div = b.multiply(b.conjugate()); //num/div -> div^-1-> num*(div^-1)-> complex
-        
-         return num.multiply(div.reciprocal());
+      
+         return (num.multiply(div.reciprocal()));
     }
-    
-    // return a new Complex object whose value is -this
+
+   // return a new Complex object whose value is -this
     public CartesianComplex invertSign() {
         
         double re = this.re;
@@ -196,6 +196,28 @@ public class CartesianComplex {
         else
            return new CartesianComplex(-(this.re), -(this.im));
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final CartesianComplex other = (CartesianComplex) obj;
+        if (Double.doubleToLongBits(this.re) != Double.doubleToLongBits(other.re)) {
+            return false;
+        }
+        if (Double.doubleToLongBits(this.im) != Double.doubleToLongBits(other.im)) {
+            return false;
+        }
+        return true;
+    }
+    
     
     
     
