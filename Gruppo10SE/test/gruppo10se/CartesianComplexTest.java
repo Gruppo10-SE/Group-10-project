@@ -113,11 +113,36 @@ public class CartesianComplexTest {
      */
     @Test
     public void testPhase() {
-        System.out.println("phase");
-        CartesianComplex instance = new CartesianComplex(5,5);
-        double expResult = (Math.PI)/4;
+        System.out.println("phase re<0 e im>=0");
+        CartesianComplex instance = new CartesianComplex(-1,1);
+        double expResult = 3*(Math.PI)/4;
         double result = instance.phase();
-        assertEquals(expResult, result, 0.0);       
+        assertEquals(expResult, result, 0.0);   
+        System.out.println("phase re<0 e im<0");
+        CartesianComplex instance3 = new CartesianComplex(-1,-1);
+        double expResult3 = (-3*(Math.PI))/4;
+        double result3 = instance3.phase();
+        assertEquals(expResult3, result3, 0.0);  
+        System.out.println("phase re>0");
+        CartesianComplex instance1 = new CartesianComplex(1,1);
+        double expResult1 = (Math.PI)/4;
+        double result1 = instance1.phase();
+        assertEquals(expResult1, result1, 0.0);
+        System.out.println("phase re=0 e im=0");
+        CartesianComplex instance2 = new CartesianComplex(0,0);
+        double expResult2 = Double.NaN;
+        double result2 = instance2.phase();
+        assertEquals(expResult2, result2, 0.0);
+        System.out.println("phase re=0 e im>0");
+        CartesianComplex instance4 = new CartesianComplex(0,1);
+        double expResult4 = (Math.PI)/2;
+        double result4 = instance4.phase();
+        assertEquals(expResult4, result4, 0.0);
+        System.out.println("phase re=0 e im<0");
+        CartesianComplex instance5 = new CartesianComplex(0,-1);
+        double expResult5 = -(Math.PI)/2;
+        double result5 = instance5.phase();
+        assertEquals(expResult5, result5, 0.0);
     }
 
     /**

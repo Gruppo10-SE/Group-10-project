@@ -104,7 +104,7 @@ public class CartesianComplex {
         
         double teta = Math.toRadians(0);
         
-        if (re == 0){
+        if (re == 0 && im!=0){
             if(im > 0)
             teta = (Math.PI)/2;
             else teta =(-((Math.PI)/2));
@@ -115,7 +115,7 @@ public class CartesianComplex {
         else if(re>0){
            teta =(Math.atan(im/re));
         }
-        else if(re<0){
+        else if(re<0 && im!=0){
             if (im>=0){
               teta = ((Math.atan(im/re)) + Math.PI);  
             }
