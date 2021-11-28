@@ -6,6 +6,7 @@ package gruppo10se;
 
 import java.util.*;
 
+
 /**
  *
  * @author giaco
@@ -83,6 +84,8 @@ public class Calculator extends javax.swing.JFrame {
             b = stack.pop();
 
             if (a.getRealPart() == 0 && a.getImagPart() == 0) {
+                stack.push(b);
+                stack.push(a);
                 return -1;
             } 
             else {
@@ -162,6 +165,11 @@ public class Calculator extends javax.swing.JFrame {
                 inputButtonActionPerformed(evt);
             }
         });
+        inputButton.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                inputButtonKeyPressed(evt);
+            }
+        });
 
         complexOperationLabel.setFont(new java.awt.Font("Consolas", 0, 11)); // NOI18N
         complexOperationLabel.setText("Select an operation");
@@ -192,20 +200,20 @@ public class Calculator extends javax.swing.JFrame {
                     .addComponent(infoLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(tabTabbedPane, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(outputTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(inputTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(tabTabbedPane, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(outputTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(inputTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 136, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                             .addComponent(basicOperationComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(complexOperationLabel)))
+                            .addComponent(complexOperationLabel))
+                        .addGap(57, 57, 57))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(286, 286, 286)
+                        .addGap(52, 52, 52)
                         .addComponent(inputButton, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(110, 110, 110)))
-                .addGap(57, 57, 57))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -306,11 +314,14 @@ public class Calculator extends javax.swing.JFrame {
         //"+", "-", "*", "/", "sqrt", "+-"
         if (inputTextField.getText().compareTo("") == 0) {
 
-            outputTextField.setText("No operands inserted");
+            outputTextField.setText("Insert a number like this 5+10j");
             inputTextField.requestFocusInWindow();
         } else {
-
-            if (inputTextField.getText().contains("j")) {
+            
+            //***                              ***
+            //***MIGLIORARE QUESTO CONTROLLO!!!***
+            //***                              ***
+            if (inputTextField.getText().contains("j") && (inputTextField.getText().contains("+") || inputTextField.getText().contains("-")) ) {
 
                 outputTextField.setText("");
 
@@ -322,7 +333,7 @@ public class Calculator extends javax.swing.JFrame {
                 inputTextField.requestFocusInWindow();
                 
             } else {
-                outputTextField.setText("Insert a Number!");
+                outputTextField.setText("Insert a number like this 5+10j");
                 inputTextField.setText("");
                 
             }
@@ -330,6 +341,11 @@ public class Calculator extends javax.swing.JFrame {
 
 
     }//GEN-LAST:event_inputButtonActionPerformed
+
+    private void inputButtonKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_inputButtonKeyPressed
+        // TODO add your handling code here:
+            
+    }//GEN-LAST:event_inputButtonKeyPressed
 
     /**
      * @param args the command line arguments
