@@ -45,21 +45,22 @@
                   <Component id="outputTextField" min="-2" pref="258" max="-2" attributes="0"/>
                   <Component id="inputTextField" min="-2" pref="258" max="-2" attributes="0"/>
               </Group>
+              <EmptySpace pref="136" max="32767" attributes="0"/>
+              <Component id="basicOperationComboBox" min="-2" pref="171" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="57" max="-2" attributes="0"/>
+          </Group>
+          <Group type="102" attributes="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
-                      <EmptySpace pref="136" max="32767" attributes="0"/>
-                      <Group type="103" groupAlignment="2" attributes="0">
-                          <Component id="basicOperationComboBox" alignment="2" min="-2" pref="171" max="-2" attributes="0"/>
-                          <Component id="complexOperationLabel" alignment="2" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace min="-2" pref="57" max="-2" attributes="0"/>
-                  </Group>
                   <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="52" max="-2" attributes="0"/>
+                      <EmptySpace min="354" pref="354" max="-2" attributes="0"/>
                       <Component id="inputButton" min="-2" pref="134" max="-2" attributes="0"/>
-                      <EmptySpace max="32767" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="2" attributes="0">
+                      <EmptySpace min="466" pref="466" max="-2" attributes="0"/>
+                      <Component id="complexOperationLabel" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
+              <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
