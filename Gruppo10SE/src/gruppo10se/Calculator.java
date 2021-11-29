@@ -26,15 +26,15 @@ public class Calculator extends javax.swing.JFrame {
         stackTextArea.setEditable(false);
 
         basicOperationComboBox.setEditable(false);
-        memoryComboBox.setEditable(false);
+        //memoryComboBox.setEditable(false);
 
         for (String operazione : operazioni) {
             basicOperationComboBox.addItem(operazione);
         }
         
-        for (String operazioneMem : operazioniStack){
-            memoryComboBox.addItem(operazioneMem);
-        }
+        //for (String operazioneMem : operazioniStack){
+          //  memoryComboBox.addItem(operazioneMem);
+        //}
 
         inputTextField.requestFocusInWindow();
         inputTextField.setText("");
