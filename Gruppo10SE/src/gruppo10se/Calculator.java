@@ -43,77 +43,9 @@ public class Calculator extends javax.swing.JFrame {
 
     }
 
-    StackDataStructure stack = new StackDataStructure();
+    CalculatorController controller = new CalculatorController();
 
     //"+", "-", "*", "/", "sqrt", "+-"
-    private int doSum() {
-        if (stack.size() >= 2) {
-            CartesianComplex a, b;
-            a = stack.pop();
-            b = stack.pop();
-            stack.push(a.sum(b));
-            return 0;
-        } else {
-            return 1;
-        }
-    }
-
-    private int doSubtraction() {
-        if (stack.size() >= 2) {
-            CartesianComplex a, b;
-            a = stack.pop();
-            b = stack.pop();
-            stack.push(b.subtract(a));
-            return 0;
-        } else {
-            return 1;
-        }
-    }
-
-    private int doMultiplication() {
-        if (stack.size() >= 2) {
-            CartesianComplex a, b;
-            a = stack.pop();
-            b = stack.pop();
-            stack.push(a.multiply(b));
-            return 0;
-        } else {
-            return 1;
-        }
-    }
-
-    private int doDivision() {
-        if (stack.size() >= 2) {
-
-            CartesianComplex a, b;
-            a = stack.pop();
-            b = stack.pop();
-
-            if (a.getRealPart() == 0 && a.getImagPart() == 0) {
-                stack.push(b);
-                stack.push(a);
-                return -1;
-            } 
-            else {
-                stack.push(b.divides(a));
-                return 0;
-            }
-        } else {
-            return 1;
-        }
-    }
-
-    private int doInvertSign() {
-        //***DA DEFINIRE IN CARTESIAN COMPLEX***
-        if (stack.size() >= 1) {
-            CartesianComplex a;
-            a = stack.pop();
-            stack.push(a.invertSign());
-            return 0;
-        } else {
-            return 1;
-        }
-    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -264,27 +196,27 @@ public class Calculator extends javax.swing.JFrame {
 
         if (((String) basicOperationComboBox.getSelectedItem()).compareTo("+") == 0) {
             inputTextField.requestFocusInWindow();
-            if (doSum() == 0) {
+            if (controller.doSum() == 0) {
                 outputTextField.setText("Sum executed");
-                stackTextArea.setText(stack.toString());
+                stackTextArea.setText(controller.stack.toString());
                 inputTextField.setText("");
             } else {
                 outputTextField.setText("Insufficient number of operands!");
             }
         } else if (((String) basicOperationComboBox.getSelectedItem()).compareTo("-") == 0) {
             inputTextField.requestFocusInWindow();
-            if (doSubtraction() == 0) {
+            if (controller.doSubtraction() == 0) {
                 outputTextField.setText("Subtraction executed");
-                stackTextArea.setText(stack.toString());
+                stackTextArea.setText(controller.stack.toString());
                 inputTextField.setText("");
             } else {
                 outputTextField.setText("Insufficient number of operands!");
             }
         } else if (((String) basicOperationComboBox.getSelectedItem()).compareTo("*") == 0) {
             inputTextField.requestFocusInWindow();
-            if (doMultiplication() == 0) {
+            if (controller.doMultiplication() == 0) {
                 outputTextField.setText("Multiplication executed");
-                stackTextArea.setText(stack.toString());
+                stackTextArea.setText(controller.stack.toString());
                 inputTextField.setText("");
             } else {
                 outputTextField.setText("Insufficient number of operands!");
@@ -292,10 +224,10 @@ public class Calculator extends javax.swing.JFrame {
         } else if (((String) basicOperationComboBox.getSelectedItem()).compareTo("/") == 0) {
             inputTextField.requestFocusInWindow();
             
-            switch (doDivision()) {
+            switch (controller.doDivision()) {
                 case 0:
                     outputTextField.setText("Division executed");
-                    stackTextArea.setText(stack.toString());
+                    stackTextArea.setText(controller.stack.toString());
                     inputTextField.setText("");
                     break;
                 case 1:
@@ -307,9 +239,9 @@ public class Calculator extends javax.swing.JFrame {
             }
         } else if (((String) basicOperationComboBox.getSelectedItem()).compareTo("+-") == 0) {
             inputTextField.requestFocusInWindow();
-            if (doInvertSign() == 0) {
+            if (controller.doInvertSign() == 0) {
                 outputTextField.setText("Invert Sign executed ");
-                stackTextArea.setText(stack.toString());
+                stackTextArea.setText(controller.stack.toString());
                 inputTextField.setText("");
             } else {
                 outputTextField.setText("Insufficient number of operands!");
@@ -335,10 +267,10 @@ public class Calculator extends javax.swing.JFrame {
             if(Pattern.matches("[a-zA-Z]+", inputTextField.getText()) == false){
             outputTextField.setText("");
 
-            stack.push(new CartesianComplex(inputTextField.getText()));
+            controller.stack.push(new CartesianComplex(inputTextField.getText()));
             inputTextField.setText("");
-            if (!stack.isEmpty()) {
-                stackTextArea.setText(stack.toString());
+            if (!controller.stack.isEmpty()) {
+                stackTextArea.setText(controller.stack.toString());
             }
             inputTextField.requestFocusInWindow();
             }

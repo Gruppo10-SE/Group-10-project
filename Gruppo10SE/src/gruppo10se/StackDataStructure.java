@@ -51,6 +51,14 @@ public class StackDataStructure {
         return stack.indexOf(element);
     }
     
+    public void clear() {
+        stack.clear();
+    }
+    
+    public void drop() {
+        pop();
+    }
+
     @Override
     public String toString() {
         String append = "";
