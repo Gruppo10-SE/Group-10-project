@@ -242,5 +242,36 @@ public class CartesianComplexTest {
         CartesianComplex result = instance.invertSign();
         assertEquals("FAILED", expResult, result);
     }
+
+    /**
+     * Test of squareRoot method, of class CartesianComplex.
+     */
+    @Test
+    public void testSquareRoot() {
+        System.out.println("squareRoot, 0+0j");
+        CartesianComplex instance = new CartesianComplex(0,0);
+        CartesianComplex expResult = new CartesianComplex(0,0);
+        CartesianComplex result = instance.squareRoot();
+        assertEquals(expResult, result);
+        System.out.println("squareRoot, 3+4j");
+        CartesianComplex instance1 = new CartesianComplex(3,4);
+        CartesianComplex expResult1 = new CartesianComplex(2,1);
+        CartesianComplex result1 = instance1.squareRoot();
+        assertEquals(expResult1, result1);
+    }
+
+    /**
+     * Test of equals method, of class CartesianComplex.
+     */
+    @Test
+    public void testEquals() {
+        System.out.println("equals");
+        Object obj = null;
+        CartesianComplex instance = new CartesianComplex();
+        boolean expResult = false;
+        boolean result = instance.equals(obj);
+        assertEquals(expResult, result);
+      
+    }
     
 }

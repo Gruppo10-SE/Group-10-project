@@ -196,6 +196,22 @@ public class CartesianComplex {
         else
            return new CartesianComplex(-(this.re), -(this.im));
     }
+    
+     public CartesianComplex squareRoot() {
+        
+        double re = this.re;
+        double im = this.im;
+        
+        
+        if( re == 0 && im == 0){
+           return new CartesianComplex(0,0);
+        }
+        else{
+          double realPart= (Math.sqrt((abs()+re)/2));
+          double imagPart= (im/Math.abs(im))*(Math.sqrt((abs()-re)/2));
+          return new CartesianComplex( realPart, imagPart);
+        }
+    }
 
     @Override
     public boolean equals(Object obj) {
