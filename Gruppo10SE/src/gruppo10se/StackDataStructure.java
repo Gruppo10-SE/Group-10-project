@@ -59,6 +59,25 @@ public class StackDataStructure {
         this.pop();
     }
 
+    public void swap(){
+        CartesianComplex last = pop();
+        CartesianComplex secondLast = pop();
+        push(last);
+        push(secondLast);
+    }
+    
+    public void over(){
+        CartesianComplex last = pop();
+        CartesianComplex secondLast = top();
+        push(last);
+        push(secondLast);
+    }
+
+    public void dup(){
+        CartesianComplex top = top();
+        push(top);
+    }
+    
     @Override
     public String toString() {
         String append = "";
