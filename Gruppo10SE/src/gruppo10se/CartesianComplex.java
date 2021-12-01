@@ -77,7 +77,8 @@ public class CartesianComplex {
     // return a string representation 
          @Override
     public String toString() {
-        if (im == 0) return Double.toString(re) + "";
+        
+        if (im == 0 || im == Double.NaN) return Double.toString(re) + "";
         if (re == 0) return Double.toString(im) + "j";
         if (im <  0) return Double.toString(re) + "-" + (Double.toString(-1*im)) + "j";
         return Double.toString(re) + "+" + Double.toString(im) + "j";
@@ -212,7 +213,10 @@ public class CartesianComplex {
         else{
           double realPart= (Math.sqrt((abs()+re)/2));
           double imagPart= (im/Math.abs(im))*(Math.sqrt((abs()-re)/2));
-          return new CartesianComplex( realPart, imagPart);
+          if(imagPart == Double.NaN)
+            return new CartesianComplex(realPart, 0);
+          else
+            return new CartesianComplex( realPart, imagPart);
         }
     }
 

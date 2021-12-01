@@ -279,6 +279,15 @@ public class Calculator extends javax.swing.JFrame {
             } else {
                 outputTextField.setText("Insufficient number of operands!");
             }
+        }else if (((String) basicOperationComboBox.getSelectedItem()).compareTo("sqrt") == 0) {
+            inputTextField.requestFocusInWindow();
+            if (controller.doSqrt(stack) == 0) {
+                outputTextField.setText("Square Root executed ");
+                stackTextArea.setText(stack.toString());
+                inputTextField.setText("");
+            } else {
+                outputTextField.setText("Insufficient number of operands!");
+            }
         }
     }//GEN-LAST:event_basicOperationComboBoxActionPerformed
 

@@ -90,12 +90,12 @@ public class CalculatorController {
         return false;
     }
     
-    private int doSqrt(StackDataStructure stack){
+    public int doSqrt(StackDataStructure stack){
         
         if(stack.size() >= 1){
             CartesianComplex a;
             a = stack.pop();
-            //stack.push(operazione);
+            stack.push(a.squareRoot());
             return 0;
         } else {
             return 1;
@@ -109,7 +109,7 @@ public class CalculatorController {
         if(stack.isEmpty())
             return 1;
         else {
-            //operazione
+            stack.clear();
             return 0;
         }
     }
@@ -118,7 +118,7 @@ public class CalculatorController {
         if(stack.isEmpty())
             return 1;
         else {
-            // operazione
+            stack.drop();
             return 0;
         }
     }
