@@ -51,6 +51,7 @@ public class Calculator extends javax.swing.JFrame {
     }
 
     CalculatorController controller = new CalculatorController();
+    StackDataStructure stack = new StackDataStructure();
 
     //"+", "-", "*", "/", "sqrt", "+-"
 
@@ -228,27 +229,27 @@ public class Calculator extends javax.swing.JFrame {
 
         if (((String) basicOperationComboBox.getSelectedItem()).compareTo("+") == 0) {
             inputTextField.requestFocusInWindow();
-            if (controller.doSum() == 0) {
+            if (controller.doSum(stack) == 0) {
                 outputTextField.setText("Sum executed");
-                stackTextArea.setText(controller.stack.toString());
+                stackTextArea.setText(stack.toString());
                 inputTextField.setText("");
             } else {
                 outputTextField.setText("Insufficient number of operands!");
             }
         } else if (((String) basicOperationComboBox.getSelectedItem()).compareTo("-") == 0) {
             inputTextField.requestFocusInWindow();
-            if (controller.doSubtraction() == 0) {
+            if (controller.doSubtraction(stack) == 0) {
                 outputTextField.setText("Subtraction executed");
-                stackTextArea.setText(controller.stack.toString());
+                stackTextArea.setText(stack.toString());
                 inputTextField.setText("");
             } else {
                 outputTextField.setText("Insufficient number of operands!");
             }
         } else if (((String) basicOperationComboBox.getSelectedItem()).compareTo("*") == 0) {
             inputTextField.requestFocusInWindow();
-            if (controller.doMultiplication() == 0) {
+            if (controller.doMultiplication(stack) == 0) {
                 outputTextField.setText("Multiplication executed");
-                stackTextArea.setText(controller.stack.toString());
+                stackTextArea.setText(stack.toString());
                 inputTextField.setText("");
             } else {
                 outputTextField.setText("Insufficient number of operands!");
@@ -256,10 +257,10 @@ public class Calculator extends javax.swing.JFrame {
         } else if (((String) basicOperationComboBox.getSelectedItem()).compareTo("/") == 0) {
             inputTextField.requestFocusInWindow();
             
-            switch (controller.doDivision()) {
+            switch (controller.doDivision(stack)) {
                 case 0:
                     outputTextField.setText("Division executed");
-                    stackTextArea.setText(controller.stack.toString());
+                    stackTextArea.setText(stack.toString());
                     inputTextField.setText("");
                     break;
                 case 1:
@@ -271,9 +272,9 @@ public class Calculator extends javax.swing.JFrame {
             }
         } else if (((String) basicOperationComboBox.getSelectedItem()).compareTo("+-") == 0) {
             inputTextField.requestFocusInWindow();
-            if (controller.doInvertSign() == 0) {
+            if (controller.doInvertSign(stack) == 0) {
                 outputTextField.setText("Invert Sign executed ");
-                stackTextArea.setText(controller.stack.toString());
+                stackTextArea.setText(stack.toString());
                 inputTextField.setText("");
             } else {
                 outputTextField.setText("Insufficient number of operands!");
@@ -299,10 +300,11 @@ public class Calculator extends javax.swing.JFrame {
             if(Pattern.matches("[a-zA-Z]+", inputTextField.getText()) == false){
             outputTextField.setText("");
 
-            controller.stack.push(new CartesianComplex(inputTextField.getText()));
+            controller.insertNumber(stack, inputTextField.getText());
+            
             inputTextField.setText("");
-            if (!controller.stack.isEmpty()) {
-                stackTextArea.setText(controller.stack.toString());
+            if (!controller.checkIfEmpty(stack)) {
+                stackTextArea.setText(stack.toString());
             }
             inputTextField.requestFocusInWindow();
             }
@@ -330,7 +332,7 @@ public class Calculator extends javax.swing.JFrame {
             inputTextField.requestFocusInWindow();
             if (controller.doClear() == 0) {
                 outputTextField.setText("The memory has been cleared");
-                stackTextArea.setText(controller.stack.toString());
+                stackTextArea.setText(stack.toString());
                 inputTextField.setText("");
             } else {
                 outputTextField.setText("The memory is already empty!");
@@ -341,7 +343,7 @@ public class Calculator extends javax.swing.JFrame {
             inputTextField.requestFocusInWindow();
             if (controller.doDrop() == 0) {
                 outputTextField.setText("Last element of the memory deleted");
-                stackTextArea.setText(controller.stack.toString());
+                stackTextArea.setText(stack.toString());
                 inputTextField.setText("");
             } else {
                 outputTextField.setText("The memory is empty!");
@@ -351,7 +353,7 @@ public class Calculator extends javax.swing.JFrame {
             inputTextField.requestFocusInWindow();
             if (controller.doDup() == 0) {
                 outputTextField.setText("Inserted a copy of the last number");
-                stackTextArea.setText(controller.stack.toString());
+                stackTextArea.setText(stack.toString());
                 inputTextField.setText("");
             } else {
                 outputTextField.setText("The memory is empty!");
@@ -362,7 +364,7 @@ public class Calculator extends javax.swing.JFrame {
             inputTextField.requestFocusInWindow();
             if (controller.doSwap() == 0) {
                 outputTextField.setText("Last two numbers exchanged");
-                stackTextArea.setText(controller.stack.toString());
+                stackTextArea.setText(stack.toString());
                 inputTextField.setText("");
             } else {
                 outputTextField.setText("Insufficient numbers in memory!");
@@ -373,7 +375,7 @@ public class Calculator extends javax.swing.JFrame {
             inputTextField.requestFocusInWindow();
             if (controller.doOver() == 0) {
                 outputTextField.setText("Inserted a copy of the second last number");
-                stackTextArea.setText(controller.stack.toString());
+                stackTextArea.setText(stack.toString());
                 inputTextField.setText("");
             } else {
                 outputTextField.setText("Insufficient numbers in memory!");

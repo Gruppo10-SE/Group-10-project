@@ -10,13 +10,8 @@ package gruppo10se;
  * @author user
  */
 public class CalculatorController {
-    StackDataStructure stack;
     
-    public CalculatorController() {
-        stack = new StackDataStructure();
-    }
-    
-    public int doSum() {
+    public int doSum(StackDataStructure stack) {
         if (stack.size() >= 2) {
             CartesianComplex a, b;
             a = stack.pop();
@@ -28,7 +23,7 @@ public class CalculatorController {
         }
     }
 
-    public int doSubtraction() {
+    public int doSubtraction(StackDataStructure stack) {
         if (stack.size() >= 2) {
             CartesianComplex a, b;
             a = stack.pop();
@@ -40,7 +35,7 @@ public class CalculatorController {
         }
     }
 
-    public int doMultiplication() {
+    public int doMultiplication(StackDataStructure stack) {
         if (stack.size() >= 2) {
             CartesianComplex a, b;
             a = stack.pop();
@@ -52,7 +47,7 @@ public class CalculatorController {
         }
     }
 
-    public int doDivision() {
+    public int doDivision(StackDataStructure stack) {
         if (stack.size() >= 2) {
 
             CartesianComplex a, b;
@@ -73,7 +68,7 @@ public class CalculatorController {
         }
     }
 
-    public int doInvertSign() {
+    public int doInvertSign(StackDataStructure stack) {
         //***DA DEFINIRE IN CARTESIAN COMPLEX***
         if (stack.size() >= 1) {
             CartesianComplex a;
@@ -83,6 +78,36 @@ public class CalculatorController {
         } else {
             return 1;
         }
+    }
+    
+    public void insertNumber(StackDataStructure stack, String s) {
+        stack.push(new CartesianComplex(s));
+    }
+    
+    public boolean checkIfEmpty(StackDataStructure stack) {
+        if (stack.isEmpty())
+            return true;
+        return false;
+    }
+    
+    public int doClear() {
+        return -1;
+    }
+    
+    public int doDrop() {
+        return -1;
+    }
+    
+    public int doDup() {
+        return -1;
+    }
+    
+    public int doSwap() {
+        return -1;
+    }
+    
+    public int doOver() {
+        return -1;
     }
     
 }
