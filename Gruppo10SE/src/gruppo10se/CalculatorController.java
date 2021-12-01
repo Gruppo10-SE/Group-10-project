@@ -90,24 +90,64 @@ public class CalculatorController {
         return false;
     }
     
-    public int doClear() {
-        return -1;
+    private int doSqrt(StackDataStructure stack){
+        
+        if(stack.size() >= 1){
+            CartesianComplex a;
+            a = stack.pop();
+            //stack.push(operazione);
+            return 0;
+        } else {
+            return 1;
+        }
+    } 
+    
+    // MEMORY OPERATION
+    // clear , drop , dup , swap , over
+    
+    public int doClear(StackDataStructure stack){
+        if(stack.isEmpty())
+            return 1;
+        else {
+            //operazione
+            return 0;
+        }
     }
     
-    public int doDrop() {
-        return -1;
+    public int doDrop(StackDataStructure stack){
+        if(stack.isEmpty())
+            return 1;
+        else {
+            // operazione
+            return 0;
+        }
     }
     
-    public int doDup() {
-        return -1;
+    public int doDup(StackDataStructure stack){
+        if(stack.isEmpty())
+            return 1;
+        else{
+            // operazione
+            return 0;
+        }
     }
     
-    public int doSwap() {
-        return -1;
+    public int doSwap(StackDataStructure stack){
+        if(stack.size() < 2)
+            return 1;
+        else{
+            // operazione
+            return 0;
+        }
     }
-    
-    public int doOver() {
-        return -1;
+
+    public int doOver(StackDataStructure stack){
+        if(stack.size() < 2)
+            return 1;
+        else{
+            // operazione
+            return 0;
+        }
     }
     
 }

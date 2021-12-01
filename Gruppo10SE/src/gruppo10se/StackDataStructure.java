@@ -56,7 +56,7 @@ public class StackDataStructure {
     }
     
     public void drop() {
-        pop();
+        this.pop();
     }
 
     @Override
