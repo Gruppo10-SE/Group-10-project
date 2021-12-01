@@ -16,7 +16,7 @@ public class Variables {
     public Variables() {
         variables = new HashMap<>(26);
         for(int i = 97; i<=122;i++){
-            variables.put((char)i,new CartesianComplex(0,0) );
+            variables.put((char)i, new CartesianComplex(0,0));
         }
     }
     

@@ -197,6 +197,9 @@ public class CartesianComplex {
            return new CartesianComplex(-(this.re), -(this.im));
     }
     
+    // return a new Complex object whose value is sqrt(this) 
+    // even if this function has two possibles result, one positive and one negative,
+    // we assumed the result to be positive as convention
      public CartesianComplex squareRoot() {
         
         double re = this.re;
