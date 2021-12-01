@@ -162,5 +162,41 @@ public class StackDataStructureTest {
         instance.drop();
         assertEquals(true, instance.isEmpty());
     }
+
+    /**
+     * Test of swap method, of class StackDataStructure.
+     */
+    @Test
+    public void testSwap() {
+        System.out.println("swap");
+        StackDataStructure instance = new StackDataStructure();
+        instance.swap();
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of over method, of class StackDataStructure.
+     */
+    @Test
+    public void testOver() {
+        System.out.println("over");
+        StackDataStructure instance = new StackDataStructure();
+        instance.over();
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of dup method, of class StackDataStructure.
+     */
+    @Test
+    public void testDup() {
+        System.out.println("dup");
+        StackDataStructure instance = new StackDataStructure();
+        instance.dup();
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
     
 }
