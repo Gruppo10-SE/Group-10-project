@@ -18,28 +18,35 @@ public class Calculator extends javax.swing.JFrame {
      */
     public Calculator() {
         initComponents();
-        String[] operazioni = {"Basic operation", "+", "-", "*", "/","+-"};
-        String[] operazioniStack = {"Memory operation", "dup", "etc"};
-
+        
+        // JFrame 
+        this.setResizable(false);
+        this.setTitle("Calculator");
+        
+        // Text field and area are not editable
         outputTextField.setEditable(false);
         stackTextArea.setEditable(false);
-
-        basicOperationComboBox.setEditable(false);
-        //memoryComboBox.setEditable(false);
-
-        for (String operazione : operazioni) {
-            basicOperationComboBox.addItem(operazione);
-        }
+        variablesTextArea.setEditable(false);
         
-        //for (String operazioneMem : operazioniStack){
-          //  memoryComboBox.addItem(operazioneMem);
-        //}
-
+        // Focus on the input text field
         inputTextField.requestFocusInWindow();
+        
+        // Text of the component
         inputTextField.setText("");
         outputTextField.setText("Insert a number like this 5+10j");
-
         inputButton.setText("Insert");
+        
+        // Combo box
+        String[] operazioni = {"Basic operation", "+", "-", "*", "/", "sqrt", "+-"};
+        String[] operazioniStack = {"Memory operation", "clear", "drop", "dup", "swap", "over"};
+        
+        basicOperationComboBox.setEditable(false);
+        memoryComboBox.setEditable(false);
+
+        for (String operazione : operazioni)
+            basicOperationComboBox.addItem(operazione);
+        for (String operazioneMem : operazioniStack)
+            memoryComboBox.addItem(operazioneMem);
 
     }
 
@@ -70,6 +77,9 @@ public class Calculator extends javax.swing.JFrame {
         tabTabbedPane = new javax.swing.JTabbedPane();
         jScrollPane2 = new javax.swing.JScrollPane();
         stackTextArea = new javax.swing.JTextArea();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        variablesTextArea = new javax.swing.JTextArea();
+        memoryComboBox = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -127,33 +137,53 @@ public class Calculator extends javax.swing.JFrame {
 
         tabTabbedPane.addTab("Memory", jScrollPane2);
 
+        variablesTextArea.setBackground(new java.awt.Color(238, 234, 234));
+        variablesTextArea.setColumns(20);
+        variablesTextArea.setRows(5);
+        jScrollPane1.setViewportView(variablesTextArea);
+
+        tabTabbedPane.addTab("Variables", jScrollPane1);
+
+        memoryComboBox.setFont(new java.awt.Font("Consolas", 0, 11)); // NOI18N
+        memoryComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                memoryComboBoxActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(inputLabel)
-                    .addComponent(infoLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(inputLabel)
+                            .addComponent(infoLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(outputTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(inputTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(136, 136, 136))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(46, 46, 46)
+                        .addComponent(tabTabbedPane, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(134, 134, 134)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(outputTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(inputTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 136, Short.MAX_VALUE)
-                .addComponent(basicOperationComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(basicOperationComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(memoryComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(57, 57, 57))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(466, 466, 466)
+                        .addComponent(complexOperationLabel))
+                    .addGroup(layout.createSequentialGroup()
                         .addGap(354, 354, 354)
-                        .addComponent(inputButton, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.CENTER, layout.createSequentialGroup()
-                        .addGap(46, 46, 46)
-                        .addComponent(tabTabbedPane, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(162, 162, 162)
-                        .addComponent(complexOperationLabel)))
-                .addContainerGap(81, Short.MAX_VALUE))
+                        .addComponent(inputButton, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -173,10 +203,12 @@ public class Calculator extends javax.swing.JFrame {
                         .addComponent(complexOperationLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(basicOperationComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(188, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
+                        .addComponent(memoryComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(61, 61, 61)
-                        .addComponent(tabTabbedPane)
+                        .addComponent(tabTabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 235, Short.MAX_VALUE)
                         .addContainerGap())))
         );
 
@@ -289,6 +321,66 @@ public class Calculator extends javax.swing.JFrame {
             
     }//GEN-LAST:event_inputButtonKeyPressed
 
+    private void memoryComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_memoryComboBoxActionPerformed
+        // TODO add your handling code here:
+        // clear , drop , dup , swap , over
+        
+        // clear
+        if (((String) memoryComboBox.getSelectedItem()).compareTo("clear") == 0) {
+            inputTextField.requestFocusInWindow();
+            if (controller.doClear() == 0) {
+                outputTextField.setText("The memory has been cleared");
+                stackTextArea.setText(controller.stack.toString());
+                inputTextField.setText("");
+            } else {
+                outputTextField.setText("The memory is already empty!");
+            }
+            
+            // drop
+        } else if(((String) memoryComboBox.getSelectedItem()).compareTo("drop") == 0){
+            inputTextField.requestFocusInWindow();
+            if (controller.doDrop() == 0) {
+                outputTextField.setText("Last element of the memory deleted");
+                stackTextArea.setText(controller.stack.toString());
+                inputTextField.setText("");
+            } else {
+                outputTextField.setText("The memory is empty!");
+        }
+            // dup
+        } else if(((String) memoryComboBox.getSelectedItem()).compareTo("dup") == 0){
+            inputTextField.requestFocusInWindow();
+            if (controller.doDup() == 0) {
+                outputTextField.setText("Inserted a copy of the last number");
+                stackTextArea.setText(controller.stack.toString());
+                inputTextField.setText("");
+            } else {
+                outputTextField.setText("The memory is empty!");
+        }
+            
+            // swap
+        } else if(((String) memoryComboBox.getSelectedItem()).compareTo("swap") == 0){
+            inputTextField.requestFocusInWindow();
+            if (controller.doSwap() == 0) {
+                outputTextField.setText("Last two numbers exchanged");
+                stackTextArea.setText(controller.stack.toString());
+                inputTextField.setText("");
+            } else {
+                outputTextField.setText("Insufficient numbers in memory!");
+        }
+            
+            // over
+        }   else if(((String) memoryComboBox.getSelectedItem()).compareTo("over") == 0){
+            inputTextField.requestFocusInWindow();
+            if (controller.doOver() == 0) {
+                outputTextField.setText("Inserted a copy of the second last number");
+                stackTextArea.setText(controller.stack.toString());
+                inputTextField.setText("");
+            } else {
+                outputTextField.setText("Insufficient numbers in memory!");
+        } 
+        }  
+    }//GEN-LAST:event_memoryComboBoxActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -337,9 +429,12 @@ public class Calculator extends javax.swing.JFrame {
     private javax.swing.JButton inputButton;
     private javax.swing.JLabel inputLabel;
     private javax.swing.JTextField inputTextField;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JComboBox<String> memoryComboBox;
     private javax.swing.JTextField outputTextField;
     private javax.swing.JTextArea stackTextArea;
     private javax.swing.JTabbedPane tabTabbedPane;
+    private javax.swing.JTextArea variablesTextArea;
     // End of variables declaration//GEN-END:variables
 }
