@@ -98,7 +98,7 @@ public class Variables {
     public String toString() {
          String append = "";
         for( char i : variables.keySet()){
-           append+= "key: "+ i +", value:"+ getValue(i)+"\n";
+           append+=  i +"  =  "+ getValue(i)+"\n";
     }
         return append;
     }
