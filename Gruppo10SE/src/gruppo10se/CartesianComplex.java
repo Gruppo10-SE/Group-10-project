@@ -202,21 +202,20 @@ public class CartesianComplex {
     // even if this function has two possibles result, one positive and one negative,
     // we assumed the result to be positive as convention
      public CartesianComplex squareRoot() {
-        
+
         double re = this.re;
         double im = this.im;
-        
-        
-        if( re == 0 && im == 0){
-           return new CartesianComplex(0,0);
-        }
-        else{
-          double realPart= (Math.sqrt((abs()+re)/2));
-          double imagPart= (im/Math.abs(im))*(Math.sqrt((abs()-re)/2));
-          if(imagPart == Double.NaN)
-            return new CartesianComplex(realPart, 0);
-          else
-            return new CartesianComplex( realPart, imagPart);
+
+        if (re == 0 && im == 0) {
+            return new CartesianComplex(0, 0);
+        } else {
+            double realPart = (Math.sqrt((abs() + re) / 2));
+            if (im != 0) {
+                double imagPart = (im / Math.abs(im)) * (Math.sqrt((abs() - re) / 2));
+                return new CartesianComplex(realPart, imagPart);
+            } else {
+                return new CartesianComplex(realPart, 0);
+            }
         }
     }
 

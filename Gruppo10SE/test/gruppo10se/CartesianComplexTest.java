@@ -258,6 +258,11 @@ public class CartesianComplexTest {
         CartesianComplex expResult1 = new CartesianComplex(2,1);
         CartesianComplex result1 = instance1.squareRoot();
         assertEquals(expResult1, result1);
+        System.out.println("squareRoot, 4+0j");
+        CartesianComplex instance2 = new CartesianComplex(4,0);
+        CartesianComplex expResult2 = new CartesianComplex(2,0);
+        CartesianComplex result2 = instance2.squareRoot();
+        assertEquals(expResult2, result2);
     }
 
     /**
