@@ -49,8 +49,6 @@ public class StackDataStructureTest {
         System.out.println("test isEmpty with not empty stack");
         instance.push(new CartesianComplex(0,0));
         assertEquals(false, instance.isEmpty());
-        // TODO review the generated test code and remove the default call to fail.
-        //fail("The test case is a prototype.");
     }
 
     /**
@@ -64,8 +62,6 @@ public class StackDataStructureTest {
         System.out.println("test size with not empty stack");
         instance.push(new CartesianComplex(0,0));
         assertEquals(1, instance.size());
-        // TODO review the generated test code and remove the default call to fail.
-        //fail("The test case is a prototype.");
     }
 
     /**
@@ -80,8 +76,6 @@ public class StackDataStructureTest {
         CartesianComplex element = new CartesianComplex(1,1);
         instance.push(element);
         assertEquals(element, instance.top());
-        // TODO review the generated test code and remove the default call to fail.
-        //fail("The test case is a prototype.");
     }
 
     /**
@@ -96,8 +90,6 @@ public class StackDataStructureTest {
         CartesianComplex element = new CartesianComplex(1,1);
         instance.push(element);
         assertEquals(element, instance.pop());
-        // TODO review the generated test code and remove the default call to fail.
-        //fail("The test case is a prototype.");
     }
 
     /**
@@ -109,8 +101,6 @@ public class StackDataStructureTest {
         StackDataStructure instance = new StackDataStructure();
         CartesianComplex element = new CartesianComplex(1,1);
         instance.push(element);
-        // TODO review the generated test code and remove the default call to fail.
-        //fail("The test case is a prototype.");
     }
 
     /**
@@ -128,8 +118,6 @@ public class StackDataStructureTest {
         System.out.println("test search with not empty stack and element not in the stack");
         CartesianComplex notInStack = new CartesianComplex(2,2);
         assertEquals(-1, (int)instance.search(notInStack) );
-        // TODO review the generated test code and remove the default call to fail.
-        //fail("The test case is a prototype.");
     }
 
     /**
@@ -144,8 +132,35 @@ public class StackDataStructureTest {
         CartesianComplex element = new CartesianComplex(1,1);
         instance.push(element);
         assertEquals(element+"\n", instance.toString());
-        // TODO review the generated test code and remove the default call to fail.
-        //fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of clear method, of class StackDataStructure.
+     */
+    @Test
+    public void testClear() {
+        System.out.println("test initial clear");
+        StackDataStructure instance = new StackDataStructure();
+        instance.clear();
+        assertEquals(true, instance.isEmpty());
+        System.out.println("test clear with element");
+        CartesianComplex element = new CartesianComplex(1,1);
+        instance.push(element);
+        instance.clear();
+        assertEquals(true, instance.isEmpty());
+    }
+
+    /**
+     * Test of drop method, of class StackDataStructure.
+     */
+    @Test
+    public void testDrop() {
+        System.out.println("test drop with element");
+        StackDataStructure instance = new StackDataStructure();
+        CartesianComplex element = new CartesianComplex(1,1);
+        instance.push(element);
+        instance.drop();
+        assertEquals(true, instance.isEmpty());
     }
     
 }
