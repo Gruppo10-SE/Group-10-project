@@ -258,11 +258,41 @@ public class CartesianComplexTest {
         CartesianComplex expResult1 = new CartesianComplex(2,1);
         CartesianComplex result1 = instance1.squareRoot();
         assertEquals(expResult1, result1);
-        System.out.println("squareRoot, 4+0j");
-        CartesianComplex instance2 = new CartesianComplex(4,0);
-        CartesianComplex expResult2 = new CartesianComplex(2,0);
+        System.out.println("squareRoot, -3+4j");
+        CartesianComplex instance2 = new CartesianComplex(-3,4);
+        CartesianComplex expResult2 = new CartesianComplex(1,2);
         CartesianComplex result2 = instance2.squareRoot();
         assertEquals(expResult2, result2);
+        System.out.println("squareRoot, -3-4j");
+        CartesianComplex instance3 = new CartesianComplex(-3,-4);
+        CartesianComplex expResult3 = new CartesianComplex(1,-2);
+        CartesianComplex result3 = instance3.squareRoot();
+        assertEquals(expResult3, result3);
+         System.out.println("squareRoot, 3-4j");
+        CartesianComplex instance4 = new CartesianComplex(3,-4);
+        CartesianComplex expResult4= new CartesianComplex(2,-1);
+        CartesianComplex result4 = instance4.squareRoot();
+        assertEquals(expResult4, result4);
+        System.out.println("squareRoot, 3+0j");
+        CartesianComplex instance5 = new CartesianComplex(3,0);
+        CartesianComplex expResult5 = new CartesianComplex(Math.sqrt(3),0);
+        CartesianComplex result5 = instance5.squareRoot();
+        assertEquals(expResult5, result5);
+        System.out.println("squareRoot, -3+0j");
+        CartesianComplex instance6 = new CartesianComplex(-3,0);
+        CartesianComplex expResult6 = new CartesianComplex(0,Math.sqrt(3));
+        CartesianComplex result6 = instance6.squareRoot();
+        assertEquals(expResult6, result6);
+        System.out.println("squareRoot, 0+3j");
+        CartesianComplex instance7 = new CartesianComplex(0,3);
+        CartesianComplex expResult7 = new CartesianComplex(0,1.2247);
+        CartesianComplex result7 = instance7.squareRoot();
+        assertEquals(expResult7.getImagPart(), result7.getImagPart(), 0.0001);
+        System.out.println("squareRoot, 0-3j");
+        CartesianComplex instance8 = new CartesianComplex(0,-3);
+        CartesianComplex expResult8 = new CartesianComplex(0,-1.2247);
+        CartesianComplex result8 = instance8.squareRoot();
+        assertEquals(expResult8.getImagPart(), result8.getImagPart(), 0.0001);
     }
 
     /**

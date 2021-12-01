@@ -206,8 +206,9 @@ public class CartesianComplex {
         double re = this.re;
         double im = this.im;
 
-        if (re == 0 && im == 0) {
-            return new CartesianComplex(0, 0);
+        if (re < 0 && im == 0) { //sqrt(-4)->sqrt(4i^2)
+            double absRe = Math.abs(re);
+            return new CartesianComplex(0,Math.sqrt(absRe));
         } else {
             double realPart = (Math.sqrt((abs() + re) / 2));
             if (im != 0) {
