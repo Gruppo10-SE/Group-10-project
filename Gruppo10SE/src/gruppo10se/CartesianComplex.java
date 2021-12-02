@@ -28,15 +28,18 @@ public class CartesianComplex {
         String[] split = number.split("[+-]");
         if (split[0].equals("")) {  // Handle expr beginning with `-`
             split[0] = split[1];
-            split[1] = split[2];
+            if (split.length > 2)
+                split[1] = split[2];
         }
         
         if (split[0].contains("j")) // Assumes input is not empty
             this.im = Double.parseDouble((firstPositive ? "+" : "-") + split[0].substring(0,split[0].length() - 1));
-        else
-            
+        else {
             this.re = Double.parseDouble((firstPositive ? "+" : "-") + split[0]);
-        if (split.length > 1) {     // Parse second part of expr if it exists
+            if (this.re == -0.0)
+                this.re = -this.re;
+        }
+        if (split.length > 1 && !split[0].equals(split[1])) {     // Parse second part of expr if it exists
             if (split[1].contains("j"))
                 this.im = Double.parseDouble((secondPositive ? "+" : "-") + split[1].substring(0,split[1].length() - 1));
             else

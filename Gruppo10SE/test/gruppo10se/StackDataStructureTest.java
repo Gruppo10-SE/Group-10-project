@@ -17,6 +17,7 @@ import static org.junit.Assert.*;
  * @author user
  */
 public class StackDataStructureTest {
+    StackDataStructure instance;
     
     public StackDataStructureTest() {
     }
@@ -31,7 +32,7 @@ public class StackDataStructureTest {
     
     @Before
     public void setUp() {
-        
+         instance = new StackDataStructure();
     }
     
     @After
@@ -44,7 +45,6 @@ public class StackDataStructureTest {
     @Test
     public void testIsEmpty() {
         System.out.println("test isEmpty with empty stack");
-        StackDataStructure instance = new StackDataStructure();
         assertEquals(true, instance.isEmpty());
         System.out.println("test isEmpty with not empty stack");
         instance.push(new CartesianComplex(0,0));
@@ -57,7 +57,6 @@ public class StackDataStructureTest {
     @Test
     public void testSize() {
         System.out.println("test size with empty stack");
-        StackDataStructure instance = new StackDataStructure();
         assertEquals(0, instance.size());
         System.out.println("test size with not empty stack");
         instance.push(new CartesianComplex(0,0));
@@ -70,7 +69,6 @@ public class StackDataStructureTest {
     @Test
     public void testTop() {
         System.out.println("test top with empty stack");
-        StackDataStructure instance = new StackDataStructure();
         assertEquals(null, instance.top());
         System.out.println("test top with not empty stack");
         CartesianComplex element = new CartesianComplex(1,1);
@@ -84,7 +82,6 @@ public class StackDataStructureTest {
     @Test
     public void testPop() {
         System.out.println("test pop with empty stack");
-        StackDataStructure instance = new StackDataStructure();
         assertEquals(null, instance.pop());
         System.out.println("test pop with not empty stack");
         CartesianComplex element = new CartesianComplex(1,1);
@@ -98,7 +95,6 @@ public class StackDataStructureTest {
     @Test
     public void testPush() {
         System.out.println("test push");
-        StackDataStructure instance = new StackDataStructure();
         CartesianComplex element = new CartesianComplex(1,1);
         instance.push(element);
     }
@@ -109,7 +105,6 @@ public class StackDataStructureTest {
     @Test
     public void testSearch() {
         System.out.println("test search with empty stack");
-        StackDataStructure instance = new StackDataStructure();
         CartesianComplex inStack = new CartesianComplex(1,1);
         assertEquals(null, instance.search(inStack));
         System.out.println("test search with not empty stack and element in the stack");
@@ -126,7 +121,6 @@ public class StackDataStructureTest {
     @Test
     public void testToString() {
         System.out.println("test toString with empty stack");
-        StackDataStructure instance = new StackDataStructure();
         assertEquals("", instance.toString());
         System.out.println("test toString with not empty stack");
         CartesianComplex element = new CartesianComplex(1,1);
@@ -140,7 +134,6 @@ public class StackDataStructureTest {
     @Test
     public void testClear() {
         System.out.println("test initial clear");
-        StackDataStructure instance = new StackDataStructure();
         instance.clear();
         assertEquals(true, instance.isEmpty());
         System.out.println("test clear with element");
@@ -156,7 +149,6 @@ public class StackDataStructureTest {
     @Test
     public void testDrop() {
         System.out.println("test drop with element");
-        StackDataStructure instance = new StackDataStructure();
         CartesianComplex element = new CartesianComplex(1,1);
         instance.push(element);
         instance.drop();
@@ -169,7 +161,6 @@ public class StackDataStructureTest {
     @Test
     public void testSwap() {
         System.out.println("swap");
-        StackDataStructure instance = new StackDataStructure();
         instance.swap();
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
@@ -181,7 +172,6 @@ public class StackDataStructureTest {
     @Test
     public void testOver() {
         System.out.println("over");
-        StackDataStructure instance = new StackDataStructure();
         instance.over();
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
@@ -193,7 +183,6 @@ public class StackDataStructureTest {
     @Test
     public void testDup() {
         System.out.println("dup");
-        StackDataStructure instance = new StackDataStructure();
         instance.dup();
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
