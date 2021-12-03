@@ -97,8 +97,11 @@ public class Variables {
     @Override
     public String toString() {
          String append = "";
+         CartesianComplex zero = new CartesianComplex(0, 0);
         for( char i : variables.keySet()){
-           append+=  i +"  =  "+ getValue(i)+"\n";
+            
+            if( ! (getValue(i).equals(zero)))
+                append+=  i +"  =  "+ getValue(i)+"\n";
     }
         return append;
     }

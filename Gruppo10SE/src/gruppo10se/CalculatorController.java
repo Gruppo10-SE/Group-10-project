@@ -127,7 +127,7 @@ public class CalculatorController {
         if(stack.isEmpty())
             return 1;
         else{
-            // operazione
+            stack.dup();
             return 0;
         }
     }
@@ -136,7 +136,7 @@ public class CalculatorController {
         if(stack.size() < 2)
             return 1;
         else{
-            // operazione
+            stack.swap();
             return 0;
         }
     }
@@ -145,7 +145,7 @@ public class CalculatorController {
         if(stack.size() < 2)
             return 1;
         else{
-            // operazione
+            stack.over();
             return 0;
         }
     }
