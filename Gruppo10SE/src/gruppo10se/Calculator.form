@@ -36,30 +36,39 @@
           <Group type="102" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="1" attributes="0">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="inputLabel" min="-2" max="-2" attributes="0"/>
-                          <Component id="infoLabel" alignment="0" pref="37" max="32767" attributes="0"/>
+                  <Group type="102" alignment="0" attributes="0">
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="inputLabel" max="32767" attributes="0"/>
+                          <Component id="infoLabel" max="32767" attributes="0"/>
                       </Group>
-                      <EmptySpace max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="inputTextField" linkSize="3" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="outputTextField" linkSize="3" alignment="0" min="-2" pref="258" max="-2" attributes="0"/>
+                          <Component id="outputTextField" alignment="0" min="-2" pref="276" max="-2" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="inputTextField" min="-2" pref="276" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Component id="inputButton" min="-2" pref="134" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
-                      <EmptySpace min="262" pref="297" max="32767" attributes="0"/>
                   </Group>
-                  <Group type="102" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
                       <Component id="tabTabbedPane" min="-2" pref="307" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="basicOperationComboBox" alignment="0" min="-2" pref="171" max="-2" attributes="0"/>
-                          <Component id="memoryComboBox" alignment="0" min="-2" pref="171" max="-2" attributes="0"/>
-                          <Component id="inputButton" alignment="0" min="-2" pref="134" max="-2" attributes="0"/>
-                          <Component id="complexOperationLabel" min="-2" max="-2" attributes="0"/>
+                          <Group type="102" attributes="0">
+                              <EmptySpace min="-2" pref="68" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="basicOperationComboBox" min="-2" pref="171" max="-2" attributes="0"/>
+                                  <Component id="memoryComboBox" min="-2" pref="171" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace min="-2" pref="91" max="-2" attributes="0"/>
+                              <Component id="complexOperationLabel" min="-2" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
-                      <EmptySpace max="32767" attributes="0"/>
                   </Group>
               </Group>
+              <EmptySpace pref="111" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>

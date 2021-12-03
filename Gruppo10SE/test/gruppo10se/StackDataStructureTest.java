@@ -162,8 +162,6 @@ public class StackDataStructureTest {
     public void testSwap() {
         System.out.println("swap");
         instance.swap();
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -173,8 +171,6 @@ public class StackDataStructureTest {
     public void testOver() {
         System.out.println("over");
         instance.over();
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -184,8 +180,6 @@ public class StackDataStructureTest {
     public void testDup() {
         System.out.println("dup");
         instance.dup();
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
     
 }

@@ -56,7 +56,7 @@ public class VariablesTest {
     public void testSize() {
         System.out.println("size");
         Variables instance = new Variables();
-        int expResult = 0;
+        int expResult = 26;
         int result = instance.size();
         assertEquals(expResult, result);
         
@@ -96,9 +96,9 @@ public class VariablesTest {
     @Test
     public void testRemoveValue() {
         System.out.println("removeValue");
-        char variable = ' ';
+        char variable = 'a';
         Variables instance = new Variables();
-        Integer expResult = null;
+        Integer expResult = 1;
         Integer result = instance.removeValue(variable);
         assertEquals(expResult, result);
     }
