@@ -11,7 +11,7 @@ package gruppo10se;
  */
 public class CalculatorController {
     
-    public int doSum(StackDataStructure stack) {
+    public int doSum(StackDataStructure<CartesianComplex> stack) {
         if (stack.size() >= 2) {
             CartesianComplex a, b;
             a = stack.pop();
@@ -23,7 +23,7 @@ public class CalculatorController {
         }
     }
 
-    public int doSubtraction(StackDataStructure stack) {
+    public int doSubtraction(StackDataStructure<CartesianComplex> stack) {
         if (stack.size() >= 2) {
             CartesianComplex a, b;
             a = stack.pop();
@@ -35,7 +35,7 @@ public class CalculatorController {
         }
     }
 
-    public int doMultiplication(StackDataStructure stack) {
+    public int doMultiplication(StackDataStructure<CartesianComplex> stack) {
         if (stack.size() >= 2) {
             CartesianComplex a, b;
             a = stack.pop();
@@ -47,7 +47,7 @@ public class CalculatorController {
         }
     }
 
-    public int doDivision(StackDataStructure stack) {
+    public int doDivision(StackDataStructure<CartesianComplex> stack) {
         if (stack.size() >= 2) {
 
             CartesianComplex a, b;
@@ -68,7 +68,7 @@ public class CalculatorController {
         }
     }
 
-    public int doInvertSign(StackDataStructure stack) {
+    public int doInvertSign(StackDataStructure<CartesianComplex> stack) {
         //***DA DEFINIRE IN CARTESIAN COMPLEX***
         if (stack.size() >= 1) {
             CartesianComplex a;
@@ -90,7 +90,7 @@ public class CalculatorController {
         return false;
     }
     
-    public int doSqrt(StackDataStructure stack){
+    public int doSqrt(StackDataStructure<CartesianComplex> stack){
         
         if(stack.size() >= 1){
             CartesianComplex a;
