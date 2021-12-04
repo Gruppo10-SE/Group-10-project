@@ -4,6 +4,7 @@
  */
 package gruppo10se;
 
+import controller.CalculatorContext;
 import java.util.regex.Pattern;
 import java.awt.event.KeyEvent;
 
@@ -14,7 +15,7 @@ import java.awt.event.KeyEvent;
 public class Calculator extends javax.swing.JFrame {
 
     /**
-     * Creates new form NewJFrame
+     * Creates new form Calculator
      */
     public Calculator() {
         initComponents();
@@ -62,7 +63,8 @@ public class Calculator extends javax.swing.JFrame {
         }
 
     }
-
+    
+    CalculatorContext context = new CalculatorContext();
     CalculatorController controller = new CalculatorController();
     StackDataStructure stack = new StackDataStructure();
 
@@ -233,69 +235,26 @@ public class Calculator extends javax.swing.JFrame {
 
     }//GEN-LAST:event_outputTextFieldActionPerformed
 
+    private void checkComboBox(String toCompare) {
+        if (((String) basicOperationComboBox.getSelectedItem()).equals(toCompare)) {
+            context.changeState(toCompare);
+            inputTextField.requestFocusInWindow();
+            if (context.doOperation(stack) == 0) {
+                outputTextField.setText(context.getMessage());
+                stackTextArea.setText(stack.toString());
+                inputTextField.setText("");
+            } else if (context.doOperation(stack) == 1) {
+                outputTextField.setText("Insufficient number of operands!");
+            }
+            else
+                outputTextField.setText("Math ERROR: you are dividing by 0");
+        }
+    }
+    
     private void basicOperationComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_basicOperationComboBoxActionPerformed
-
-        if (((String) basicOperationComboBox.getSelectedItem()).compareTo("+") == 0) {
-            inputTextField.requestFocusInWindow();
-            if (controller.doSum(stack) == 0) {
-                outputTextField.setText("Sum executed");
-                stackTextArea.setText(stack.toString());
-                inputTextField.setText("");
-            } else {
-                outputTextField.setText("Insufficient number of operands!");
-            }
-        } else if (((String) basicOperationComboBox.getSelectedItem()).compareTo("-") == 0) {
-            inputTextField.requestFocusInWindow();
-            if (controller.doSubtraction(stack) == 0) {
-                outputTextField.setText("Subtraction executed");
-                stackTextArea.setText(stack.toString());
-                inputTextField.setText("");
-            } else {
-                outputTextField.setText("Insufficient number of operands!");
-            }
-        } else if (((String) basicOperationComboBox.getSelectedItem()).compareTo("*") == 0) {
-            inputTextField.requestFocusInWindow();
-            if (controller.doMultiplication(stack) == 0) {
-                outputTextField.setText("Multiplication executed");
-                stackTextArea.setText(stack.toString());
-                inputTextField.setText("");
-            } else {
-                outputTextField.setText("Insufficient number of operands!");
-            }
-        } else if (((String) basicOperationComboBox.getSelectedItem()).compareTo("/") == 0) {
-            inputTextField.requestFocusInWindow();
-
-            switch (controller.doDivision(stack)) {
-                case 0:
-                    outputTextField.setText("Division executed");
-                    stackTextArea.setText(stack.toString());
-                    inputTextField.setText("");
-                    break;
-                case 1:
-                    outputTextField.setText("Insufficient number of operands!");
-                    break;
-                case -1:
-                    outputTextField.setText("Math ERROR: you are dividing by 0");
-                    break;
-            }
-        } else if (((String) basicOperationComboBox.getSelectedItem()).compareTo("+-") == 0) {
-            inputTextField.requestFocusInWindow();
-            if (controller.doInvertSign(stack) == 0) {
-                outputTextField.setText("Invert Sign executed ");
-                stackTextArea.setText(stack.toString());
-                inputTextField.setText("");
-            } else {
-                outputTextField.setText("Insufficient number of operands!");
-            }
-        }else if (((String) basicOperationComboBox.getSelectedItem()).compareTo("sqrt") == 0) {
-            inputTextField.requestFocusInWindow();
-            if (controller.doSqrt(stack) == 0) {
-                outputTextField.setText("Square Root executed ");
-                stackTextArea.setText(stack.toString());
-                inputTextField.setText("");
-            } else {
-                outputTextField.setText("Insufficient number of operands!");
-            }
+        String[] operations = {"+","-","*","/","+-","sqrt"};
+        for (String operation : operations) {
+            checkComboBox(operation);
         }
     }//GEN-LAST:event_basicOperationComboBoxActionPerformed
 
