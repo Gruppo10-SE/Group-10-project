@@ -11,73 +11,78 @@ import java.util.ArrayList;
 /**
  *
  * @author user
+ * @param <T>
  */
-public class StackDataStructure {
-    private List<CartesianComplex> stack; 
-    
+public class StackDataStructure<T> {
+
+    private List<T> stack;
+
     public StackDataStructure() {
         stack = new ArrayList<>();
     }
-    
+
     public boolean isEmpty() {
         return stack.isEmpty();
     }
-    
+
     public int size() {
         return stack.size();
     }
-    
-    public CartesianComplex top() {
-        if (stack.isEmpty())
+
+    public T top() {
+        if (stack.isEmpty()) {
             return null;
+        }
         return stack.get(size() - 1);
     }
-    
-    public CartesianComplex pop() {
-        if (stack.isEmpty())
+
+    public T pop() {
+        if (stack.isEmpty()) {
             return null;
-        CartesianComplex top = top();
+        }
+        T top = top();
         stack.remove(top);
         return top;
     }
-    
-    public void push(CartesianComplex element) {
+
+    public void push(T element) {
         stack.add(element);
     }
-    
-    public Integer search(CartesianComplex element) {
-        if (stack.isEmpty())
+
+    public Integer search(T element) {
+        if (stack.isEmpty()) {
             return null;
+        }
         return stack.indexOf(element);
     }
-    
+
     public void clear() {
         stack.clear();
     }
-    
+
     public void drop() {
         this.pop();
     }
 
-    public void swap(){
-        CartesianComplex last = pop();
-        CartesianComplex secondLast = pop();
-        push(last);
-        push(secondLast);
-    }
-    
-    public void over(){
-        CartesianComplex last = pop();
-        CartesianComplex secondLast = top();
+    public void swap() {
+        T last = pop();
+        T secondLast = pop();
         push(last);
         push(secondLast);
     }
 
-    public void dup(){
-        CartesianComplex top = top();
+    public void over() {
+        T last = pop();
+        T secondLast = top();
+        push(last);
+        push(secondLast);
+    }
+
+    public void dup() {
+        T top = top();
         push(top);
     }
-    
+
     @Override
     public String toString() {
         String append = "";
@@ -86,5 +91,5 @@ public class StackDataStructure {
         }
         return append;
     }
-    
+
 }
