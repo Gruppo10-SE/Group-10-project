@@ -235,7 +235,7 @@ public class Calculator extends javax.swing.JFrame {
 
     }//GEN-LAST:event_outputTextFieldActionPerformed
 
-    private void checkComboBox(String toCompare) {
+    private void checkBasicComboBox(String toCompare) {
         if (((String) basicOperationComboBox.getSelectedItem()).equals(toCompare)) {
             context.changeState(toCompare);
             inputTextField.requestFocusInWindow();
@@ -251,10 +251,26 @@ public class Calculator extends javax.swing.JFrame {
         }
     }
     
+    private void checkMemoryComboBox(String toCompare) {
+        if (((String) memoryComboBox.getSelectedItem()).equals(toCompare)) {
+            context.changeState(toCompare);
+            inputTextField.requestFocusInWindow();
+            if (context.doOperation(stack) == 0) {
+                outputTextField.setText(context.getMessage());
+                stackTextArea.setText(stack.toString());
+                inputTextField.setText("");
+            } else if (context.doOperation(stack) == 1) {
+                outputTextField.setText("The memory is empty!");
+            }
+            else
+                outputTextField.setText("Insufficient numbers in memory!");
+        }
+    }
+    
     private void basicOperationComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_basicOperationComboBoxActionPerformed
-        String[] operations = {"+","-","*","/","+-","sqrt"};
+        String[] operations = {"+","-","*","/","sqrt","+-"};
         for (String operation : operations) {
-            checkComboBox(operation);
+            checkBasicComboBox(operation);
         }
     }//GEN-LAST:event_basicOperationComboBoxActionPerformed
 
@@ -299,62 +315,9 @@ public class Calculator extends javax.swing.JFrame {
     }//GEN-LAST:event_inputButtonKeyPressed
 
     private void memoryComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_memoryComboBoxActionPerformed
-        // TODO add your handling code here:
-        // clear , drop , dup , swap , over
-
-        // clear
-        if (((String) memoryComboBox.getSelectedItem()).compareTo("clear") == 0) {
-            inputTextField.requestFocusInWindow();
-            if (controller.doClear(stack) == 0) {
-                outputTextField.setText("The memory has been cleared");
-                stackTextArea.setText(stack.toString());
-                inputTextField.setText("");
-            } else {
-                outputTextField.setText("The memory is already empty!");
-            }
-
-            // drop
-        } else if (((String) memoryComboBox.getSelectedItem()).compareTo("drop") == 0) {
-            inputTextField.requestFocusInWindow();
-            if (controller.doDrop(stack) == 0) {
-                outputTextField.setText("Last element of the memory deleted");
-                stackTextArea.setText(stack.toString());
-                inputTextField.setText("");
-            } else {
-                outputTextField.setText("The memory is empty!");
-            }
-            // dup
-        } else if (((String) memoryComboBox.getSelectedItem()).compareTo("dup") == 0) {
-            inputTextField.requestFocusInWindow();
-            if (controller.doDup(stack) == 0) {
-                outputTextField.setText("Inserted a copy of the last number");
-                stackTextArea.setText(stack.toString());
-                inputTextField.setText("");
-            } else {
-                outputTextField.setText("The memory is empty!");
-            }
-
-            // swap
-        } else if (((String) memoryComboBox.getSelectedItem()).compareTo("swap") == 0) {
-            inputTextField.requestFocusInWindow();
-            if (controller.doSwap(stack) == 0) {
-                outputTextField.setText("Last two numbers exchanged");
-                stackTextArea.setText(stack.toString());
-                inputTextField.setText("");
-            } else {
-                outputTextField.setText("Insufficient numbers in memory!");
-            }
-
-            // over
-        } else if (((String) memoryComboBox.getSelectedItem()).compareTo("over") == 0) {
-            inputTextField.requestFocusInWindow();
-            if (controller.doOver(stack) == 0) {
-                outputTextField.setText("Inserted a copy of the second last number");
-                stackTextArea.setText(stack.toString());
-                inputTextField.setText("");
-            } else {
-                outputTextField.setText("Insufficient numbers in memory!");
-            }
+        String[] memOperations = {"clear","drop","dup","swap","over"};
+        for (String operation : memOperations) {
+            checkMemoryComboBox(operation);
         }
     }//GEN-LAST:event_memoryComboBoxActionPerformed
 

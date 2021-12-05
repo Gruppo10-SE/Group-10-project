@@ -37,72 +37,6 @@ public class CalculatorControllerTest {
     }
 
     /**
-     * Test of doSum method, of class CalculatorController.
-     */
-    @Test
-    public void testDoSum() {
-        System.out.println("doSum");
-        StackDataStructure stack =  new StackDataStructure();
-        CalculatorController instance = new CalculatorController();
-        int expResult = 1;
-        int result = instance.doSum(stack);
-        assertEquals(expResult, result);
-       
-    }
-
-    /**
-     * Test of doSubtraction method, of class CalculatorController.
-     */
-    @Test
-    public void testDoSubtraction() {
-        System.out.println("doSubtraction");
-        StackDataStructure stack =  new StackDataStructure();
-        CalculatorController instance = new CalculatorController();
-        int expResult = 1;
-        int result = instance.doSubtraction(stack);
-        assertEquals(expResult, result);
-    }
-
-    /**
-     * Test of doMultiplication method, of class CalculatorController.
-     */
-    @Test
-    public void testDoMultiplication() {
-        System.out.println("doMultiplication");
-        StackDataStructure stack =  new StackDataStructure();
-        CalculatorController instance = new CalculatorController();
-        int expResult = 1;
-        int result = instance.doMultiplication(stack);
-        assertEquals(expResult, result);
-    }
-
-    /**
-     * Test of doDivision method, of class CalculatorController.
-     */
-    @Test
-    public void testDoDivision() {
-        System.out.println("doDivision");
-        StackDataStructure stack =  new StackDataStructure();
-        CalculatorController instance = new CalculatorController();
-        int expResult = 1;
-        int result = instance.doDivision(stack);
-        assertEquals(expResult, result);
-    }
-
-    /**
-     * Test of doInvertSign method, of class CalculatorController.
-     */
-    @Test
-    public void testDoInvertSign() {
-        System.out.println("doInvertSign");
-        StackDataStructure stack =  new StackDataStructure();
-        CalculatorController instance = new CalculatorController();
-        int expResult = 1;
-        int result = instance.doInvertSign(stack);
-        assertEquals(expResult, result);
-    }
-
-    /**
      * Test of insertNumber method, of class CalculatorController.
      */
     @Test
@@ -124,19 +58,6 @@ public class CalculatorControllerTest {
         CalculatorController instance = new CalculatorController();
         boolean expResult = true;
         boolean result = instance.checkIfEmpty(stack);
-        assertEquals(expResult, result);
-    }
-
-    /**
-     * Test of doSqrt method, of class CalculatorController.
-     */
-    @Test
-    public void testDoSqrt() {
-        System.out.println("doSqrt");
-        StackDataStructure stack = new StackDataStructure();
-        CalculatorController instance = new CalculatorController();
-        int expResult = 1;
-        int result = instance.doSqrt(stack);
         assertEquals(expResult, result);
     }
 

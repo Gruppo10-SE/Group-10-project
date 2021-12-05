@@ -43,6 +43,22 @@ public class CalculatorContext implements OperationState{
                 break;
             case "sqrt":
                 setOperationState(new SquareRoot());
+                break;
+            case "clear":
+                setOperationState(new Clear());
+                break;
+            case "drop":
+                setOperationState(new Drop());
+                break;
+            case "dup":
+                setOperationState(new Dup());
+                break;
+            case "swap":
+                setOperationState(new Swap());
+                break;
+            case "over":
+                setOperationState(new Over());
+                break;
             default:
                 break;
         }
