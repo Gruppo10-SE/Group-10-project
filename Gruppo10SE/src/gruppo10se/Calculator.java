@@ -6,7 +6,8 @@ package gruppo10se;
 
 import java.util.regex.Pattern;
 import java.awt.event.KeyEvent;
-
+import javax.swing.*;
+import com.formdev.flatlaf.*;
 /**
  *
  * @author giaco
@@ -17,6 +18,7 @@ public class Calculator extends javax.swing.JFrame {
      * Creates new form NewJFrame
      */
     public Calculator() {
+        
         initComponents();
         
         Variables variabili = new Variables();
@@ -83,9 +85,6 @@ public class Calculator extends javax.swing.JFrame {
         outputTextField = new javax.swing.JTextField();
         basicOperationComboBox = new javax.swing.JComboBox<>();
         inputButton = new javax.swing.JButton();
-        complexOperationLabel = new javax.swing.JLabel();
-        infoLabel = new javax.swing.JLabel();
-        inputLabel = new javax.swing.JLabel();
         tabTabbedPane = new javax.swing.JTabbedPane();
         jScrollPane2 = new javax.swing.JScrollPane();
         stackTextArea = new javax.swing.JTextArea();
@@ -98,7 +97,7 @@ public class Calculator extends javax.swing.JFrame {
 
         outputTextField.setBackground(new java.awt.Color(238, 234, 234));
         outputTextField.setFont(new java.awt.Font("Consolas", 0, 12)); // NOI18N
-        outputTextField.setForeground(new java.awt.Color(255, 0, 0));
+        outputTextField.setForeground(new java.awt.Color(0, 120, 215));
         outputTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 outputTextFieldActionPerformed(evt);
@@ -125,15 +124,6 @@ public class Calculator extends javax.swing.JFrame {
             }
         });
 
-        complexOperationLabel.setFont(new java.awt.Font("Consolas", 0, 11)); // NOI18N
-        complexOperationLabel.setText("Select an operation");
-
-        infoLabel.setFont(new java.awt.Font("Consolas", 0, 11)); // NOI18N
-        infoLabel.setText("Info");
-
-        inputLabel.setFont(new java.awt.Font("Consolas", 0, 11)); // NOI18N
-        inputLabel.setText("Input");
-
         tabTabbedPane.setFont(new java.awt.Font("Consolas", 0, 11)); // NOI18N
 
         stackTextArea.setBackground(new java.awt.Color(238, 234, 234));
@@ -145,7 +135,9 @@ public class Calculator extends javax.swing.JFrame {
 
         variablesTextArea.setBackground(new java.awt.Color(238, 234, 234));
         variablesTextArea.setColumns(20);
+        variablesTextArea.setForeground(new java.awt.Color(0, 120, 215));
         variablesTextArea.setRows(5);
+        variablesTextArea.setDisabledTextColor(new java.awt.Color(0, 0, 0));
         jScrollPane1.setViewportView(variablesTextArea);
 
         tabTabbedPane.addTab("Variables", jScrollPane1);
@@ -173,57 +165,44 @@ public class Calculator extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(inputLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(infoLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(outputTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(inputTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(inputTextField)
                                 .addGap(18, 18, 18)
-                                .addComponent(inputButton, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(inputButton, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(outputTextField)))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(tabTabbedPane, javax.swing.GroupLayout.PREFERRED_SIZE, 307, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(68, 68, 68)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(basicOperationComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(memoryComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(10, 10, 10)
+                                .addComponent(tabTabbedPane, javax.swing.GroupLayout.PREFERRED_SIZE, 307, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(91, 91, 91)
-                                .addComponent(complexOperationLabel)))))
-                .addContainerGap(111, Short.MAX_VALUE))
+                                .addContainerGap()
+                                .addComponent(basicOperationComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(memoryComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 287, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(23, 23, 23)
+                .addContainerGap()
+                .addComponent(outputTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(inputTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(inputLabel)
+                    .addComponent(inputTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(inputButton))
-                .addGap(18, 18, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(outputTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(infoLabel))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(tabTabbedPane, javax.swing.GroupLayout.PREFERRED_SIZE, 361, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(complexOperationLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(basicOperationComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(memoryComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
+                    .addComponent(basicOperationComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(memoryComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(34, 34, 34)
+                .addComponent(tabTabbedPane, javax.swing.GroupLayout.PREFERRED_SIZE, 361, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
-
-        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {inputTextField, outputTextField});
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -314,6 +293,8 @@ public class Calculator extends javax.swing.JFrame {
             //***                              ***
             // if (inputTextField.getText().contains("j") && (inputTextField.getText().contains("+") || inputTextField.getText().contains("-") || (Pattern.matches("[a-zA-Z]+", inputTextField.getText()) == false)) ); {
             if (Pattern.matches("[a-zA-Z]+", inputTextField.getText()) == false) {
+                
+                
                 outputTextField.setText("");
 
                 controller.insertNumber(stack, inputTextField.getText());
@@ -439,36 +420,20 @@ public class Calculator extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
         try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Calculator.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Calculator.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Calculator.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Calculator.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            UIManager.setLookAndFeel( new FlatDarculaLaf() );
+        } catch( Exception ex ) {
+            System.err.println( "Failed to initialize LaF" );
         }
-        //</editor-fold>
-        //</editor-fold>
 
+        
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new Calculator().setVisible(true);
             }
         });
+
 
     }
 
@@ -478,10 +443,7 @@ public class Calculator extends javax.swing.JFrame {
     private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.ButtonGroup buttonGroup3;
     private javax.swing.ButtonGroup buttonGroup4;
-    private javax.swing.JLabel complexOperationLabel;
-    private javax.swing.JLabel infoLabel;
     private javax.swing.JButton inputButton;
-    private javax.swing.JLabel inputLabel;
     private javax.swing.JTextField inputTextField;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
