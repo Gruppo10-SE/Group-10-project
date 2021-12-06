@@ -150,4 +150,18 @@ public class CalculatorController {
         }
     }
     
+    public int fromStackToVariable(StackDataStructure stack, Variables variables, char variable) {
+        if (stack.size() >= 1) {
+            CartesianComplex top = stack.top();
+            variables.putValue(variable, top);
+            return 0;
+        }
+        else
+            return 1;
+    }
+    
+    public void fromVariableToStack(StackDataStructure stack, Variables variables, char variable) {
+        stack.push(variables.getValue(variable));
+    }
+    
 }

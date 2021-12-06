@@ -204,5 +204,39 @@ public class CalculatorControllerTest {
         int result = instance.doOver(stack);
         assertEquals(expResult, result);
     }
+
+    /**
+     * Test of fromStackToVariable method, of class CalculatorController.
+     */
+    @Test
+    public void testFromStackToVariable() {
+        System.out.println("fromStackToVariable");
+        StackDataStructure stack =  new StackDataStructure();
+        Variables variables = new Variables();
+        char variable = 'a';
+        CalculatorController instance = new CalculatorController();
+        CartesianComplex element = new CartesianComplex(1,1);
+        stack.push(element);
+        instance.fromStackToVariable(stack, variables, variable);
+        CartesianComplex expResult = element;
+        CartesianComplex result = variables.getValue(variable);
+        assertEquals(expResult, result);
+    }
+
+    /**
+     * Test of fromVariableToStack method, of class CalculatorController.
+     */
+    @Test
+    public void testFromVariableToStack() {
+        System.out.println("fromVariableToStack");
+        StackDataStructure stack = new StackDataStructure();
+        Variables variables = new Variables();
+        char variable = 'b';
+        CartesianComplex element = new CartesianComplex(1,2);
+        variables.putValue(variable, element);
+        CalculatorController instance = new CalculatorController();
+        instance.fromVariableToStack(stack, variables, variable);
+        assertEquals(element, stack.pop());
+    }
     
 }
