@@ -18,20 +18,7 @@ public class Calculator extends javax.swing.JFrame {
      * Creates new form NewJFrame
      */
     public Calculator() {
-        
         initComponents();
-        
-        Variables variabili = new Variables();
-        variabili.putValue('a', new CartesianComplex(10, 10));
-        variabili.putValue('c', new CartesianComplex(-10, -10));
-        variabili.putValue('f', new CartesianComplex(10, -10));
-        variabili.putValue('o', new CartesianComplex(-10, 10));
-        variabili.putValue('v', new CartesianComplex(0, 10));
-        variabili.putValue('x', new CartesianComplex(0, -10));
-        variabili.putValue('q', new CartesianComplex(10, 0));
-        variabili.putValue('z', new CartesianComplex(-10, 0));
-        variablesTextArea.setText("You have 26 variables, named from 'a' to 'z'\nNon-zero variables:\n\n" + variabili.toString());
-
         // JFrame 
         this.setResizable(false);
         this.setTitle("Calculator");
@@ -39,8 +26,10 @@ public class Calculator extends javax.swing.JFrame {
         // Text field and area are not editable
         outputTextField.setEditable(false);
         stackTextArea.setEditable(false);
-        variablesTextArea.setEditable(false);
-
+        
+        // Show variables on the jlist
+        controller.showVariables(variabili, variablesList);
+        
         // Focus on the input text field
         inputTextField.requestFocusInWindow();
 
@@ -52,9 +41,11 @@ public class Calculator extends javax.swing.JFrame {
         // Combo box
         String[] operazioni = {"Basic operation", "+", "-", "*", "/", "sqrt", "+-"};
         String[] operazioniStack = {"Memory operation", "clear", "drop", "dup", "swap", "over"};
+        String[] operazioniVariabili = {"Variables operation", ">x", "<x", "+x", "-x"};
 
         basicOperationComboBox.setEditable(false);
         memoryComboBox.setEditable(false);
+        variablesComboBox.setEditable(false);
 
         for (String operazione : operazioni) {
             basicOperationComboBox.addItem(operazione);
@@ -62,13 +53,16 @@ public class Calculator extends javax.swing.JFrame {
         for (String operazioneMem : operazioniStack) {
             memoryComboBox.addItem(operazioneMem);
         }
+        for (String operazioneVar : operazioniVariabili){
+            variablesComboBox.addItem(operazioneVar);
+        }
 
     }
 
     CalculatorController controller = new CalculatorController();
     StackDataStructure stack = new StackDataStructure();
+    Variables variabili = new Variables();
 
-    //"+", "-", "*", "/", "sqrt", "+-"
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -88,10 +82,11 @@ public class Calculator extends javax.swing.JFrame {
         tabTabbedPane = new javax.swing.JTabbedPane();
         jScrollPane2 = new javax.swing.JScrollPane();
         stackTextArea = new javax.swing.JTextArea();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        variablesTextArea = new javax.swing.JTextArea();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        variablesList = new javax.swing.JList<>();
         memoryComboBox = new javax.swing.JComboBox<>();
         inputTextField = new javax.swing.JTextField();
+        variablesComboBox = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -133,14 +128,15 @@ public class Calculator extends javax.swing.JFrame {
 
         tabTabbedPane.addTab("Memory", jScrollPane2);
 
-        variablesTextArea.setBackground(new java.awt.Color(238, 234, 234));
-        variablesTextArea.setColumns(20);
-        variablesTextArea.setForeground(new java.awt.Color(0, 120, 215));
-        variablesTextArea.setRows(5);
-        variablesTextArea.setDisabledTextColor(new java.awt.Color(0, 0, 0));
-        jScrollPane1.setViewportView(variablesTextArea);
+        variablesList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        variablesList.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                variablesListValueChanged(evt);
+            }
+        });
+        jScrollPane3.setViewportView(variablesList);
 
-        tabTabbedPane.addTab("Variables", jScrollPane1);
+        tabTabbedPane.addTab("Variables", jScrollPane3);
 
         memoryComboBox.setFont(new java.awt.Font("Consolas", 0, 11)); // NOI18N
         memoryComboBox.addActionListener(new java.awt.event.ActionListener() {
@@ -157,6 +153,13 @@ public class Calculator extends javax.swing.JFrame {
         inputTextField.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 inputTextFieldKeyPressed(evt);
+            }
+        });
+
+        variablesComboBox.setFont(new java.awt.Font("Consolas", 0, 11)); // NOI18N
+        variablesComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                variablesComboBoxActionPerformed(evt);
             }
         });
 
@@ -183,8 +186,10 @@ public class Calculator extends javax.swing.JFrame {
                                 .addContainerGap()
                                 .addComponent(basicOperationComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(memoryComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 287, Short.MAX_VALUE)))
+                                .addComponent(memoryComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(variablesComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 98, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -199,7 +204,8 @@ public class Calculator extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(basicOperationComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(memoryComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(memoryComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(variablesComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(34, 34, 34)
                 .addComponent(tabTabbedPane, javax.swing.GroupLayout.PREFERRED_SIZE, 361, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -416,12 +422,66 @@ public class Calculator extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_inputTextFieldKeyPressed
 
+    private void variablesListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_variablesListValueChanged
+        // TODO add your handling code here:
+        
+        if(evt.getValueIsAdjusting() == false){
+            
+            if(variablesList.getSelectedIndex() == -1){
+                //No selection, disable combo box.
+                variablesComboBox.setEnabled(false);
+            } else {
+                //Selection, enable combo box
+                variablesComboBox.setEnabled(true);
+                inputTextField.setText(variablesList.getSelectedValue());
+            }
+        }
+    }//GEN-LAST:event_variablesListValueChanged
+
+    private void variablesComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_variablesComboBoxActionPerformed
+                // +++
+                // scrollare il tab alla finestra sulle variabili 
+                // +++
+                //variablesList.requestFocusInWindow();
+
+        if (((String) variablesComboBox.getSelectedItem()).compareTo(">x") == 0 && variablesList.getSelectedIndex() != -1) {
+
+            if (controller.fromStackToVariable(stack, variabili, variablesList.getSelectedValue().charAt(0)) == 0) {
+                outputTextField.setText("The variable has been changed");
+                stackTextArea.setText(stack.toString());
+                inputTextField.setText("");
+                
+                controller.showVariables(variabili, variablesList);
+                
+            } else {
+                outputTextField.setText("ERROR");
+            }
+
+
+        } else if (((String) variablesComboBox.getSelectedItem()).compareTo("<x") == 0 && variablesList.getSelectedIndex() != -1) {
+
+            if (controller.fromVariableToStack(stack, variabili, variablesList.getSelectedValue().charAt(0)) == 0) {
+                outputTextField.setText("The memory has been changed");
+                stackTextArea.setText(stack.toString());
+                inputTextField.setText("");
+            } else {
+                outputTextField.setText("ERROR");
+            }
+        }       
+    }//GEN-LAST:event_variablesComboBoxActionPerformed
+
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
+        /*
+        Flat Light (class com.formdev.flatlaf.FlatLightLaf)
+        Flat Dark (class com.formdev.flatlaf.FlatDarkLaf)
+        Flat IntelliJ (class com.formdev.flatlaf.FlatIntelliJLaf)
+        Flat Darcula(class com.formdev.flatlaf.FlatDarculaLaf)
+        */
         try {
-            UIManager.setLookAndFeel( new FlatDarculaLaf() );
+            UIManager.setLookAndFeel( new FlatIntelliJLaf() );
         } catch( Exception ex ) {
             System.err.println( "Failed to initialize LaF" );
         }
@@ -445,12 +505,13 @@ public class Calculator extends javax.swing.JFrame {
     private javax.swing.ButtonGroup buttonGroup4;
     private javax.swing.JButton inputButton;
     private javax.swing.JTextField inputTextField;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JComboBox<String> memoryComboBox;
     private javax.swing.JTextField outputTextField;
     private javax.swing.JTextArea stackTextArea;
     private javax.swing.JTabbedPane tabTabbedPane;
-    private javax.swing.JTextArea variablesTextArea;
+    private javax.swing.JComboBox<String> variablesComboBox;
+    private javax.swing.JList<String> variablesList;
     // End of variables declaration//GEN-END:variables
 }

@@ -99,9 +99,8 @@ public class Variables {
          String append = "";
          CartesianComplex zero = new CartesianComplex(0, 0);
         for( char i : variables.keySet()){
-            
-            if( ! (getValue(i).equals(zero)))
-                append+=  i +"  =  "+ getValue(i)+"\n";
+        
+            append+=  i +"  =  "+ getValue(i)+"\n";
     }
         return append;
     }

@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package gruppo10se;
+import javax.swing.*;
 
 /**
  *
@@ -150,6 +151,14 @@ public class CalculatorController {
         }
     }
     
+    public void showVariables(Variables variabiles, JList list){
+        String vettore[] = new String[variabiles.size()];
+        for(int i=0; i<variabiles.size(); i++){
+            vettore[i] = variabiles.toString().split("\n")[i];
+        }
+        list.setListData(vettore);
+    }
+    
     public int fromStackToVariable(StackDataStructure stack, Variables variables, char variable) {
         if (stack.size() >= 1) {
             CartesianComplex top = stack.top();
@@ -160,8 +169,9 @@ public class CalculatorController {
             return 1;
     }
     
-    public void fromVariableToStack(StackDataStructure stack, Variables variables, char variable) {
+    public int fromVariableToStack(StackDataStructure stack, Variables variables, char variable) {
         stack.push(variables.getValue(variable));
+        return 0;
     }
     
 }
