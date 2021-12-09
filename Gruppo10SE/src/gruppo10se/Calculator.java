@@ -8,6 +8,7 @@ import java.util.regex.*;
 import java.awt.event.KeyEvent;
 import javax.swing.*;
 import com.formdev.flatlaf.*;
+import java.awt.GridLayout;
 /**
  *
  * @author giaco
@@ -79,6 +80,8 @@ public class Calculator extends javax.swing.JFrame {
         buttonGroup2 = new javax.swing.ButtonGroup();
         buttonGroup3 = new javax.swing.ButtonGroup();
         buttonGroup4 = new javax.swing.ButtonGroup();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        jList1 = new javax.swing.JList<>();
         outputTextField = new javax.swing.JTextField();
         basicOperationComboBox = new javax.swing.JComboBox<>();
         inputButton = new javax.swing.JButton();
@@ -90,6 +93,16 @@ public class Calculator extends javax.swing.JFrame {
         memoryComboBox = new javax.swing.JComboBox<>();
         inputTextField = new javax.swing.JTextField();
         variablesComboBox = new javax.swing.JComboBox<>();
+        operationDefineButton = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        operationTable = new javax.swing.JTable();
+
+        jList1.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        jScrollPane4.setViewportView(jList1);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -166,33 +179,76 @@ public class Calculator extends javax.swing.JFrame {
             }
         });
 
+        operationDefineButton.setFont(new java.awt.Font("Consolas", 0, 11)); // NOI18N
+        operationDefineButton.setText("Define a new operation");
+        operationDefineButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                operationDefineButtonActionPerformed(evt);
+            }
+        });
+
+        operationTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null}
+            },
+            new String [] {
+                "Operations", "Functions"
+            }
+        ));
+        jScrollPane1.setViewportView(operationTable);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(basicOperationComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(memoryComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(variablesComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(10, 10, 10)
+                .addComponent(tabTabbedPane, javax.swing.GroupLayout.PREFERRED_SIZE, 307, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(operationDefineButton, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 292, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 33, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(outputTextField)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(inputTextField)
-                                .addGap(18, 18, 18)
-                                .addComponent(inputButton, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(outputTextField)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(10, 10, 10)
-                                .addComponent(tabTabbedPane, javax.swing.GroupLayout.PREFERRED_SIZE, 307, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(basicOperationComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(memoryComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(variablesComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 98, Short.MAX_VALUE)))
+                        .addComponent(inputTextField)
+                        .addGap(18, 18, 18)
+                        .addComponent(inputButton, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -209,8 +265,17 @@ public class Calculator extends javax.swing.JFrame {
                     .addComponent(basicOperationComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(memoryComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(variablesComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(34, 34, 34)
-                .addComponent(tabTabbedPane, javax.swing.GroupLayout.PREFERRED_SIZE, 361, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(87, 87, 87)
+                        .addComponent(operationDefineButton))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(34, 34, 34)
+                        .addComponent(tabTabbedPane, javax.swing.GroupLayout.PREFERRED_SIZE, 361, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 334, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(66, 66, 66))
         );
 
         pack();
@@ -466,6 +531,27 @@ public class Calculator extends javax.swing.JFrame {
         }       
     }//GEN-LAST:event_variablesComboBoxActionPerformed
 
+    private void operationDefineButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_operationDefineButtonActionPerformed
+        JPanel p = new JPanel(new GridLayout(0, 1, 2, 2));
+        JTextField opName = new JTextField(25);
+        JTextField opFunc = new JTextField(25);
+
+        p.add(new JLabel("Nome operazione: "));
+        p.add(opName);
+        p.add(new JLabel("Funzione: "));
+        p.add(opFunc);
+
+        JOptionPane.showConfirmDialog(null, p, "NUOVA OPERAZIONE", JOptionPane.OK_CANCEL_OPTION);
+                
+        String name= opName.getText();
+        String func= opFunc.getText();
+        
+        UserDefinedOperations op= new UserDefinedOperations();
+        op.putValue(name, func);
+        operationTable.setValueAt(name, 1,0);
+        operationTable.setValueAt(func, 1,1);  
+    }//GEN-LAST:event_operationDefineButtonActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -501,9 +587,14 @@ public class Calculator extends javax.swing.JFrame {
     private javax.swing.ButtonGroup buttonGroup4;
     private javax.swing.JButton inputButton;
     private javax.swing.JTextField inputTextField;
+    private javax.swing.JList<String> jList1;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JComboBox<String> memoryComboBox;
+    private javax.swing.JButton operationDefineButton;
+    private javax.swing.JTable operationTable;
     private javax.swing.JTextField outputTextField;
     private javax.swing.JTextArea stackTextArea;
     private javax.swing.JTabbedPane tabTabbedPane;

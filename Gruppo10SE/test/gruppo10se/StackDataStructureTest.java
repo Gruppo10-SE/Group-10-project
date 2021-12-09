@@ -161,7 +161,12 @@ public class StackDataStructureTest {
     @Test
     public void testSwap() {
         System.out.println("swap");
+         CartesianComplex element = new CartesianComplex(1,1);
+         CartesianComplex element1 = new CartesianComplex(1,2);
+        instance.push(element);
+        instance.push(element1);
         instance.swap();
+        assertEquals(instance.top(), element);
     }
 
     /**
@@ -170,7 +175,12 @@ public class StackDataStructureTest {
     @Test
     public void testOver() {
         System.out.println("over");
+        CartesianComplex element = new CartesianComplex(1,1);
+        CartesianComplex element1 = new CartesianComplex(1,2);
+        instance.push(element);
+        instance.push(element1);
         instance.over();
+        assertEquals(instance.top(), element);
     }
 
     /**
@@ -179,7 +189,10 @@ public class StackDataStructureTest {
     @Test
     public void testDup() {
         System.out.println("dup");
+        CartesianComplex element = new CartesianComplex(1,1);
+        instance.push(element);
         instance.dup();
+        assertEquals(instance.pop(),instance.pop());
     }
     
 }

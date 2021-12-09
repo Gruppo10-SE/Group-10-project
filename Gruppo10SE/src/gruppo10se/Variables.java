@@ -40,9 +40,6 @@ public class Variables {
     }
     
     public CartesianComplex putValue(char variable, CartesianComplex cartCompl) {
-       if(variables.isEmpty()){
-             return null;}
-       
         if(variables.containsKey(variable)){
             return variables.replace(variable,cartCompl);
         }
