@@ -176,34 +176,5 @@ public class UserDefinedOperationsTest {
         Integer result1 = instance1.getKeyIndex(name1);
         assertEquals(expResult1, result1, 0.0);
     }
-
-    /**
-     * Test of hashCode method, of class UserDefinedOperations.
-     */
-    @Test
-    public void testHashCode() {
-        System.out.println("hashCode");
-        UserDefinedOperations instance = new UserDefinedOperations();
-        int expResult = 0;
-        int result = instance.hashCode();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of equals method, of class UserDefinedOperations.
-     */
-    @Test
-    public void testEquals() {
-        System.out.println("equals");
-        Object obj = null;
-        UserDefinedOperations instance = new UserDefinedOperations();
-        boolean expResult = false;
-        boolean result = instance.equals(obj);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
     
 }

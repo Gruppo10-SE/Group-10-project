@@ -45,13 +45,17 @@ public class AdditionTest {
     @Test
     public void testDoBasicOperation() {
         System.out.println("doBasicOperation");
-        StackDataStructure<CartesianComplex> complexStack = null;
+        StackDataStructure<CartesianComplex> complexStack = new StackDataStructure<CartesianComplex>();
         Addition instance = new Addition();
-        int expResult = 0;
+        int expResult = 1;
         int result = instance.doBasicOperation(complexStack);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        System.out.println("doBasicOperation - ne");
+        complexStack.push(new CartesianComplex(0,0));
+        complexStack.push(new CartesianComplex(1,1));
+        int expResult1 = 0;
+        int result1 = instance.doBasicOperation(complexStack);
+        assertEquals(expResult1, result1);
     }
 
     /**
@@ -61,11 +65,9 @@ public class AdditionTest {
     public void testGetMessage() {
         System.out.println("getMessage");
         Addition instance = new Addition();
-        String expResult = "";
+        String expResult = "Sum executed";
         String result = instance.getMessage();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
     
 }

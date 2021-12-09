@@ -4,6 +4,7 @@
  */
 package controller.state.memory;
 
+import gruppo10se.CartesianComplex;
 import gruppo10se.StackDataStructure;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -42,14 +43,17 @@ public class DropTest {
      */
     @Test
     public void testDoMemoryOperation() {
-        System.out.println("doMemoryOperation");
-        StackDataStructure stack = null;
+        System.out.println("doMemoryOperation - e");
+        StackDataStructure stack = new StackDataStructure();
         Drop instance = new Drop();
-        int expResult = 0;
+        int expResult = 1;
         int result = instance.doMemoryOperation(stack);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        System.out.println("doMemoryOperation - ne");
+        stack.push(new CartesianComplex(0,0));
+        int expResult1 = 0;
+        int result1 = instance.doMemoryOperation(stack);
+        assertEquals(expResult1, result1);
     }
 
     /**
@@ -59,11 +63,9 @@ public class DropTest {
     public void testGetMessage() {
         System.out.println("getMessage");
         Drop instance = new Drop();
-        String expResult = "";
+        String expResult = "Last element of the memory deleted";
         String result = instance.getMessage();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
     
 }

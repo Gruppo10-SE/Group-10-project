@@ -102,8 +102,8 @@ public class CalculatorControllerTest {
     @Test
     public void testShowVariables() {
         System.out.println("showVariables");
-        Variables variables = null;
-        JList varList = null;
+        Variables variables = new Variables();
+        JList varList = new JList();
         CalculatorController instance = new CalculatorController();
         instance.showVariables(variables, varList);
     }
