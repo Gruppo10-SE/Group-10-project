@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controller;
+package controller.state.memory;
 
 import gruppo10se.StackDataStructure;
 
@@ -11,21 +11,21 @@ import gruppo10se.StackDataStructure;
  *
  * @author user
  */
-public class Over implements OperationState{
+public class Dup implements MemoryOperationState{
 
     @Override
-    public int doOperation(StackDataStructure stack) {
-        if(stack.size() < 2)
-            return -1;
+    public int doMemoryOperation(StackDataStructure stack) {
+        if(stack.isEmpty())
+            return 1;
         else{
-            stack.over();
+            stack.dup();
             return 0;
         }
     }
 
     @Override
     public String getMessage() {
-        return "Inserted a copy of the second last number";
+        return "Inserted a copy of the last number";
     }
     
 }

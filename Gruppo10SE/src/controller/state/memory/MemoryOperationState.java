@@ -3,16 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controller;
+package controller.state.memory;
 
-import gruppo10se.CartesianComplex;
 import gruppo10se.StackDataStructure;
 
 /**
  *
  * @author user
  */
-public interface OperationState {
-    public int doOperation(StackDataStructure<CartesianComplex> complexStack);
+public interface MemoryOperationState {
+    public int doMemoryOperation(StackDataStructure stack);
     public String getMessage();
 }

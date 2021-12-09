@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controller;
+package controller.state.basic;
 
 import gruppo10se.CartesianComplex;
 import gruppo10se.StackDataStructure;
@@ -12,10 +12,10 @@ import gruppo10se.StackDataStructure;
  *
  * @author user
  */
-public class SquareRoot implements OperationState{
+public class SquareRoot implements BasicOperationState{
 
     @Override
-    public int doOperation(StackDataStructure<CartesianComplex> complexStack) {
+    public int doBasicOperation(StackDataStructure<CartesianComplex> complexStack) {
         if (complexStack.size() >= 1) {
             CartesianComplex a;
             a = complexStack.pop();

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controller;
+package controller.state.memory;
 
 import gruppo10se.StackDataStructure;
 
@@ -11,10 +11,10 @@ import gruppo10se.StackDataStructure;
  *
  * @author user
  */
-public class Clear implements OperationState{
+public class Clear implements MemoryOperationState{
 
     @Override
-    public int doOperation(StackDataStructure stack) {
+    public int doMemoryOperation(StackDataStructure stack) {
         if(stack.isEmpty())
             return 1;
         else {

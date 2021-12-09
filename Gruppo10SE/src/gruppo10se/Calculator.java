@@ -4,7 +4,8 @@
  */
 package gruppo10se;
 
-import controller.CalculatorContext;
+import controller.state.basic.BasicOperationContext;
+import controller.state.memory.MemoryOperationContext;
 import java.util.regex.Pattern;
 import java.awt.event.KeyEvent;
 
@@ -64,7 +65,8 @@ public class Calculator extends javax.swing.JFrame {
 
     }
     
-    CalculatorContext context = new CalculatorContext();
+    BasicOperationContext basicContext = new BasicOperationContext();
+    MemoryOperationContext memoryContext = new MemoryOperationContext();
     CalculatorController controller = new CalculatorController();
     StackDataStructure stack = new StackDataStructure();
 
@@ -237,13 +239,13 @@ public class Calculator extends javax.swing.JFrame {
 
     private void checkBasicComboBox(String toCompare) {
         if (((String) basicOperationComboBox.getSelectedItem()).equals(toCompare)) {
-            context.changeState(toCompare);
+            basicContext.changeState(toCompare);
             inputTextField.requestFocusInWindow();
-            if (context.doOperation(stack) == 0) {
-                outputTextField.setText(context.getMessage());
+            if (basicContext.doBasicOperation(stack) == 0) {
+                outputTextField.setText(basicContext.getMessage());
                 stackTextArea.setText(stack.toString());
                 inputTextField.setText("");
-            } else if (context.doOperation(stack) == 1) {
+            } else if (basicContext.doBasicOperation(stack) == 1) {
                 outputTextField.setText("Insufficient number of operands!");
             }
             else
@@ -253,13 +255,13 @@ public class Calculator extends javax.swing.JFrame {
     
     private void checkMemoryComboBox(String toCompare) {
         if (((String) memoryComboBox.getSelectedItem()).equals(toCompare)) {
-            context.changeState(toCompare);
+            memoryContext.changeState(toCompare);
             inputTextField.requestFocusInWindow();
-            if (context.doOperation(stack) == 0) {
-                outputTextField.setText(context.getMessage());
+            if (memoryContext.doMemoryOperation(stack) == 0) {
+                outputTextField.setText(memoryContext.getMessage());
                 stackTextArea.setText(stack.toString());
                 inputTextField.setText("");
-            } else if (context.doOperation(stack) == 1) {
+            } else if (memoryContext.doMemoryOperation(stack) == 1) {
                 outputTextField.setText("The memory is empty!");
             }
             else

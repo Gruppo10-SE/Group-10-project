@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controller;
+package controller.state.basic;
 
 import gruppo10se.CartesianComplex;
 import gruppo10se.StackDataStructure;
@@ -12,15 +12,15 @@ import gruppo10se.StackDataStructure;
  *
  * @author user
  */
-public class Division implements OperationState{
+public class Addition implements BasicOperationState{
 
     @Override
-    public int doOperation(StackDataStructure<CartesianComplex> complexStack) {
+    public int doBasicOperation(StackDataStructure<CartesianComplex> complexStack) {
         if (complexStack.size() >= 2) {
             CartesianComplex firstOperand, secondOperand;
             firstOperand = complexStack.pop();
             secondOperand = complexStack.pop();
-            complexStack.push(secondOperand.divides(firstOperand));
+            complexStack.push(firstOperand.sum(secondOperand));
             return 0;
         } else
             return 1;
@@ -28,7 +28,7 @@ public class Division implements OperationState{
 
     @Override
     public String getMessage() {
-        return "Division executed";
+        return "Sum executed";
     }
     
 }
