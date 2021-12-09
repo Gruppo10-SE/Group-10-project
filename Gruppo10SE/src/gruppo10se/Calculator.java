@@ -4,7 +4,7 @@
  */
 package gruppo10se;
 
-import java.util.regex.Pattern;
+import java.util.regex.*;
 import java.awt.event.KeyEvent;
 import javax.swing.*;
 import com.formdev.flatlaf.*;
@@ -32,6 +32,7 @@ public class Calculator extends javax.swing.JFrame {
         
         // Focus on the input text field
         inputTextField.requestFocusInWindow();
+        
 
         // Text of the component
         inputTextField.setText("");
@@ -59,6 +60,8 @@ public class Calculator extends javax.swing.JFrame {
 
     }
 
+    // Pattern for the input Text Field
+    Pattern patternNumeroComplesso = Pattern.compile("[+]?[-]?[0-9]*[.]?[0-9]*[+]?[-]?[0-9]*[.]?[0-9]*[j]?");
     CalculatorController controller = new CalculatorController();
     StackDataStructure stack = new StackDataStructure();
     Variables variabili = new Variables();
@@ -287,18 +290,14 @@ public class Calculator extends javax.swing.JFrame {
     private void inputButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputButtonActionPerformed
         // TODO add your handling code here:
 
-        //"+", "-", "*", "/", "sqrt", "+-"
         if (inputTextField.getText().compareTo("") == 0) {
 
             outputTextField.setText("Insert a number like this 5+10j");
             inputTextField.requestFocusInWindow();
         } else {
-
-            //***                              ***
-            //***MIGLIORARE QUESTO CONTROLLO!!!***
-            //***                              ***
-            // if (inputTextField.getText().contains("j") && (inputTextField.getText().contains("+") || inputTextField.getText().contains("-") || (Pattern.matches("[a-zA-Z]+", inputTextField.getText()) == false)) ); {
-            if (Pattern.matches("[a-zA-Z]+", inputTextField.getText()) == false) {
+ 
+            Matcher m = patternNumeroComplesso.matcher(inputTextField.getText());
+            if (m.matches()){
                 
                 
                 outputTextField.setText("");
@@ -398,12 +397,8 @@ public class Calculator extends javax.swing.JFrame {
                 inputTextField.requestFocusInWindow();
             } else {
 
-                //***                              ***
-                //***MIGLIORARE QUESTO CONTROLLO!!!***
-                //***                              ***
-                // if (inputTextField.getText().contains("j") && (inputTextField.getText().contains("+") || inputTextField.getText().contains("-") || (Pattern.matches("[a-zA-Z]+", inputTextField.getText()) == false)) ); {
-                if (Pattern.matches("[a-zA-Z]+", inputTextField.getText()) == false) {
-                    outputTextField.setText("");
+                Matcher m = patternNumeroComplesso.matcher(inputTextField.getText());
+                if (m.matches()){
 
                     controller.insertNumber(stack, inputTextField.getText());
                     outputTextField.setText("Insert a number like this 5+10j");
@@ -443,29 +438,30 @@ public class Calculator extends javax.swing.JFrame {
                 // scrollare il tab alla finestra sulle variabili 
                 // +++
                 //variablesList.requestFocusInWindow();
-
+                
         if (((String) variablesComboBox.getSelectedItem()).compareTo(">x") == 0 && variablesList.getSelectedIndex() != -1) {
-
+            
             if (controller.fromStackToVariable(stack, variabili, variablesList.getSelectedValue().charAt(0)) == 0) {
-                outputTextField.setText("The variable has been changed");
+                outputTextField.setText("The variable '" + variablesList.getSelectedValue().charAt(0) + "' has been changed");
+                
                 stackTextArea.setText(stack.toString());
                 inputTextField.setText("");
                 
                 controller.showVariables(variabili, variablesList);
                 
             } else {
-                outputTextField.setText("ERROR");
+                outputTextField.setText("Empty memory!");
             }
 
 
         } else if (((String) variablesComboBox.getSelectedItem()).compareTo("<x") == 0 && variablesList.getSelectedIndex() != -1) {
 
             if (controller.fromVariableToStack(stack, variabili, variablesList.getSelectedValue().charAt(0)) == 0) {
-                outputTextField.setText("The memory has been changed");
+                outputTextField.setText("Value of '" + variablesList.getSelectedValue().charAt(0) + "' inserted in memory");
                 stackTextArea.setText(stack.toString());
                 inputTextField.setText("");
             } else {
-                outputTextField.setText("ERROR");
+                outputTextField.setText("Error with <x operation!");
             }
         }       
     }//GEN-LAST:event_variablesComboBoxActionPerformed
