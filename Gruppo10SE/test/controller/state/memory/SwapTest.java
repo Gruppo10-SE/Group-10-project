@@ -4,6 +4,7 @@
  */
 package controller.state.memory;
 
+import gruppo10se.CartesianComplex;
 import gruppo10se.StackDataStructure;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -42,14 +43,19 @@ public class SwapTest {
      */
     @Test
     public void testDoMemoryOperation() {
-        System.out.println("doMemoryOperation");
-        StackDataStructure stack = null;
+        System.out.println("doMemoryOperation - e");
+        StackDataStructure stack = new StackDataStructure();
         Swap instance = new Swap();
-        int expResult = 0;
+        int expResult = -1;
         int result = instance.doMemoryOperation(stack);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        System.out.println("doMemoryOperation - ne");
+        stack.push(new CartesianComplex(3,5));
+        stack.push(new CartesianComplex(3,5));
+        stack.push(new CartesianComplex(3,5));
+        int expResult1 = 0;
+        int result1 = instance.doMemoryOperation(stack);
+        assertEquals(expResult1, result1);
     }
 
     /**
@@ -59,11 +65,9 @@ public class SwapTest {
     public void testGetMessage() {
         System.out.println("getMessage");
         Swap instance = new Swap();
-        String expResult = "";
+        String expResult = "Last two numbers exchanged";
         String result = instance.getMessage();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
     
 }

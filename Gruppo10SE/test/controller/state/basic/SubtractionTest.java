@@ -43,14 +43,20 @@ public class SubtractionTest {
      */
     @Test
     public void testDoBasicOperation() {
-        System.out.println("doBasicOperation");
-        StackDataStructure<CartesianComplex> complexStack = null;
+        System.out.println("doBasicOperation - e");
+        CartesianComplex number = new CartesianComplex (3,6);
+        StackDataStructure<CartesianComplex> complexStack = new StackDataStructure<CartesianComplex>();
         Subtraction instance = new Subtraction();
-        int expResult = 0;
+        int expResult = 1;
         int result = instance.doBasicOperation(complexStack);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        System.out.println("doBasicOperation - ne");
+        complexStack.push(number);
+        complexStack.push(number);
+        complexStack.push(number);
+        int expResult1 = 0;
+        int result1 = instance.doBasicOperation(complexStack);
+        assertEquals(expResult1, result1);
     }
 
     /**
@@ -60,11 +66,9 @@ public class SubtractionTest {
     public void testGetMessage() {
         System.out.println("getMessage");
         Subtraction instance = new Subtraction();
-        String expResult = "";
+        String expResult = "Subtraction executed";
         String result = instance.getMessage();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
     
 }

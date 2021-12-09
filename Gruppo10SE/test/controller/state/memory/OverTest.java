@@ -4,6 +4,7 @@
  */
 package controller.state.memory;
 
+import gruppo10se.CartesianComplex;
 import gruppo10se.StackDataStructure;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -42,14 +43,20 @@ public class OverTest {
      */
     @Test
     public void testDoMemoryOperation() {
-        System.out.println("doMemoryOperation");
-        StackDataStructure stack = null;
+        System.out.println("doMemoryOperation - e");
+        StackDataStructure stack = new StackDataStructure();
         Over instance = new Over();
-        int expResult = 0;
+        int expResult = -1;
         int result = instance.doMemoryOperation(stack);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        System.out.println("doMemoryOperation - ne");
+        CartesianComplex number = new CartesianComplex(3,2);
+        stack.push(number);
+        stack.push(number);
+        stack.push(number);
+        int expResult1 = 0;
+        int result1 = instance.doMemoryOperation(stack);
+        assertEquals(expResult, result);
     }
 
     /**
@@ -59,11 +66,9 @@ public class OverTest {
     public void testGetMessage() {
         System.out.println("getMessage");
         Over instance = new Over();
-        String expResult = "";
+        String expResult = "Inserted a copy of the second last number";
         String result = instance.getMessage();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
     
 }
