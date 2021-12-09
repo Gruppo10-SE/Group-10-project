@@ -1,0 +1,9 @@
+                
+        String name= opName.getText();
+        String func= opFunc.getText();
+        
+        UserDefinedOperations op= new UserDefinedOperations();
+        op.putValue(name, func);
+        for(String k : op.keySet()){
+        operationTable.setValueAt(name, op.getKeyIndex(k),0);
+        operationTable.setValueAt(func,op.getKeyIndex(k) ,1); } 

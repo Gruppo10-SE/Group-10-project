@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
 
 /**
  *
@@ -19,8 +20,6 @@ public class UserDefinedOperations {
     public UserDefinedOperations() {
         operations = new LinkedHashMap<>();
     } 
-    
-    
     
     public boolean isEmpty() {
         return operations.isEmpty();
@@ -41,15 +40,15 @@ public class UserDefinedOperations {
         else return null;
     }
     
-    public String getValueAtIndex(Integer index) {
+    public Integer getKeyIndex(String key ) {
         
-       if(operations.isEmpty() || index>operations.size()){
+       if(operations.isEmpty()){
              return null;}
        
        int i=0;
        for(String k: operations.keySet()){
-           if (i == index){
-               return k;
+           if (k == key){
+               return i;
            }
            i+=1;            
        }
@@ -81,6 +80,12 @@ public class UserDefinedOperations {
         }
         return false;
     }
+    
+    public Set<String> keySet() {
+        
+        return operations.keySet();
+
+}
     
     @Override
     public int hashCode() {

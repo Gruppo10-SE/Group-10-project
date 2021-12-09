@@ -158,24 +158,23 @@ public class UserDefinedOperationsTest {
      * Test of getValueAtIndex method, of class UserDefinedOperations.
      */
     @Test
-    public void testGetValueAtIndex() {
+    public void testGetKeyIndex() {
         System.out.println("getValueAtIndex - e");
-        Integer index = 1;
-        UserDefinedOperations instance = new UserDefinedOperations();
-        String expResult = null;
-        String result = instance.getValueAtIndex(index);
-        assertEquals(expResult, result);
-        System.out.println("getValueAtIndex - ne");
         String name1 = "a";
         String func1 = "a";
         String name2 = "aa";
         String func2 = "aa";
+        UserDefinedOperations instance = new UserDefinedOperations();
+        String expResult = null;
+        Integer result = instance.getKeyIndex("");
+        assertEquals(expResult, result);
+        System.out.println("getValueAtIndex - ne");
         UserDefinedOperations instance1 = new UserDefinedOperations();
         instance1.putValue(name1, func1);
         instance1.putValue(name2, func2);
-        String expResult1 = name2 ;
-        String result1 = instance1.getValueAtIndex(index);
-        assertEquals(expResult1, result1);
+        int expResult1 = 0 ;
+        Integer result1 = instance1.getKeyIndex(name1);
+        assertEquals(expResult1, result1, 0.0);
     }
 
     /**
