@@ -43,7 +43,7 @@ public class CalculatorController {
         return 0;
     }
     
-    public int plusVariable (StackDataStructure stack, Variables variables, char variable){
+    public int plusVariable (StackDataStructure<CartesianComplex> stack, Variables variables, char variable){
         if(!stack.isEmpty()){
            variables.putValue(variable, variables.getValue(variable).sum(stack.top()));
            return 0;
@@ -52,7 +52,7 @@ public class CalculatorController {
            return 1;
     }
     
-    public int minusVariable (StackDataStructure stack, Variables variables, char variable){
+    public int minusVariable (StackDataStructure<CartesianComplex> stack, Variables variables, char variable){
         if(!stack.isEmpty()){
            variables.putValue(variable, variables.getValue(variable).subtract(stack.top()));
            return 0;

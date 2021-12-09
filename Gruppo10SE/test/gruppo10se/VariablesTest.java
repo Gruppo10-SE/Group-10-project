@@ -82,9 +82,10 @@ public class VariablesTest {
     public void testPutValue() {
         System.out.println("putValue");
         char variable = ' ';
-        CartesianComplex cartCompl = null;
+        CartesianComplex cartCompl = new CartesianComplex(5,5);
         Variables instance = new Variables();
-        CartesianComplex expResult = null;
+        instance.putValue(variable, cartCompl);
+        CartesianComplex expResult = cartCompl;
         CartesianComplex result = instance.putValue(variable, cartCompl);
         assertEquals(expResult, result);
     }
