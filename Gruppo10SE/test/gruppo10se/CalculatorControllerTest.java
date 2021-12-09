@@ -4,6 +4,7 @@
  */
 package gruppo10se;
 
+import javax.swing.JList;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -237,6 +238,64 @@ public class CalculatorControllerTest {
         CalculatorController instance = new CalculatorController();
         instance.fromVariableToStack(stack, variables, variable);
         assertEquals(element, stack.pop());
+    }
+
+    /**
+     * Test of showVariables method, of class CalculatorController.
+     */
+    @Test
+    public void testShowVariables() {
+        System.out.println("showVariables");
+        Variables variables = null;
+        JList varList = null;
+        CalculatorController instance = new CalculatorController();
+        instance.showVariables(variables, varList);
+    }
+
+    /**
+     * Test of plusVariable method, of class CalculatorController.
+     */
+    @Test
+    public void testPlusVariable() {
+        System.out.println("plusVariable - ne");
+        StackDataStructure stack =  new StackDataStructure();
+        CalculatorController instance = new CalculatorController();
+        Variables variables = new Variables();
+        variables.putValue('a', new CartesianComplex(5,6));
+        char variable = 'a';
+        int expResult = 1;
+        int result = instance.plusVariable(stack, variables, variable);
+        assertEquals(expResult, result);
+        System.out.println("plusVariable - ne");
+        stack.push(new CartesianComplex(0,0));
+        variables.putValue('a', new CartesianComplex(5,6));
+        char variable1 = 'a';
+        int expResult1 = 0;
+        int result1 = instance.plusVariable(stack, variables, variable1);
+        assertEquals(expResult1, result1);
+    }
+
+    /**
+     * Test of minusVariable method, of class CalculatorController.
+     */
+    @Test
+    public void testMinusVariable() {
+        System.out.println("minusVariable - e");
+        StackDataStructure stack =  new StackDataStructure();
+        CalculatorController instance = new CalculatorController();
+        Variables variables = new Variables();
+        variables.putValue('a', new CartesianComplex(5,6));
+        char variable = 'a';
+        int expResult = 1;
+        int result = instance.minusVariable(stack, variables, variable);
+        assertEquals(expResult, result);
+        System.out.println("minusVariable - ne");
+        stack.push(new CartesianComplex(0,0));
+        variables.putValue('a', new CartesianComplex(5,6));
+        char variable1 = 'a';
+        int expResult1 = 0;
+        int result1 = instance.minusVariable(stack, variables, variable1);
+        assertEquals(expResult1, result1);
     }
     
 }
