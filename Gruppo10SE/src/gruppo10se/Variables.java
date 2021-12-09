@@ -40,9 +40,6 @@ public class Variables {
     }
     
     public CartesianComplex putValue(char variable, CartesianComplex cartCompl) {
-       if(variables.isEmpty()){
-             return null;}
-       
         if(variables.containsKey(variable)){
             return variables.replace(variable,cartCompl);
         }
@@ -99,9 +96,8 @@ public class Variables {
          String append = "";
          CartesianComplex zero = new CartesianComplex(0, 0);
         for( char i : variables.keySet()){
-            
-            if( ! (getValue(i).equals(zero)))
-                append+=  i +"  =  "+ getValue(i)+"\n";
+        
+            append+=  i +"  =  "+ getValue(i)+"\n";
     }
         return append;
     }

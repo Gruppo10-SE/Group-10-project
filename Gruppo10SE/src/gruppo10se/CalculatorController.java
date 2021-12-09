@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package gruppo10se;
+import javax.swing.*;
 
 /**
  *
@@ -17,6 +18,29 @@ public class CalculatorController {
     
     public boolean checkIfEmpty(StackDataStructure stack) {
         return stack.isEmpty();
+    }
+    
+    public void showVariables(Variables variables, JList varList){
+        String string[] = new String[variables.size()];
+        for(int i=0; i<variables.size(); i++){
+            string[i] = variables.toString().split("\n")[i];
+        }
+        varList.setListData(string);
+    }
+    
+    public int fromStackToVariable(StackDataStructure<CartesianComplex> stack, Variables variables, char variable) {
+        if (stack.size() >= 1) {
+            CartesianComplex top = stack.top();
+            variables.putValue(variable, top);
+            return 0;
+        }
+        else
+            return 1;
+    }
+    
+    public int fromVariableToStack(StackDataStructure stack, Variables variables, char variable) {
+        stack.push(variables.getValue(variable));
+        return 0;
     }
     
 }

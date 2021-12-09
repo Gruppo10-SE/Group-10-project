@@ -6,9 +6,11 @@ package gruppo10se;
 
 import controller.state.basic.BasicOperationContext;
 import controller.state.memory.MemoryOperationContext;
-import java.util.regex.Pattern;
+import java.util.regex.*;
 import java.awt.event.KeyEvent;
-
+import javax.swing.*;
+import com.formdev.flatlaf.*;
+import java.awt.GridLayout;
 /**
  *
  * @author giaco
@@ -20,29 +22,23 @@ public class Calculator extends javax.swing.JFrame {
      */
     public Calculator() {
         initComponents();
-        
-        Variables variabili = new Variables();
-        variabili.putValue('a', new CartesianComplex(10, 10));
-        variabili.putValue('c', new CartesianComplex(-10, -10));
-        variabili.putValue('f', new CartesianComplex(10, -10));
-        variabili.putValue('o', new CartesianComplex(-10, 10));
-        variabili.putValue('v', new CartesianComplex(0, 10));
-        variabili.putValue('x', new CartesianComplex(0, -10));
-        variabili.putValue('q', new CartesianComplex(10, 0));
-        variabili.putValue('z', new CartesianComplex(-10, 0));
-        variablesTextArea.setText("You have 26 variables, named from 'a' to 'z'\nNon-zero variables:\n\n" + variabili.toString());
-
         // JFrame 
         this.setResizable(false);
         this.setTitle("Calculator");
+        this.setIconImage(new ImageIcon(getClass().getResource("calculator.png")).getImage());
+        //this.getContentPane().setBackground( Color.getHSBColor((float)0.0,(float)0.0,(float)0.94));
+        operationTable.setShowGrid(true);
 
         // Text field and area are not editable
         outputTextField.setEditable(false);
         stackTextArea.setEditable(false);
-        variablesTextArea.setEditable(false);
-
+        
+        // Show variables on the jlist
+        controller.showVariables(variabili, variablesList);
+        
         // Focus on the input text field
         inputTextField.requestFocusInWindow();
+        
 
         // Text of the component
         inputTextField.setText("");
@@ -52,9 +48,11 @@ public class Calculator extends javax.swing.JFrame {
         // Combo box
         String[] operazioni = {"Basic operation", "+", "-", "*", "/", "sqrt", "+-"};
         String[] operazioniStack = {"Memory operation", "clear", "drop", "dup", "swap", "over"};
+        String[] operazioniVariabili = {"Variables operation", ">x", "<x", "+x", "-x"};
 
         basicOperationComboBox.setEditable(false);
         memoryComboBox.setEditable(false);
+        variablesComboBox.setEditable(false);
 
         for (String operazione : operazioni) {
             basicOperationComboBox.addItem(operazione);
@@ -62,15 +60,21 @@ public class Calculator extends javax.swing.JFrame {
         for (String operazioneMem : operazioniStack) {
             memoryComboBox.addItem(operazioneMem);
         }
+        for (String operazioneVar : operazioniVariabili){
+            variablesComboBox.addItem(operazioneVar);
+        }
 
     }
     
     BasicOperationContext basicContext = new BasicOperationContext();
     MemoryOperationContext memoryContext = new MemoryOperationContext();
+
+    // Pattern for the input Text Field
+    Pattern patternNumeroComplesso = Pattern.compile("[+]?[-]?[0-9]*[.]?[0-9]*[+]?[-]?[0-9]*[.]?[0-9]*[j]?");
     CalculatorController controller = new CalculatorController();
     StackDataStructure stack = new StackDataStructure();
+    Variables variabili = new Variables();
 
-    //"+", "-", "*", "/", "sqrt", "+-"
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -84,25 +88,37 @@ public class Calculator extends javax.swing.JFrame {
         buttonGroup2 = new javax.swing.ButtonGroup();
         buttonGroup3 = new javax.swing.ButtonGroup();
         buttonGroup4 = new javax.swing.ButtonGroup();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        jList1 = new javax.swing.JList<>();
         outputTextField = new javax.swing.JTextField();
         basicOperationComboBox = new javax.swing.JComboBox<>();
         inputButton = new javax.swing.JButton();
-        complexOperationLabel = new javax.swing.JLabel();
-        infoLabel = new javax.swing.JLabel();
-        inputLabel = new javax.swing.JLabel();
         tabTabbedPane = new javax.swing.JTabbedPane();
         jScrollPane2 = new javax.swing.JScrollPane();
         stackTextArea = new javax.swing.JTextArea();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        variablesTextArea = new javax.swing.JTextArea();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        variablesList = new javax.swing.JList<>();
         memoryComboBox = new javax.swing.JComboBox<>();
         inputTextField = new javax.swing.JTextField();
+        variablesComboBox = new javax.swing.JComboBox<>();
+        operationDefineButton = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        operationTable = new javax.swing.JTable();
+        jPanel1 = new javax.swing.JPanel();
+        jPanel3 = new javax.swing.JPanel();
+
+        jList1.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        jScrollPane4.setViewportView(jList1);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        outputTextField.setBackground(new java.awt.Color(238, 234, 234));
+        outputTextField.setBackground(new java.awt.Color(53, 55, 56));
         outputTextField.setFont(new java.awt.Font("Consolas", 0, 12)); // NOI18N
-        outputTextField.setForeground(new java.awt.Color(255, 0, 0));
+        outputTextField.setForeground(new java.awt.Color(255, 153, 0));
         outputTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 outputTextFieldActionPerformed(evt);
@@ -116,6 +132,7 @@ public class Calculator extends javax.swing.JFrame {
             }
         });
 
+        inputButton.setBackground(new java.awt.Color(61, 122, 166));
         inputButton.setFont(new java.awt.Font("Consolas", 0, 11)); // NOI18N
         inputButton.setText("Insert");
         inputButton.addActionListener(new java.awt.event.ActionListener() {
@@ -129,30 +146,24 @@ public class Calculator extends javax.swing.JFrame {
             }
         });
 
-        complexOperationLabel.setFont(new java.awt.Font("Consolas", 0, 11)); // NOI18N
-        complexOperationLabel.setText("Select an operation");
-
-        infoLabel.setFont(new java.awt.Font("Consolas", 0, 11)); // NOI18N
-        infoLabel.setText("Info");
-
-        inputLabel.setFont(new java.awt.Font("Consolas", 0, 11)); // NOI18N
-        inputLabel.setText("Input");
-
         tabTabbedPane.setFont(new java.awt.Font("Consolas", 0, 11)); // NOI18N
 
-        stackTextArea.setBackground(new java.awt.Color(238, 234, 234));
+        stackTextArea.setBackground(javax.swing.UIManager.getDefaults().getColor("Button.light"));
         stackTextArea.setColumns(20);
         stackTextArea.setRows(5);
         jScrollPane2.setViewportView(stackTextArea);
 
         tabTabbedPane.addTab("Memory", jScrollPane2);
 
-        variablesTextArea.setBackground(new java.awt.Color(238, 234, 234));
-        variablesTextArea.setColumns(20);
-        variablesTextArea.setRows(5);
-        jScrollPane1.setViewportView(variablesTextArea);
+        variablesList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        variablesList.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                variablesListValueChanged(evt);
+            }
+        });
+        jScrollPane3.setViewportView(variablesList);
 
-        tabTabbedPane.addTab("Variables", jScrollPane1);
+        tabTabbedPane.addTab("Variables", jScrollPane3);
 
         memoryComboBox.setFont(new java.awt.Font("Consolas", 0, 11)); // NOI18N
         memoryComboBox.addActionListener(new java.awt.event.ActionListener() {
@@ -172,62 +183,140 @@ public class Calculator extends javax.swing.JFrame {
             }
         });
 
+        variablesComboBox.setFont(new java.awt.Font("Consolas", 0, 11)); // NOI18N
+        variablesComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                variablesComboBoxActionPerformed(evt);
+            }
+        });
+
+        operationDefineButton.setFont(new java.awt.Font("Consolas", 0, 11)); // NOI18N
+        operationDefineButton.setText("Define a new operation");
+        operationDefineButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                operationDefineButtonActionPerformed(evt);
+            }
+        });
+
+        operationTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null}
+            },
+            new String [] {
+                "Operations", "Functions"
+            }
+        ));
+        operationTable.setGridColor(new java.awt.Color(102, 102, 102));
+        jScrollPane1.setViewportView(operationTable);
+
+        jPanel1.setBackground(new java.awt.Color(61, 122, 166));
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 24, Short.MAX_VALUE)
+        );
+
+        jPanel3.setBackground(new java.awt.Color(255, 153, 0));
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 24, Short.MAX_VALUE)
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(inputLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(infoLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(outputTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(inputTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(inputButton, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
                         .addComponent(tabTabbedPane, javax.swing.GroupLayout.PREFERRED_SIZE, 307, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 292, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(outputTextField)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(68, 68, 68)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(basicOperationComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(memoryComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(inputTextField)
+                                .addGap(18, 18, 18)
+                                .addComponent(inputButton, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(91, 91, 91)
-                                .addComponent(complexOperationLabel)))))
-                .addContainerGap(111, Short.MAX_VALUE))
+                                .addComponent(basicOperationComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(47, 47, 47)
+                                .addComponent(memoryComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
+                                .addComponent(variablesComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(39, 39, 39)
+                                .addComponent(operationDefineButton, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(23, 23, 23)
+                .addContainerGap()
+                .addComponent(outputTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(inputTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(inputLabel)
+                    .addComponent(inputTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(inputButton))
-                .addGap(18, 18, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(outputTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(infoLabel))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
+                    .addComponent(basicOperationComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(memoryComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(variablesComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(operationDefineButton))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(tabTabbedPane, javax.swing.GroupLayout.PREFERRED_SIZE, 361, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(complexOperationLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(basicOperationComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(memoryComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
+                        .addGap(34, 34, 34)
+                        .addComponent(tabTabbedPane, javax.swing.GroupLayout.PREFERRED_SIZE, 361, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 334, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-
-        layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {inputTextField, outputTextField});
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -279,18 +368,16 @@ public class Calculator extends javax.swing.JFrame {
     private void inputButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputButtonActionPerformed
         // TODO add your handling code here:
 
-        //"+", "-", "*", "/", "sqrt", "+-"
         if (inputTextField.getText().compareTo("") == 0) {
 
             outputTextField.setText("Insert a number like this 5+10j");
             inputTextField.requestFocusInWindow();
         } else {
-
-            //***                              ***
-            //***MIGLIORARE QUESTO CONTROLLO!!!***
-            //***                              ***
-            // if (inputTextField.getText().contains("j") && (inputTextField.getText().contains("+") || inputTextField.getText().contains("-") || (Pattern.matches("[a-zA-Z]+", inputTextField.getText()) == false)) ); {
-            if (Pattern.matches("[a-zA-Z]+", inputTextField.getText()) == false) {
+ 
+            Matcher m = patternNumeroComplesso.matcher(inputTextField.getText());
+            if (m.matches()){
+                
+                
                 outputTextField.setText("");
 
                 controller.insertNumber(stack, inputTextField.getText());
@@ -335,12 +422,8 @@ public class Calculator extends javax.swing.JFrame {
                 inputTextField.requestFocusInWindow();
             } else {
 
-                //***                              ***
-                //***MIGLIORARE QUESTO CONTROLLO!!!***
-                //***                              ***
-                // if (inputTextField.getText().contains("j") && (inputTextField.getText().contains("+") || inputTextField.getText().contains("-") || (Pattern.matches("[a-zA-Z]+", inputTextField.getText()) == false)) ); {
-                if (Pattern.matches("[a-zA-Z]+", inputTextField.getText()) == false) {
-                    outputTextField.setText("");
+                Matcher m = patternNumeroComplesso.matcher(inputTextField.getText());
+                if (m.matches()){
 
                     controller.insertNumber(stack, inputTextField.getText());
                     outputTextField.setText("Insert a number like this 5+10j");
@@ -359,40 +442,92 @@ public class Calculator extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_inputTextFieldKeyPressed
 
+    private void variablesListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_variablesListValueChanged
+        // TODO add your handling code here:
+        
+        if(evt.getValueIsAdjusting() == false){
+            
+            if(variablesList.getSelectedIndex() == -1){
+                //No selection, disable combo box.
+                variablesComboBox.setEnabled(false);
+            } else {
+                //Selection, enable combo box
+                variablesComboBox.setEnabled(true);
+                inputTextField.setText(variablesList.getSelectedValue());
+            }
+        }
+    }//GEN-LAST:event_variablesListValueChanged
+
+    private void variablesComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_variablesComboBoxActionPerformed
+                // +++
+                // scrollare il tab alla finestra sulle variabili 
+                // +++
+                //variablesList.requestFocusInWindow();
+                
+        if (((String) variablesComboBox.getSelectedItem()).compareTo(">x") == 0 && variablesList.getSelectedIndex() != -1) {
+            
+            if (controller.fromStackToVariable(stack, variabili, variablesList.getSelectedValue().charAt(0)) == 0) {
+                outputTextField.setText("The variable '" + variablesList.getSelectedValue().charAt(0) + "' has been changed");
+                
+                stackTextArea.setText(stack.toString());
+                inputTextField.setText("");
+                
+                controller.showVariables(variabili, variablesList);
+                
+            } else {
+                outputTextField.setText("Empty memory!");
+            }
+
+
+        } else if (((String) variablesComboBox.getSelectedItem()).compareTo("<x") == 0 && variablesList.getSelectedIndex() != -1) {
+
+            if (controller.fromVariableToStack(stack, variabili, variablesList.getSelectedValue().charAt(0)) == 0) {
+                outputTextField.setText("Value of '" + variablesList.getSelectedValue().charAt(0) + "' inserted in memory");
+                stackTextArea.setText(stack.toString());
+                inputTextField.setText("");
+            } else {
+                outputTextField.setText("Error with <x operation!");
+            }
+        }       
+    }//GEN-LAST:event_variablesComboBoxActionPerformed
+
+    private void operationDefineButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_operationDefineButtonActionPerformed
+        JPanel p = new JPanel(new GridLayout(0, 1, 2, 2));
+        JTextField opName = new JTextField(25);
+        JTextField opFunc = new JTextField(25);
+
+        p.add(new JLabel("Nome operazione: "));
+        p.add(opName);
+        p.add(new JLabel("Funzione: "));
+        p.add(opFunc);
+
+        JOptionPane.showConfirmDialog(null, p, "NUOVA OPERAZIONE", JOptionPane.OK_CANCEL_OPTION);
+    }//GEN-LAST:event_operationDefineButtonActionPerformed
+
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
+        /*
+        Flat Light (class com.formdev.flatlaf.FlatLightLaf)
+        Flat Dark (class com.formdev.flatlaf.FlatDarkLaf)
+        Flat IntelliJ (class com.formdev.flatlaf.FlatIntelliJLaf)
+        Flat Darcula(class com.formdev.flatlaf.FlatDarculaLaf)
+        */
         try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Calculator.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Calculator.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Calculator.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Calculator.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            UIManager.setLookAndFeel( new FlatDarculaLaf() );
+        } catch( Exception ex ) {
+            System.err.println( "Failed to initialize LaF" );
         }
-        //</editor-fold>
-        //</editor-fold>
 
+        
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new Calculator().setVisible(true);
             }
         });
+
 
     }
 
@@ -402,17 +537,22 @@ public class Calculator extends javax.swing.JFrame {
     private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.ButtonGroup buttonGroup3;
     private javax.swing.ButtonGroup buttonGroup4;
-    private javax.swing.JLabel complexOperationLabel;
-    private javax.swing.JLabel infoLabel;
     private javax.swing.JButton inputButton;
-    private javax.swing.JLabel inputLabel;
     private javax.swing.JTextField inputTextField;
+    private javax.swing.JList<String> jList1;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JComboBox<String> memoryComboBox;
+    private javax.swing.JButton operationDefineButton;
+    private javax.swing.JTable operationTable;
     private javax.swing.JTextField outputTextField;
     private javax.swing.JTextArea stackTextArea;
     private javax.swing.JTabbedPane tabTabbedPane;
-    private javax.swing.JTextArea variablesTextArea;
+    private javax.swing.JComboBox<String> variablesComboBox;
+    private javax.swing.JList<String> variablesList;
     // End of variables declaration//GEN-END:variables
 }
