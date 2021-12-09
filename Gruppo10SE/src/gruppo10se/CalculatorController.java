@@ -151,12 +151,12 @@ public class CalculatorController {
         }
     }
     
-    public void showVariables(Variables variabiles, JList list){
-        String vettore[] = new String[variabiles.size()];
-        for(int i=0; i<variabiles.size(); i++){
-            vettore[i] = variabiles.toString().split("\n")[i];
+    public void showVariables(Variables variables, JList varList){
+        String string[] = new String[variables.size()];
+        for(int i=0; i<variables.size(); i++){
+            string[i] = variables.toString().split("\n")[i];
         }
-        list.setListData(vettore);
+        varList.setListData(string);
     }
     
     public int fromStackToVariable(StackDataStructure stack, Variables variables, char variable) {
