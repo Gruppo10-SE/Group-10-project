@@ -27,8 +27,8 @@ public class PlusVariable implements VariableOperationState{
     }
 
     @Override
-    public String getMessage() {
-        return "The variable has been changed";
+    public String getMessage(char variable) {
+        return "Last element inserted in memory added to variable '" + variable + "'";
     }
     
 }

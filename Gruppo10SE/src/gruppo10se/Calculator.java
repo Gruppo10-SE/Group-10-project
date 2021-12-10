@@ -6,6 +6,7 @@ package gruppo10se;
 
 import controller.state.basic.BasicOperationContext;
 import controller.state.memory.MemoryOperationContext;
+import controller.state.variable.VariableOperationContext;
 import java.util.regex.*;
 import java.awt.event.KeyEvent;
 import javax.swing.*;
@@ -19,6 +20,7 @@ import javax.swing.table.DefaultTableModel;
  * @author giaco
  */
 public class Calculator extends javax.swing.JFrame {
+
     DefaultTableModel model;
 
     /**
@@ -30,7 +32,7 @@ public class Calculator extends javax.swing.JFrame {
         this.setResizable(false);
         this.setTitle("Calculator");
         this.setIconImage(new ImageIcon(getClass().getResource("calculator.png")).getImage());
-        
+
         //this.getContentPane().setBackground( Color.getHSBColor((float)0.0,(float)0.0,(float)0.94));
         operationTable.setShowGrid(true);
 
@@ -68,7 +70,7 @@ public class Calculator extends javax.swing.JFrame {
         for (String operazioneVar : operazioniVariabili) {
             variablesComboBox.addItem(operazioneVar);
         }
-        
+
         model = new DefaultTableModel();
         operationTable.setModel(model);
         model.addColumn("Operation");
@@ -78,13 +80,16 @@ public class Calculator extends javax.swing.JFrame {
 
     BasicOperationContext basicContext = new BasicOperationContext();
     MemoryOperationContext memoryContext = new MemoryOperationContext();
+    VariableOperationContext variableContext = new VariableOperationContext();
 
     // Pattern for the input Text Field
     Pattern patternNumeroComplesso = Pattern.compile("[+]?[-]?[0-9]*[.]?[0-9]*[+]?[-]?[0-9]*[.]?[0-9]*[j]?");
+
     CalculatorController controller = new CalculatorController();
     StackDataStructure stack = new StackDataStructure();
     Variables variabili = new Variables();
-    UserDefinedOperations op= new UserDefinedOperations();
+    UserDefinedOperations op = new UserDefinedOperations();
+
     int next_down_press = 0;
     char variable_char;
 
@@ -385,17 +390,20 @@ public class Calculator extends javax.swing.JFrame {
     }//GEN-LAST:event_outputTextFieldActionPerformed
 
     private void checkBasicOperation(String operation) {
-            basicContext.changeState(operation);
-            inputTextField.requestFocusInWindow();
-            if (basicContext.doBasicOperation(stack) == 0) {
-                outputTextField.setText(basicContext.getMessage());
-                stackTextArea.setText(stack.toString());
-                inputTextField.setText("");
-            } else if (basicContext.doBasicOperation(stack) == 1) {
-                outputTextField.setText("Insufficient number of operands!");
-            }
-            else
-                outputTextField.setText("Math ERROR: you are dividing by 0");
+        
+        // CHECK DIVISION WITH ZERO : TODO
+        
+        basicContext.changeState(operation);
+        inputTextField.requestFocusInWindow();
+        if (basicContext.doBasicOperation(stack) == 0) {
+            outputTextField.setText(basicContext.getMessage());
+            stackTextArea.setText(stack.toString());
+            inputTextField.setText("");
+        } else if (basicContext.doBasicOperation(stack) == 1) {
+            outputTextField.setText("Insufficient number of operands!");
+        } else {
+            outputTextField.setText("Math ERROR: you are dividing by 0");
+        }
     }
 
     private void checkMemoryComboBox(String toCompare) {
@@ -414,10 +422,39 @@ public class Calculator extends javax.swing.JFrame {
         }
     }
 
+    private void checkVariableOperation(String variableOperation) {
+        variableContext.changeState(variableOperation);
+        variable_char = variablesList.getSelectedValue().charAt(0);
+        if (variableContext.doVariableOperation(stack, variabili, variable_char) == 0) {
+
+            outputTextField.setText(variableContext.getMessage(variable_char));
+
+            stackTextArea.setText(stack.toString());
+            inputTextField.setText("");
+
+            if (variableOperation != "<x") {
+                controller.showVariables(variabili, variablesList);
+
+                variablesTextField.setText(controller.getVariable(variabili, variable_char));
+                variablesList.setSelectedValue(controller.getVariable(variabili, variable_char), false);
+            }
+            else {
+                variablesTextField.setText(variablesList.getSelectedValue());
+                variablesList.setSelectedValue(variablesList.getSelectedValue(), false);
+            }
+
+            inputTextField.requestFocus();
+
+        } else {
+            outputTextField.setText("Empty memory!");
+        }
+    }
+
     private void basicOperationComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_basicOperationComboBoxActionPerformed
-        String operation = (String)basicOperationComboBox.getSelectedItem();
-        if (!"Basic operation".equals(operation))
+        String operation = (String) basicOperationComboBox.getSelectedItem();
+        if (!"Basic operation".equals(operation)) {
             checkBasicOperation(operation);
+        }
     }//GEN-LAST:event_basicOperationComboBoxActionPerformed
 
     private void inputButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputButtonActionPerformed
@@ -538,99 +575,12 @@ public class Calculator extends javax.swing.JFrame {
     }//GEN-LAST:event_variablesListValueChanged
 
     private void variablesComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_variablesComboBoxActionPerformed
-        // +++
-        // scrollare il tab alla finestra sulle variabili 
-        // +++
-        //variablesList.requestFocusInWindow();
-
-        if (((String) variablesComboBox.getSelectedItem()).compareTo(">x") == 0 && variablesList.getSelectedIndex() != -1) {
-
-            if (controller.fromStackToVariable(stack, variabili, variablesList.getSelectedValue().charAt(0)) == 0) {
-
-                variable_char = variablesList.getSelectedValue().charAt(0);
-
-                outputTextField.setText("The variable '" + variablesList.getSelectedValue().charAt(0) + "' has been changed");
-
-                stackTextArea.setText(stack.toString());
-                inputTextField.setText("");
-
-                controller.showVariables(variabili, variablesList);
-
-                variablesTextField.setText(controller.getVariable(variabili, variable_char));
-                variablesList.setSelectedValue(controller.getVariable(variabili, variable_char), false);
-
-                inputTextField.requestFocus();
-
-            } else {
-                outputTextField.setText("Empty memory!");
-            }
-
-        } else if (((String) variablesComboBox.getSelectedItem()).compareTo("<x") == 0 && variablesList.getSelectedIndex() != -1) {
-
-            if (controller.fromVariableToStack(stack, variabili, variablesList.getSelectedValue().charAt(0)) == 0) {
-
-                outputTextField.setText("Value of '" + variablesList.getSelectedValue().charAt(0) + "' inserted in memory");
-
-                stackTextArea.setText(stack.toString());
-                inputTextField.setText("");
-
-                variablesTextField.setText(variablesList.getSelectedValue());
-
-                variablesList.setSelectedValue(variablesList.getSelectedValue(), false);
-
-                inputTextField.requestFocus();
-
-            } else {
-                outputTextField.setText("Error with <x operation!");
-            }
-
-        } else if (((String) variablesComboBox.getSelectedItem()).compareTo("+x") == 0 && variablesList.getSelectedIndex() != -1) {
-
-            if (controller.plusVariable(stack, variabili, variablesList.getSelectedValue().charAt(0)) == 0) {
-
-                variable_char = variablesList.getSelectedValue().charAt(0);
-
-                outputTextField.setText("Last element inserted in memory added to variable '" + variablesList.getSelectedValue().charAt(0) + "'");
-
-                stackTextArea.setText(stack.toString());
-                inputTextField.setText("");
-
-                controller.showVariables(variabili, variablesList);
-
-                variablesTextField.setText(controller.getVariable(variabili, variable_char));
-
-                variablesList.setSelectedValue(controller.getVariable(variabili, variable_char), false);
-
-                inputTextField.requestFocus();
-
-            } else {
-                outputTextField.setText("Empty memory!");
-            }
-
-        } else if (((String) variablesComboBox.getSelectedItem()).compareTo("-x") == 0 && variablesList.getSelectedIndex() != -1) {
-
-            if (controller.minusVariable(stack, variabili, variablesList.getSelectedValue().charAt(0)) == 0) {
-
-                variable_char = variablesList.getSelectedValue().charAt(0);
-
-                outputTextField.setText("Last element inserted in memory subtracted from variable '" + variablesList.getSelectedValue().charAt(0) + "'");
-
-                stackTextArea.setText(stack.toString());
-                inputTextField.setText("");
-
-                controller.showVariables(variabili, variablesList);
-
-                variablesTextField.setText(controller.getVariable(variabili, variable_char));
-
-                variablesList.setSelectedValue(controller.getVariable(variabili, variable_char), false);
-
-                inputTextField.requestFocus();
-
-            } else {
-                outputTextField.setText("Empty memory!");
-            }
-
+        
+        String operation = (String) variablesComboBox.getSelectedItem();
+        if (!"Variables operation".equals(operation) && variablesList.getSelectedIndex() != -1) {
+            checkVariableOperation(operation);
         }
+        
     }//GEN-LAST:event_variablesComboBoxActionPerformed
 
     private void operationDefineButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_operationDefineButtonActionPerformed
@@ -642,24 +592,24 @@ public class Calculator extends javax.swing.JFrame {
         p.add(opName);
         p.add(new JLabel("Funzione: "));
         p.add(opFunc);
-        
+
         int choice = JOptionPane.showConfirmDialog(null, p, "NUOVA OPERAZIONE",
                 JOptionPane.OK_CANCEL_OPTION);
-        
+
         if (choice == JOptionPane.OK_OPTION) {
-            String name= opName.getText();
-            String func= opFunc.getText();
-            
+            String name = opName.getText();
+            String func = opFunc.getText();
+
             if (name.length() != 0 && func.length() != 0) {
                 controller.updateTable(op, name, func);
 
                 model.getDataVector().removeAllElements();
 
-                for (String function: op.keySet()) {
-                        model.addRow(new Object[] {
-                            function,
-                            op.getValue(function)
-                        });
+                for (String function : op.keySet()) {
+                    model.addRow(new Object[]{
+                        function,
+                        op.getValue(function)
+                    });
                 }
             }
         }
@@ -671,13 +621,16 @@ public class Calculator extends javax.swing.JFrame {
 
     private void calculateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_calculateButtonActionPerformed
         // TODO add your handling code here:
-        int row = operationTable.getSelectedRow();
-        int column = 1;
-        String operation = (String)operationTable.getValueAt(row, column);
-        
-        String[] split = operation.split("\\s+");
-        for(String s: split)
-            checkBasicOperation(s);
+        if(!operationTable.getSelectionModel().isSelectionEmpty()) {
+            int row = operationTable.getSelectedRow();
+            int column = 1;
+            String operation = (String) operationTable.getValueAt(row, column);
+
+            String[] split = operation.split("\\s+");
+            for (String s : split) {
+                checkBasicOperation(s);
+            }
+        }
     }//GEN-LAST:event_calculateButtonActionPerformed
 
     private void calculateButtonKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_calculateButtonKeyPressed

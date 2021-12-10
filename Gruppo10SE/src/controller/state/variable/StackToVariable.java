@@ -28,8 +28,8 @@ public class StackToVariable implements VariableOperationState{
     }
 
     @Override
-    public String getMessage() {
-        return "The variable has been changed";
+    public String getMessage(char variable) {
+        return "The variable '" + variable + "' has been changed";
     }
     
 }

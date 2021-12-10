@@ -52,8 +52,8 @@ public class VariableOperationContext implements VariableOperationState{
     }
 
     @Override
-    public String getMessage() {
-        return variableOperation.getMessage();
+    public String getMessage(char variable) {
+        return variableOperation.getMessage(variable);
     }
     
 }

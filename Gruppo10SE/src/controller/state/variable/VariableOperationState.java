@@ -16,5 +16,5 @@ import gruppo10se.Variables;
 public interface VariableOperationState {
     public int doVariableOperation(StackDataStructure<CartesianComplex> complexStack,
             Variables variableMap, char variable);
-    public String getMessage();
+    public String getMessage(char variable);
 }

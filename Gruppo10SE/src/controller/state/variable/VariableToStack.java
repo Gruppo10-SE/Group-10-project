@@ -23,8 +23,8 @@ public class VariableToStack implements VariableOperationState{
     }
 
     @Override
-    public String getMessage() {
-        return "The memory has been changed";
+    public String getMessage(char variable) {
+        return "Value of '" + variable + "' inserted in memory";
     }
     
 }
