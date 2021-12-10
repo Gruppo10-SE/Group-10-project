@@ -61,4 +61,11 @@ public class CalculatorController {
            return 1;
     }
     
+    public String getVariable(Variables variables, char variable){
+        CartesianComplex valore;
+        
+        valore = variables.getValue(variable);
+        
+        return variable + "  =  " + valore;
+    }
 }
