@@ -44,7 +44,7 @@ public class SquareRootTest {
     @Test
     public void testDoBasicOperation() {
         System.out.println("doBasicOperation");
-        StackDataStructure<CartesianComplex> complexStack = new StackDataStructure<CartesianComplex>();
+        StackDataStructure<CartesianComplex> complexStack = new StackDataStructure<>();
         SquareRoot instance = new SquareRoot();
         int expResult = 1;
         int result = instance.doBasicOperation(complexStack);

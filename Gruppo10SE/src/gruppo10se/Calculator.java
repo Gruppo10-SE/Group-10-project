@@ -11,12 +11,15 @@ import java.awt.event.KeyEvent;
 import javax.swing.*;
 import com.formdev.flatlaf.*;
 import java.awt.GridLayout;
+import java.util.Map;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
  * @author giaco
  */
 public class Calculator extends javax.swing.JFrame {
+    DefaultTableModel model;
 
     /**
      * Creates new form Calculator
@@ -65,6 +68,11 @@ public class Calculator extends javax.swing.JFrame {
         for (String operazioneVar : operazioniVariabili) {
             variablesComboBox.addItem(operazioneVar);
         }
+        
+        model = new DefaultTableModel();
+        operationTable.setModel(model);
+        model.addColumn("Operation");
+        model.addColumn("Function");
 
     }
 
@@ -76,6 +84,7 @@ public class Calculator extends javax.swing.JFrame {
     CalculatorController controller = new CalculatorController();
     StackDataStructure stack = new StackDataStructure();
     Variables variabili = new Variables();
+    UserDefinedOperations op= new UserDefinedOperations();
     int next_down_press = 0;
     char variable_char;
 
@@ -375,9 +384,8 @@ public class Calculator extends javax.swing.JFrame {
 
     }//GEN-LAST:event_outputTextFieldActionPerformed
 
-    private void checkBasicComboBox(String toCompare) {
-        if (((String) basicOperationComboBox.getSelectedItem()).equals(toCompare)) {
-            basicContext.changeState(toCompare);
+    private void checkBasicOperation(String operation) {
+            basicContext.changeState(operation);
             inputTextField.requestFocusInWindow();
             if (basicContext.doBasicOperation(stack) == 0) {
                 outputTextField.setText(basicContext.getMessage());
@@ -385,10 +393,9 @@ public class Calculator extends javax.swing.JFrame {
                 inputTextField.setText("");
             } else if (basicContext.doBasicOperation(stack) == 1) {
                 outputTextField.setText("Insufficient number of operands!");
-            } else {
-                outputTextField.setText("Math ERROR: you are dividing by 0");
             }
-        }
+            else
+                outputTextField.setText("Math ERROR: you are dividing by 0");
     }
 
     private void checkMemoryComboBox(String toCompare) {
@@ -408,10 +415,9 @@ public class Calculator extends javax.swing.JFrame {
     }
 
     private void basicOperationComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_basicOperationComboBoxActionPerformed
-        String[] operations = {"+", "-", "*", "/", "sqrt", "+-"};
-        for (String operation : operations) {
-            checkBasicComboBox(operation);
-        }
+        String operation = (String)basicOperationComboBox.getSelectedItem();
+        if (!"Basic operation".equals(operation))
+            checkBasicOperation(operation);
     }//GEN-LAST:event_basicOperationComboBoxActionPerformed
 
     private void inputButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputButtonActionPerformed
@@ -636,8 +642,27 @@ public class Calculator extends javax.swing.JFrame {
         p.add(opName);
         p.add(new JLabel("Funzione: "));
         p.add(opFunc);
+        
+        int choice = JOptionPane.showConfirmDialog(null, p, "NUOVA OPERAZIONE",
+                JOptionPane.OK_CANCEL_OPTION);
+        
+        if (choice == JOptionPane.OK_OPTION) {
+            String name= opName.getText();
+            String func= opFunc.getText();
+            
+            if (name.length() != 0 && func.length() != 0) {
+                controller.updateTable(op, name, func);
 
-        JOptionPane.showConfirmDialog(null, p, "NUOVA OPERAZIONE", JOptionPane.OK_CANCEL_OPTION);
+                model.getDataVector().removeAllElements();
+
+                for (String function: op.keySet()) {
+                        model.addRow(new Object[] {
+                            function,
+                            op.getValue(function)
+                        });
+                }
+            }
+        }
     }//GEN-LAST:event_operationDefineButtonActionPerformed
 
     private void variablesTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_variablesTextFieldActionPerformed
@@ -646,6 +671,13 @@ public class Calculator extends javax.swing.JFrame {
 
     private void calculateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_calculateButtonActionPerformed
         // TODO add your handling code here:
+        int row = operationTable.getSelectedRow();
+        int column = 1;
+        String operation = (String)operationTable.getValueAt(row, column);
+        
+        String[] split = operation.split("\\s+");
+        for(String s: split)
+            checkBasicOperation(s);
     }//GEN-LAST:event_calculateButtonActionPerformed
 
     private void calculateButtonKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_calculateButtonKeyPressed

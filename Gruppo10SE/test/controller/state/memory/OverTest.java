@@ -56,7 +56,7 @@ public class OverTest {
         stack.push(number);
         int expResult1 = 0;
         int result1 = instance.doMemoryOperation(stack);
-        assertEquals(expResult, result);
+        assertEquals(expResult1, result1);
     }
 
     /**

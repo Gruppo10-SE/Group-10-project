@@ -68,4 +68,9 @@ public class CalculatorController {
         
         return variable + "  =  " + valore;
     }
+    
+    public void updateTable(UserDefinedOperations udo, String key, String value) {
+        udo.putValue(key, value);
+    }
+     
 }

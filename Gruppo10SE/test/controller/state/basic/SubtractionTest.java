@@ -45,7 +45,7 @@ public class SubtractionTest {
     public void testDoBasicOperation() {
         System.out.println("doBasicOperation - e");
         CartesianComplex number = new CartesianComplex (3,6);
-        StackDataStructure<CartesianComplex> complexStack = new StackDataStructure<CartesianComplex>();
+        StackDataStructure<CartesianComplex> complexStack = new StackDataStructure<>();
         Subtraction instance = new Subtraction();
         int expResult = 1;
         int result = instance.doBasicOperation(complexStack);

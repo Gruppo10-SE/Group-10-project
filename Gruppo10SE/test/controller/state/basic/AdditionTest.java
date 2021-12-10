@@ -45,7 +45,7 @@ public class AdditionTest {
     @Test
     public void testDoBasicOperation() {
         System.out.println("doBasicOperation");
-        StackDataStructure<CartesianComplex> complexStack = new StackDataStructure<CartesianComplex>();
+        StackDataStructure<CartesianComplex> complexStack = new StackDataStructure<>();
         Addition instance = new Addition();
         int expResult = 1;
         int result = instance.doBasicOperation(complexStack);

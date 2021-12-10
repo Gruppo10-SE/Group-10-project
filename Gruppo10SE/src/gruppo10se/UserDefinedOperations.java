@@ -82,9 +82,7 @@ public class UserDefinedOperations {
     }
     
     public Set<String> keySet() {
-        
         return operations.keySet();
-
 }
     
     @Override
