@@ -102,6 +102,8 @@ public class Calculator extends javax.swing.JFrame {
         stackTextArea = new javax.swing.JTextArea();
         jScrollPane3 = new javax.swing.JScrollPane();
         variablesList = new javax.swing.JList<>();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        jTextArea1 = new javax.swing.JTextArea();
         memoryComboBox = new javax.swing.JComboBox<>();
         inputTextField = new javax.swing.JTextField();
         variablesComboBox = new javax.swing.JComboBox<>();
@@ -151,6 +153,7 @@ public class Calculator extends javax.swing.JFrame {
             }
         });
 
+        tabTabbedPane.setForeground(new java.awt.Color(255, 153, 0));
         tabTabbedPane.setFont(new java.awt.Font("Consolas", 0, 12)); // NOI18N
 
         stackTextArea.setBackground(javax.swing.UIManager.getDefaults().getColor("Button.light"));
@@ -169,6 +172,13 @@ public class Calculator extends javax.swing.JFrame {
         jScrollPane3.setViewportView(variablesList);
 
         tabTabbedPane.addTab("Variables", jScrollPane3);
+
+        jTextArea1.setColumns(20);
+        jTextArea1.setRows(5);
+        jTextArea1.setText("SHORTCUT\nDOWN  - next variable\nUP    - previous variable\nALT   - first variable\nCTRL  - last variable");
+        jScrollPane5.setViewportView(jTextArea1);
+
+        tabTabbedPane.addTab("?", jScrollPane5);
 
         memoryComboBox.setFont(new java.awt.Font("Consolas", 0, 11)); // NOI18N
         memoryComboBox.addActionListener(new java.awt.event.ActionListener() {
@@ -654,6 +664,8 @@ public class Calculator extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
+    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JComboBox<String> memoryComboBox;
     private javax.swing.JButton operationDefineButton;
     private javax.swing.JTable operationTable;
