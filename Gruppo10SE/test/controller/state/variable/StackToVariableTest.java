@@ -44,16 +44,19 @@ public class StackToVariableTest {
      */
     @Test
     public void testDoVariableOperation() {
-        System.out.println("doVariableOperation");
-        StackDataStructure<CartesianComplex> complexStack = null;
-        Variables variableMap = null;
-        char variable = ' ';
+        System.out.println("doVariableOperation - e");
+        StackDataStructure<CartesianComplex> complexStack = new StackDataStructure<>();
+        Variables variableMap = new Variables();
+        char variable = 'a';
         StackToVariable instance = new StackToVariable();
-        int expResult = 0;
+        int expResult = 1;
         int result = instance.doVariableOperation(complexStack, variableMap, variable);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        System.out.println("doVariableOperation - ne");
+        complexStack.push(new CartesianComplex(3,5));
+        int expResult1 = 0;
+        int result1 = instance.doVariableOperation(complexStack, variableMap, variable);
+        assertEquals(expResult1, result1);
     }
 
     /**
@@ -64,11 +67,9 @@ public class StackToVariableTest {
         System.out.println("getMessage");
         char variable = ' ';
         StackToVariable instance = new StackToVariable();
-        String expResult = "";
+        String expResult = "The variable ' ' has been changed";
         String result = instance.getMessage(variable);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
     
 }

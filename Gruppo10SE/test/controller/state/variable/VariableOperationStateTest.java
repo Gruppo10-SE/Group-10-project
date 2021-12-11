@@ -16,11 +16,11 @@ import static org.junit.Assert.*;
 
 /**
  *
- * @author mazzy
+ * @author gerar
  */
-public class VariableToStackTest {
+public class VariableOperationStateTest {
     
-    public VariableToStackTest() {
+    public VariableOperationStateTest() {
     }
     
     @BeforeClass
@@ -40,31 +40,46 @@ public class VariableToStackTest {
     }
 
     /**
-     * Test of doVariableOperation method, of class VariableToStack.
+     * Test of doVariableOperation method, of class VariableOperationState.
      */
     @Test
     public void testDoVariableOperation() {
         System.out.println("doVariableOperation");
-        StackDataStructure<CartesianComplex> complexStack = new StackDataStructure<>();
-        Variables variableMap = new Variables();
-        char variable = 'a';
-        VariableToStack instance = new VariableToStack();
+        StackDataStructure<CartesianComplex> complexStack = null;
+        Variables variableMap = null;
+        char variable = ' ';
+        VariableOperationState instance = new VariableOperationStateImpl();
         int expResult = 0;
         int result = instance.doVariableOperation(complexStack, variableMap, variable);
         assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
     }
 
     /**
-     * Test of getMessage method, of class VariableToStack.
+     * Test of getMessage method, of class VariableOperationState.
      */
     @Test
     public void testGetMessage() {
         System.out.println("getMessage");
-        char variable = 'a';
-        VariableToStack instance = new VariableToStack();
-        String expResult = "Value of '" + variable + "' inserted in memory";
+        char variable = ' ';
+        VariableOperationState instance = new VariableOperationStateImpl();
+        String expResult = "";
         String result = instance.getMessage(variable);
         assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    public class VariableOperationStateImpl implements VariableOperationState {
+
+        public int doVariableOperation(StackDataStructure<CartesianComplex> complexStack, Variables variableMap, char variable) {
+            return 0;
+        }
+
+        public String getMessage(char variable) {
+            return "";
+        }
     }
     
 }
