@@ -151,7 +151,6 @@ public class VariablesTest {
                 + "z  =  0.0\n";
         String result = instance.toString();
         assertEquals(expResult, result);
-        System.out.println(result);
     }
 
 }
