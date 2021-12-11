@@ -36,8 +36,6 @@ public class CartesianComplex {
             this.im = Double.parseDouble((firstPositive ? "+" : "-") + split[0].substring(0,split[0].length() - 1));
         else {
             this.re = Double.parseDouble((firstPositive ? "+" : "-") + split[0]);
-            if (this.re == -0.0)
-                this.re = -this.re;
         }
         if (split.length > 1 && !split[0].equals(split[1])) {     // Parse second part of expr if it exists
             if (split[1].contains("j"))

@@ -12,8 +12,9 @@ import java.awt.event.KeyEvent;
 import javax.swing.*;
 import com.formdev.flatlaf.*;
 import java.awt.GridLayout;
-import java.util.Map;
+import java.util.Arrays;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.ListSelectionModel;
 
 /**
  *
@@ -22,7 +23,10 @@ import javax.swing.table.DefaultTableModel;
 public class Calculator extends javax.swing.JFrame {
 
     DefaultTableModel model;
-
+    String[] operazioni;
+    String[] operazioniStack;
+    String[] operazioniVariabili;
+    
     /**
      * Creates new form Calculator
      */
@@ -53,9 +57,9 @@ public class Calculator extends javax.swing.JFrame {
         inputButton.setText("Insert");
 
         // Combo box
-        String[] operazioni = {"Basic operation", "+", "-", "*", "/", "sqrt", "+-"};
-        String[] operazioniStack = {"Memory operation", "clear", "drop", "dup", "swap", "over"};
-        String[] operazioniVariabili = {"Variables operation", ">x", "<x", "+x", "-x"};
+        operazioni = new String[]{"Basic operation", "+", "-", "*", "/", "sqrt", "+-"};
+        operazioniStack = new String[]{"Memory operation", "clear", "drop", "dup", "swap", "over"};
+        operazioniVariabili = new String[]{"Variables operation", ">x", "<x", "+x", "-x"};
 
         basicOperationComboBox.setEditable(false);
         memoryComboBox.setEditable(false);
@@ -75,6 +79,9 @@ public class Calculator extends javax.swing.JFrame {
         operationTable.setModel(model);
         model.addColumn("Operation");
         model.addColumn("Function");
+        operationTable.setDefaultEditor(Object.class, null);
+        operationTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        operationTable.getTableHeader().setReorderingAllowed(false);
 
     }
 
@@ -406,37 +413,35 @@ public class Calculator extends javax.swing.JFrame {
         }
     }
 
-    private void checkMemoryComboBox(String toCompare) {
-        if (((String) memoryComboBox.getSelectedItem()).equals(toCompare)) {
-            memoryContext.changeState(toCompare);
-            inputTextField.requestFocusInWindow();
-            if (memoryContext.doMemoryOperation(stack) == 0) {
-                outputTextField.setText(memoryContext.getMessage());
-                stackTextArea.setText(stack.toString());
-                inputTextField.setText("");
-            } else if (memoryContext.doMemoryOperation(stack) == 1) {
-                outputTextField.setText("The memory is empty!");
-            } else {
-                outputTextField.setText("Insufficient numbers in memory!");
-            }
+    private void checkMemoryOperation(String memoryOperation) {
+        memoryContext.changeState(memoryOperation);
+        inputTextField.requestFocusInWindow();
+        if (memoryContext.doMemoryOperation(stack) == 0) {
+            outputTextField.setText(memoryContext.getMessage());
+            stackTextArea.setText(stack.toString());
+            inputTextField.setText("");
+        } else if (memoryContext.doMemoryOperation(stack) == 1) {
+            outputTextField.setText("The memory is empty!");
+        } else {
+            outputTextField.setText("Insufficient numbers in memory!");
         }
     }
 
-    private void checkVariableOperation(String variableOperation) {
+    private void checkVariableOperation(String variableOperation, char variable) {
         variableContext.changeState(variableOperation);
-        variable_char = variablesList.getSelectedValue().charAt(0);
-        if (variableContext.doVariableOperation(stack, variabili, variable_char) == 0) {
+        
+        if (variableContext.doVariableOperation(stack, variabili, variable) == 0) {
 
-            outputTextField.setText(variableContext.getMessage(variable_char));
+            outputTextField.setText(variableContext.getMessage(variable));
 
             stackTextArea.setText(stack.toString());
             inputTextField.setText("");
 
-            if (variableOperation != "<x") {
+            if (!"<x".equals(variableOperation)) {
                 controller.showVariables(variabili, variablesList);
 
-                variablesTextField.setText(controller.getVariable(variabili, variable_char));
-                variablesList.setSelectedValue(controller.getVariable(variabili, variable_char), false);
+                variablesTextField.setText(controller.getVariable(variabili, variable));
+                variablesList.setSelectedValue(controller.getVariable(variabili, variable), false);
             }
             else {
                 variablesTextField.setText(variablesList.getSelectedValue());
@@ -495,9 +500,9 @@ public class Calculator extends javax.swing.JFrame {
     }//GEN-LAST:event_inputButtonKeyPressed
 
     private void memoryComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_memoryComboBoxActionPerformed
-        String[] memOperations = {"clear", "drop", "dup", "swap", "over"};
-        for (String operation : memOperations) {
-            checkMemoryComboBox(operation);
+        String operation = (String) memoryComboBox.getSelectedItem();
+        if (!"Memory operation".equals(operation)) {
+            checkMemoryOperation(operation);
         }
     }//GEN-LAST:event_memoryComboBoxActionPerformed
 
@@ -578,7 +583,8 @@ public class Calculator extends javax.swing.JFrame {
         
         String operation = (String) variablesComboBox.getSelectedItem();
         if (!"Variables operation".equals(operation) && variablesList.getSelectedIndex() != -1) {
-            checkVariableOperation(operation);
+            char variable_char = variablesList.getSelectedValue().charAt(0);
+            checkVariableOperation(operation, variable_char);
         }
         
     }//GEN-LAST:event_variablesComboBoxActionPerformed
@@ -628,7 +634,17 @@ public class Calculator extends javax.swing.JFrame {
 
             String[] split = operation.split("\\s+");
             for (String s : split) {
-                checkBasicOperation(s);
+                if (Arrays.asList(operazioni).contains(s))
+                    checkBasicOperation(s);
+                else if (Arrays.asList(operazioniStack).contains(s))
+                    checkMemoryOperation(s);
+                else {
+                    char variable = s.charAt(1);
+                    StringBuilder string = new StringBuilder(s);
+                    string.setCharAt(1, 'x');
+                    outputTextField.setText(string.toString());
+                    checkVariableOperation(string.toString(), variable);
+                }
             }
         }
     }//GEN-LAST:event_calculateButtonActionPerformed

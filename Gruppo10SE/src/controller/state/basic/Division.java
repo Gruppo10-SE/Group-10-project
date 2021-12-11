@@ -13,17 +13,28 @@ import gruppo10se.StackDataStructure;
  * @author user
  */
 public class Division implements BasicOperationState{
-
+    
     @Override
     public int doBasicOperation(StackDataStructure<CartesianComplex> complexStack) {
         if (complexStack.size() >= 2) {
-            CartesianComplex firstOperand, secondOperand;
-            firstOperand = complexStack.pop();
-            secondOperand = complexStack.pop();
-            complexStack.push(secondOperand.divides(firstOperand));
-            return 0;
-        } else
+
+            CartesianComplex a, b;
+            a = complexStack.pop();
+            b = complexStack.pop();
+
+            if (a.getRealPart() == 0 && a.getImagPart() == 0) {
+                complexStack.push(b);
+                complexStack.push(a);
+                return -1;
+            } 
+            else {
+                complexStack.push(b.divides(a));
+                return 0;
+            }
+            
+        } else {
             return 1;
+        }
     }
 
     @Override
