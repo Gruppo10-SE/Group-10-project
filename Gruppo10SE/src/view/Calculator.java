@@ -30,7 +30,7 @@ public class Calculator extends javax.swing.JFrame {
     String[] operazioni;
     String[] operazioniStack;
     String[] operazioniVariabili;
-    
+
     /**
      * Creates new form Calculator
      */
@@ -95,9 +95,11 @@ public class Calculator extends javax.swing.JFrame {
 
     // Pattern for the input Text Field
     Pattern patternNumeroComplesso = Pattern.compile("[+]?[-]?[0-9]*[.]?[0-9]*[+]?[-]?[0-9]*[.]?[0-9]*[j]?");
+    Pattern patternBasicOperation = Pattern.compile("[+]?[-]?[*]?[/]?");
+    Pattern patternVariable = Pattern.compile("[<>+-]{1}[a-z]");
 
     CalculatorUtility controller = new CalculatorUtility();
-    
+
     StackDataStructure stack = new StackDataStructure();
     Variables variabili = new Variables();
     UserDefinedOperations op = new UserDefinedOperations();
@@ -431,7 +433,7 @@ public class Calculator extends javax.swing.JFrame {
 
     private void checkVariableOperation(String variableOperation, char variable) {
         variableContext.changeState(variableOperation);
-        
+
         if (variableContext.doVariableOperation(stack, variabili, variable) == 0) {
 
             outputTextField.setText(variableContext.getMessage(variable));
@@ -444,8 +446,7 @@ public class Calculator extends javax.swing.JFrame {
 
                 variablesTextField.setText(controller.getVariable(variabili, variable));
                 variablesList.setSelectedValue(controller.getVariable(variabili, variable), false);
-            }
-            else {
+            } else {
                 variablesTextField.setText(variablesList.getSelectedValue());
                 variablesList.setSelectedValue(variablesList.getSelectedValue(), false);
             }
@@ -457,16 +458,7 @@ public class Calculator extends javax.swing.JFrame {
         }
     }
 
-    private void basicOperationComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_basicOperationComboBoxActionPerformed
-        String operation = (String) basicOperationComboBox.getSelectedItem();
-        if (!"Basic operation".equals(operation)) {
-            checkBasicOperation(operation);
-        }
-    }//GEN-LAST:event_basicOperationComboBoxActionPerformed
-
-    private void inputButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputButtonActionPerformed
-        // TODO add your handling code here:
-
+    private void readFromInputTextField() {
         if (inputTextField.getText().compareTo("") == 0) {
 
             outputTextField.setText("Insert a number like this 5+10j");
@@ -475,8 +467,6 @@ public class Calculator extends javax.swing.JFrame {
 
             Matcher m = patternNumeroComplesso.matcher(inputTextField.getText());
             if (m.matches()) {
-
-                outputTextField.setText("");
 
                 controller.insertNumber(stack, inputTextField.getText());
                 outputTextField.setText("Insert a number like this 5+10j");
@@ -492,6 +482,18 @@ public class Calculator extends javax.swing.JFrame {
             }
 
         }
+    }
+
+    private void basicOperationComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_basicOperationComboBoxActionPerformed
+        String operation = (String) basicOperationComboBox.getSelectedItem();
+        if (!"Basic operation".equals(operation)) {
+            checkBasicOperation(operation);
+        }
+    }//GEN-LAST:event_basicOperationComboBoxActionPerformed
+
+    private void inputButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputButtonActionPerformed
+        // TODO add your handling code here:
+        readFromInputTextField();
 
 
     }//GEN-LAST:event_inputButtonActionPerformed
@@ -514,29 +516,7 @@ public class Calculator extends javax.swing.JFrame {
 
     private void inputTextFieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_inputTextFieldKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-            if (inputTextField.getText().compareTo("") == 0) {
-
-                outputTextField.setText("Insert a number like this 5+10j");
-                inputTextField.requestFocusInWindow();
-            } else {
-
-                Matcher m = patternNumeroComplesso.matcher(inputTextField.getText());
-                if (m.matches()) {
-
-                    controller.insertNumber(stack, inputTextField.getText());
-                    outputTextField.setText("Insert a number like this 5+10j");
-
-                    inputTextField.setText("");
-                    if (!controller.checkIfEmpty(stack)) {
-                        stackTextArea.setText(stack.toString());
-                    }
-                    inputTextField.requestFocusInWindow();
-                } else {
-                    outputTextField.setText("Insert a number like this 5+10j");
-                    inputTextField.setText("");
-                }
-
-            }
+            readFromInputTextField();
         }
 
         if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
@@ -582,13 +562,13 @@ public class Calculator extends javax.swing.JFrame {
     }//GEN-LAST:event_variablesListValueChanged
 
     private void variablesComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_variablesComboBoxActionPerformed
-        
+
         String operation = (String) variablesComboBox.getSelectedItem();
         if (!"Variables operation".equals(operation) && variablesList.getSelectedIndex() != -1) {
             char variable_char = variablesList.getSelectedValue().charAt(0);
             checkVariableOperation(operation, variable_char);
         }
-        
+
     }//GEN-LAST:event_variablesComboBoxActionPerformed
 
     private void operationDefineButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_operationDefineButtonActionPerformed
@@ -596,30 +576,66 @@ public class Calculator extends javax.swing.JFrame {
         JTextField opName = new JTextField(25);
         JTextField opFunc = new JTextField(25);
 
-        p.add(new JLabel("Nome operazione: "));
+        p.add(new JLabel("Name: "));
         p.add(opName);
-        p.add(new JLabel("Funzione: "));
+        p.add(new JLabel("Operation: "));
         p.add(opFunc);
 
-        int choice = JOptionPane.showConfirmDialog(null, p, "NUOVA OPERAZIONE",
+        int choice = JOptionPane.showConfirmDialog(null, p, "New Operation",
                 JOptionPane.OK_CANCEL_OPTION);
 
         if (choice == JOptionPane.OK_OPTION) {
             String name = opName.getText();
             String func = opFunc.getText();
 
-            if (name.length() != 0 && func.length() != 0) {
-                controller.updateTable(op, name, func);
+            String[] split = func.split("\\s+");
+            int lenSplit = split.length;
+            int matching = 0;
 
-                model.getDataVector().removeAllElements();
+            for (String s : split) {
 
-                for (String function : op.keySet()) {
-                    model.addRow(new Object[]{
-                        function,
-                        op.getValue(function)
-                    });
+                Matcher matchBasic = patternBasicOperation.matcher(s);
+                Matcher matchVariable = patternVariable.matcher(s);
+                Matcher matchNumber = patternNumeroComplesso.matcher(s);
+
+                if (matchBasic.matches()) {
+                    matching++;
+                } else if (matchVariable.matches()) {
+                    matching++;
+                } else if (s.compareTo("clear") == 0) {
+                    matching++;
+                } else if (s.compareTo("drop") == 0) {
+                    matching++;
+                } else if (s.compareTo("dup") == 0) {
+                    matching++;
+                } else if (s.compareTo("swap") == 0) {
+                    matching++;
+                } else if (s.compareTo("over") == 0) {
+                    matching++;
+                } else if (matchNumber.matches()) {
+                    matching++;
                 }
             }
+
+            if (matching == lenSplit) {
+
+                if (name.length() != 0 && func.length() != 0) {
+                    controller.updateTable(op, name, func);
+
+                    model.getDataVector().removeAllElements();
+
+                    for (String function : op.keySet()) {
+                        model.addRow(new Object[]{
+                            function,
+                            op.getValue(function)
+                        });
+                    }
+                }
+            } else {
+                JOptionPane.showMessageDialog(p, "INVALID OPERATION", "ERROR", JOptionPane.WARNING_MESSAGE);
+
+            }
+
         }
     }//GEN-LAST:event_operationDefineButtonActionPerformed
 
@@ -629,24 +645,40 @@ public class Calculator extends javax.swing.JFrame {
 
     private void calculateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_calculateButtonActionPerformed
         // TODO add your handling code here:
-        if(!operationTable.getSelectionModel().isSelectionEmpty()) {
+        if (!operationTable.getSelectionModel().isSelectionEmpty()) {
             int row = operationTable.getSelectedRow();
             int column = 1;
             String operation = (String) operationTable.getValueAt(row, column);
 
             String[] split = operation.split("\\s+");
             for (String s : split) {
-                if (Arrays.asList(operazioni).contains(s))
+
+                Matcher matchBasic = patternBasicOperation.matcher(s);
+                Matcher matchVariable = patternVariable.matcher(s);
+                Matcher matchNumber = patternNumeroComplesso.matcher(s);
+
+                if (matchBasic.matches()) {
                     checkBasicOperation(s);
-                else if (Arrays.asList(operazioniStack).contains(s))
-                    checkMemoryOperation(s);
-                else {
+                } else if (matchVariable.matches()) {
                     char variable = s.charAt(1);
                     StringBuilder string = new StringBuilder(s);
                     string.setCharAt(1, 'x');
                     outputTextField.setText(string.toString());
                     checkVariableOperation(string.toString(), variable);
+                } else if (s.compareTo("clear") == 0) {
+                    checkMemoryOperation(s);
+                } else if (s.compareTo("drop") == 0) {
+                    checkMemoryOperation(s);
+                } else if (s.compareTo("dup") == 0) {
+                    checkMemoryOperation(s);
+                } else if (s.compareTo("swap") == 0) {
+                    checkMemoryOperation(s);
+                } else if (s.compareTo("over") == 0) {
+                    checkMemoryOperation(s);
+                } else if (matchNumber.matches()) {
+                    controller.insertNumber(stack, s);
                 }
+
             }
         }
     }//GEN-LAST:event_calculateButtonActionPerformed
