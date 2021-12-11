@@ -4,6 +4,8 @@
  */
 package gruppo10se;
 
+import model.CartesianComplex;
+import model.Variables;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;

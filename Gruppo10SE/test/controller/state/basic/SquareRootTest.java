@@ -4,8 +4,8 @@
  */
 package controller.state.basic;
 
-import gruppo10se.CartesianComplex;
-import gruppo10se.StackDataStructure;
+import model.CartesianComplex;
+import model.StackDataStructure;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;

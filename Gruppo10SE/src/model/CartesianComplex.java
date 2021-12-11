@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package gruppo10se;
+package model;
 import static java.lang.Double.NaN;
 import java.lang.Math.*;
 import java.lang.Exception;

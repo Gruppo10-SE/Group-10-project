@@ -5,7 +5,7 @@
  */
 package controller.state.memory;
 
-import gruppo10se.StackDataStructure;
+import model.StackDataStructure;
 
 /**
  *

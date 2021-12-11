@@ -5,9 +5,9 @@
  */
 package controller.state.variable;
 
-import gruppo10se.CartesianComplex;
-import gruppo10se.StackDataStructure;
-import gruppo10se.Variables;
+import model.CartesianComplex;
+import model.StackDataStructure;
+import model.Variables;
 
 /**
  *

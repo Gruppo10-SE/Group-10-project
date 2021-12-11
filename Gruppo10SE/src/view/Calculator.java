@@ -2,11 +2,15 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package gruppo10se;
+package view;
 
+import model.UserDefinedOperations;
+import model.Variables;
+import model.StackDataStructure;
 import controller.state.basic.BasicOperationContext;
 import controller.state.memory.MemoryOperationContext;
 import controller.state.variable.VariableOperationContext;
+import controller.CalculatorUtility;
 import java.util.regex.*;
 import java.awt.event.KeyEvent;
 import javax.swing.*;
@@ -92,7 +96,8 @@ public class Calculator extends javax.swing.JFrame {
     // Pattern for the input Text Field
     Pattern patternNumeroComplesso = Pattern.compile("[+]?[-]?[0-9]*[.]?[0-9]*[+]?[-]?[0-9]*[.]?[0-9]*[j]?");
 
-    CalculatorController controller = new CalculatorController();
+    CalculatorUtility controller = new CalculatorUtility();
+    
     StackDataStructure stack = new StackDataStructure();
     Variables variabili = new Variables();
     UserDefinedOperations op = new UserDefinedOperations();
@@ -397,9 +402,6 @@ public class Calculator extends javax.swing.JFrame {
     }//GEN-LAST:event_outputTextFieldActionPerformed
 
     private void checkBasicOperation(String operation) {
-        
-        // CHECK DIVISION WITH ZERO : TODO
-        
         basicContext.changeState(operation);
         inputTextField.requestFocusInWindow();
         if (basicContext.doBasicOperation(stack) == 0) {

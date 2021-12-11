@@ -5,8 +5,8 @@
  */
 package controller.state.basic;
 
-import gruppo10se.CartesianComplex;
-import gruppo10se.StackDataStructure;
+import model.CartesianComplex;
+import model.StackDataStructure;
 
 /**
  *
