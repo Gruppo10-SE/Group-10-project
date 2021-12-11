@@ -55,6 +55,12 @@ public class DivisionTest {
         int expResult1 = 0;
         int result1 = instance.doBasicOperation(complexStack);
         assertEquals(expResult1, result1);
+        System.out.println("doBasicOperation - ne - div0");
+        complexStack.push(new CartesianComplex(0,0));
+        complexStack.push(new CartesianComplex(0,0));
+        int expResult2 = -1;
+        int result2 = instance.doBasicOperation(complexStack);
+        assertEquals(expResult2, result2);
     }
 
     /**
