@@ -8,11 +8,17 @@ package controller.state.memory;
 import model.StackDataStructure;
 
 /**
- *
+ * Creation of the Dup class that implements the MemoryOperationState interface.
  * @author user
  */
 public class Dup implements MemoryOperationState{
 
+    /**
+     * This method overrides the doMemoryOperation() method of MemoryOperationState interface
+     * Invokes dup method from stack data structure class
+     * @param stack on which to do dup operation
+     * @return 0 if stack is not empty and dup is successful, 1 otherwise
+     */
     @Override
     public int doMemoryOperation(StackDataStructure stack) {
         if(stack.isEmpty())
@@ -23,6 +29,10 @@ public class Dup implements MemoryOperationState{
         }
     }
 
+    /**
+     * This method overrides the getMessage() method of MemoryOperationState interface
+     * @return a string representing the message to display
+     */
     @Override
     public String getMessage() {
         return "Inserted a copy of the last number";

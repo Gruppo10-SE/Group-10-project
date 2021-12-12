@@ -22,10 +22,10 @@ public class CartesianComplex {
 
     /**
      * Constructor of the CartesianComplex class for the definition of complex
-     * numbers in Cartesian form Constructs a CartesianComplex instance from the
+     * numbers in Cartesian form - Constructs a CartesianComplex instance from the
      * specified String.
      *
-     * @param number rapresents a string such as x+yj to which the CartesianComplex has to be associeted
+     * @param number represents a string such as x+yj to which the CartesianComplex has to be associated
      */
     public CartesianComplex(String number) {
 
@@ -66,7 +66,7 @@ public class CartesianComplex {
 
     /**
      * Constructor of the CartesianComplex class for the definition of complex
-     * numbers in Cartesian form Constructs a CartesianComplex instance from the
+     * numbers in Cartesian form - Constructs a CartesianComplex instance from the
      * specified double r representing the real part of the number and a double
      * i representing the imaginary part .
      *

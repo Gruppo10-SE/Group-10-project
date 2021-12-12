@@ -8,7 +8,12 @@ package controller.state.memory;
 import model.StackDataStructure;
 
 /**
- *
+ * Creation of the MemoryOperationContext class that implements the
+ * MemoryOperationState interface. 
+ * 
+ * Defines the context class and maintains a reference to a ConcreteState.
+ * Implementation of the behavioural pattern State.
+ * 
  * @author user
  */
 public class MemoryOperationContext implements MemoryOperationState{
@@ -23,6 +28,10 @@ public class MemoryOperationContext implements MemoryOperationState{
         this.memoryOperation = mos;
     }
     
+    /**
+     * Changes the state of memory context
+     * @param s represents the string which decides the state of memoryOperation
+     */
     public void changeState(String s) {
         switch (s) {
             case "clear":
@@ -43,11 +52,20 @@ public class MemoryOperationContext implements MemoryOperationState{
         }
     }
     
+    /**
+     * This method overrides the doMemoryOperation() method of MemoryOperationState interface
+     * @param stack on which to do the memory operation
+     * @return the result of the operation
+     */
     @Override
     public int doMemoryOperation(StackDataStructure stack) {
         return memoryOperation.doMemoryOperation(stack);
     }
 
+    /**
+     * This method overrides the getMessage() method of MemoryOperationState interface
+     * @return a string representing the message to display
+     */
     @Override
     public String getMessage() {
         return memoryOperation.getMessage();
