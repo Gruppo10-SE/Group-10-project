@@ -10,36 +10,44 @@ import java.util.ArrayList;
 
 /**
  * Creation of the StackDataStructure class for the handling of memory operation
- * in a generic implementation of a List-type data structure 
- * @param <T> represents a generic type 
+ * in a generic implementation of a List-type data structure
+ *
+ * @param <T> represents a generic type
  */
 public class StackDataStructure<T> {
 
     private List<T> stack;
-    
+
+    /**
+     * Default constructor of the StackDataStructure class
+     */
     public StackDataStructure() {
         stack = new ArrayList<>();
     }
-    
+
     /**
      * Checks if the stack is empty
+     *
      * @return true if this stack is empty, false otherwise
      */
     public boolean isEmpty() {
         return stack.isEmpty();
     }
-    
+
     /**
      * Returns the number of elements inside the stack
+     *
      * @return the size of this stack
      */
     public int size() {
         return stack.size();
     }
-    
+
     /**
      * Returns the top element of the stack
-     * @return the element on the top of the stack or null if this stack is not empty
+     *
+     * @return the element on the top of the stack or null if this stack is not
+     * empty
      */
     public T top() {
         if (stack.isEmpty()) {
@@ -47,9 +55,10 @@ public class StackDataStructure<T> {
         }
         return stack.get(size() - 1);
     }
-    
+
     /**
      * Takes the element on the top of the stack and removes it
+     *
      * @return the removed element or null if this stack is empty
      */
     public T pop() {
@@ -60,10 +69,11 @@ public class StackDataStructure<T> {
         stack.remove(top);
         return top;
     }
-    
+
     /**
      * Pushes an element on the top of the stack
-     * @param element to be pushed 
+     *
+     * @param element to be pushed
      */
     public void push(T element) {
         stack.add(element);
@@ -71,6 +81,7 @@ public class StackDataStructure<T> {
 
     /**
      * Looks for the index of a given element into the stack
+     *
      * @param element to be searched
      * @return index of the element or null if this stack is empty
      */
@@ -80,7 +91,7 @@ public class StackDataStructure<T> {
         }
         return stack.indexOf(element);
     }
-    
+
     /**
      * Removes all the elements from the stack
      */
@@ -104,7 +115,7 @@ public class StackDataStructure<T> {
         push(last);
         push(secondLast);
     }
-    
+
     /**
      * Pushes a copy of the element below the top element of the stack
      */

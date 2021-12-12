@@ -12,8 +12,20 @@ import model.StackDataStructure;
  *
  * @author user
  */
+/**
+ * Creation of the Subtraction class that implements the BasicOperationState interface.
+ * Implements the behavior associated with a particular state.
+ * Implementation of th behavioural pattern State.
+ */
 public class Subtraction implements BasicOperationState{
 
+    /**
+     * This method overrides the doBasicOperation() method of BasicOperationState interface    
+     * 
+     * @param complexStack represents a generic implementation of a stack
+     * @return 0 if the value has been successfully calculated or
+ *             1 if this stack has less than two operands
+     */
     @Override
     public int doBasicOperation(StackDataStructure<CartesianComplex> complexStack) {
         if (complexStack.size() >= 2) {
@@ -26,6 +38,11 @@ public class Subtraction implements BasicOperationState{
             return 1;
     }
 
+/**  
+ * This method overrides the getMessage() method of BasicOperationState interface    
+ * 
+ * @return a string representing the message to display
+ */
     @Override
     public String getMessage() {
         return "Subtraction executed";

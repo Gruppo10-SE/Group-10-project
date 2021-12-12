@@ -13,6 +13,13 @@ import model.Variables;
  *
  * @author user
  */
+
+/**
+ * Creation of the VariableOperationContext class that implements the
+ * BasicOperationState interface. Defines the context class and maintains a
+ * reference to a ConcreteState. Implementation of the behavioural pattern State.
+ *
+ */
 public class VariableOperationContext implements VariableOperationState{
     private VariableOperationState variableOperation;
     
@@ -25,8 +32,11 @@ public class VariableOperationContext implements VariableOperationState{
         this.variableOperation = vos;
     }
     
-    
-    
+    /**
+     * Changes the current state of memory context.
+     *
+     * @param s represents the string used to set the change of state
+     */
     public void changeState(String s) {
         switch (s) {
             case ">x":
@@ -44,6 +54,15 @@ public class VariableOperationContext implements VariableOperationState{
         }
     }
 
+    /**
+     * This method overrides the doBasicOperation() method of
+     * BasicOperationState interface.
+     *
+     * @param complexStack represents a List-type data structure of CartesianComplex objects
+     * @param variableMap represents a Map-type data structure of Variable objects
+     * @param variable represents the variable used to perform the operation
+     * @return an integer specifing if the operation succeded or not.
+     */
     @Override
     public int doVariableOperation(StackDataStructure<CartesianComplex> complexStack,
             Variables variableMap, char variable) {
@@ -51,6 +70,13 @@ public class VariableOperationContext implements VariableOperationState{
                 variable);
     }
 
+   /**
+     * Displays a specified message for each state.
+     *
+     * @param variable represents the variable that needs to be displayed
+     * @return a string representing the message to display for each state after
+     * performing an operation.
+     */
     @Override
     public String getMessage(char variable) {
         return variableOperation.getMessage(variable);

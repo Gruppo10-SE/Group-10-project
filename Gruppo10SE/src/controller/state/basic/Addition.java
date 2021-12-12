@@ -14,7 +14,8 @@ import model.StackDataStructure;
  */
 /**
  * Creation of the Addition class that implements the BasicOperationState interface.
- * 
+ * Implements the behavior associated with a particular state.
+ * Implementation of th behavioural pattern State.
  */
 public class Addition implements BasicOperationState{
 
@@ -22,7 +23,8 @@ public class Addition implements BasicOperationState{
  * This method overrides the doBasicOperation() method of BasicOperationState interface    
  * 
  * @param complexStack represents a generic implementation of a stack 
- * @return 0 if  
+ * @return 0 if the value has been successfully calculated or
+ *         1 if this stack has less than two operands
  */
     @Override
     public int doBasicOperation(StackDataStructure<CartesianComplex> complexStack) {
@@ -37,9 +39,9 @@ public class Addition implements BasicOperationState{
     }
 
 /**  
- * This method overrides the doBasicOperation() method of BasicOperationState interface    
+ * This method overrides the getMessage() method of BasicOperationState interface    
  * 
- * @return 0 if  
+ * @return a string representing the message to display
  */
     @Override
     public String getMessage() {
