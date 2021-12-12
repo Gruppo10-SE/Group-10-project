@@ -9,9 +9,9 @@ import java.util.List;
 import java.util.ArrayList;
 
 /**
- * This class gives an implementation of the stack data structure
- * @author user
- * @param <T>
+ * Creation of the StackDataStructure class for the handling of memory operation
+ * in a generic implementation of a List-type data structure 
+ * @param <T> represents a generic type 
  */
 public class StackDataStructure<T> {
 
@@ -23,7 +23,7 @@ public class StackDataStructure<T> {
     
     /**
      * Checks if the stack is empty
-     * @return true if stack is empty, false otherwise
+     * @return true if this stack is empty, false otherwise
      */
     public boolean isEmpty() {
         return stack.isEmpty();
@@ -31,7 +31,7 @@ public class StackDataStructure<T> {
     
     /**
      * Returns the number of elements inside the stack
-     * @return the size of the stack
+     * @return the size of this stack
      */
     public int size() {
         return stack.size();
@@ -39,7 +39,7 @@ public class StackDataStructure<T> {
     
     /**
      * Returns the top element of the stack
-     * @return the element on the top of the stack, if stack is not empty
+     * @return the element on the top of the stack or null if this stack is not empty
      */
     public T top() {
         if (stack.isEmpty()) {
@@ -50,7 +50,7 @@ public class StackDataStructure<T> {
     
     /**
      * Takes the element on the top of the stack and removes it
-     * @return the removed element, if stack is not empty
+     * @return the removed element or null if this stack is empty
      */
     public T pop() {
         if (stack.isEmpty()) {
@@ -72,7 +72,7 @@ public class StackDataStructure<T> {
     /**
      * Looks for the index of a given element into the stack
      * @param element to be searched
-     * @return index of the element, if stack is not empty
+     * @return index of the element or null if this stack is empty
      */
     public Integer search(T element) {
         if (stack.isEmpty()) {
@@ -124,8 +124,8 @@ public class StackDataStructure<T> {
     }
 
     /**
-     * Represents the stack data structure
-     * @return the representation of the stack
+     * This method overrides the toString() method of Object class inherited
+     * from AbstractCollection Class.
      */
     @Override
     public String toString() {
