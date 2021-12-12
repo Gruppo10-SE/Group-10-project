@@ -25,16 +25,51 @@ import javax.swing.ListSelectionModel;
  */
 public class Calculator extends javax.swing.JFrame {
 
-    DefaultTableModel model;
-    String[] operazioni;
-    String[] operazioniStack;
-    String[] operazioniVariabili;
+    private DefaultTableModel model;
+    private String[] operazioni;
+    private String[] operazioniStack;
+    private String[] operazioniVariabili;
+
+    private BasicOperationContext basicContext;
+    private MemoryOperationContext memoryContext;
+    private VariableOperationContext variableContext;
+
+    // Pattern for the input Text Field
+    private Pattern patternNumeroComplesso;
+    private Pattern patternBasicOperation;
+    private Pattern patternVariable;
+
+    private CalculatorUtility controller;
+
+    private StackDataStructure stack;
+    private Variables variabili;
+    private UserDefinedOperations op;
+
+    private int next_down_press;
 
     /**
      * Creates new form Calculator
      */
     public Calculator() {
         initComponents();
+
+        basicContext = new BasicOperationContext();
+        memoryContext = new MemoryOperationContext();
+        variableContext = new VariableOperationContext();
+
+        // Pattern for the input Text Field
+        patternNumeroComplesso = Pattern.compile("[+]?[-]?[0-9]*[.]?[0-9]*[+]?[-]?[0-9]*[.]?[0-9]*[j]?");
+        patternBasicOperation = Pattern.compile("[+]?[-]?[*]?[/]?");
+        patternVariable = Pattern.compile("[<>+-]{1}[a-z]");
+
+        controller = new CalculatorUtility();
+
+        stack = new StackDataStructure();
+        variabili = new Variables();
+        op = new UserDefinedOperations();
+
+        next_down_press = 0;
+
         // JFrame 
         this.setResizable(false);
         this.setTitle("Calculator");
@@ -87,23 +122,6 @@ public class Calculator extends javax.swing.JFrame {
         operationTable.getTableHeader().setReorderingAllowed(false);
 
     }
-
-    BasicOperationContext basicContext = new BasicOperationContext();
-    MemoryOperationContext memoryContext = new MemoryOperationContext();
-    VariableOperationContext variableContext = new VariableOperationContext();
-
-    // Pattern for the input Text Field
-    Pattern patternNumeroComplesso = Pattern.compile("[+]?[-]?[0-9]*[.]?[0-9]*[+]?[-]?[0-9]*[.]?[0-9]*[j]?");
-    Pattern patternBasicOperation = Pattern.compile("[+]?[-]?[*]?[/]?");
-    Pattern patternVariable = Pattern.compile("[<>+-]{1}[a-z]");
-
-    CalculatorUtility controller = new CalculatorUtility();
-
-    StackDataStructure stack = new StackDataStructure();
-    Variables variabili = new Variables();
-    UserDefinedOperations op = new UserDefinedOperations();
-
-    int next_down_press = 0;
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -575,7 +593,7 @@ public class Calculator extends javax.swing.JFrame {
                     }
                 }
             } else {
-                
+
                 JOptionPane.showMessageDialog(p, "INVALID OPERATION", "ERROR", JOptionPane.WARNING_MESSAGE);
             }
         }
