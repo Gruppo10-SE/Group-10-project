@@ -153,9 +153,6 @@
           <Color blue="0" green="99" red="ff" type="rgb"/>
         </Property>
       </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="outputTextFieldActionPerformed"/>
-      </Events>
     </Component>
     <Component class="javax.swing.JComboBox" name="basicOperationComboBox">
       <Properties>
@@ -183,10 +180,6 @@
         </Property>
         <Property name="text" type="java.lang.String" value="Insert"/>
       </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="inputButtonActionPerformed"/>
-        <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="inputButtonKeyPressed"/>
-      </Events>
     </Component>
     <Container class="javax.swing.JTabbedPane" name="tabTabbedPane">
       <Properties>
@@ -295,7 +288,6 @@
     </Component>
     <Component class="javax.swing.JTextField" name="inputTextField">
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="inputTextFieldActionPerformed"/>
         <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="inputTextFieldKeyPressed"/>
       </Events>
     </Component>
@@ -417,9 +409,6 @@
           <Color blue="0" green="99" red="ff" type="rgb"/>
         </Property>
       </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="variablesTextFieldActionPerformed"/>
-      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="calculateButton">
       <Properties>
@@ -433,7 +422,6 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="calculateButtonActionPerformed"/>
-        <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="calculateButtonKeyPressed"/>
       </Events>
     </Component>
   </SubComponents>

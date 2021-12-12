@@ -16,7 +16,6 @@ import java.awt.event.KeyEvent;
 import javax.swing.*;
 import com.formdev.flatlaf.*;
 import java.awt.GridLayout;
-import java.util.Arrays;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.ListSelectionModel;
 
@@ -105,7 +104,6 @@ public class Calculator extends javax.swing.JFrame {
     UserDefinedOperations op = new UserDefinedOperations();
 
     int next_down_press = 0;
-    char variable_char;
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -155,11 +153,6 @@ public class Calculator extends javax.swing.JFrame {
         outputTextField.setBackground(new java.awt.Color(53, 55, 56));
         outputTextField.setFont(new java.awt.Font("Consolas", 0, 12)); // NOI18N
         outputTextField.setForeground(new java.awt.Color(255, 153, 0));
-        outputTextField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                outputTextFieldActionPerformed(evt);
-            }
-        });
 
         basicOperationComboBox.setFont(new java.awt.Font("Consolas", 0, 11)); // NOI18N
         basicOperationComboBox.addActionListener(new java.awt.event.ActionListener() {
@@ -171,16 +164,6 @@ public class Calculator extends javax.swing.JFrame {
         inputButton.setBackground(new java.awt.Color(61, 122, 166));
         inputButton.setFont(new java.awt.Font("Consolas", 0, 11)); // NOI18N
         inputButton.setText("Insert");
-        inputButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                inputButtonActionPerformed(evt);
-            }
-        });
-        inputButton.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                inputButtonKeyPressed(evt);
-            }
-        });
 
         tabTabbedPane.setForeground(new java.awt.Color(255, 153, 0));
         tabTabbedPane.setFont(new java.awt.Font("Consolas", 0, 12)); // NOI18N
@@ -216,11 +199,6 @@ public class Calculator extends javax.swing.JFrame {
             }
         });
 
-        inputTextField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                inputTextFieldActionPerformed(evt);
-            }
-        });
         inputTextField.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 inputTextFieldKeyPressed(evt);
@@ -306,11 +284,6 @@ public class Calculator extends javax.swing.JFrame {
         variablesTextField.setBackground(new java.awt.Color(53, 55, 56));
         variablesTextField.setFont(new java.awt.Font("Consolas", 0, 12)); // NOI18N
         variablesTextField.setForeground(new java.awt.Color(255, 153, 0));
-        variablesTextField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                variablesTextFieldActionPerformed(evt);
-            }
-        });
 
         calculateButton.setBackground(new java.awt.Color(61, 122, 166));
         calculateButton.setFont(new java.awt.Font("Consolas", 0, 11)); // NOI18N
@@ -318,11 +291,6 @@ public class Calculator extends javax.swing.JFrame {
         calculateButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 calculateButtonActionPerformed(evt);
-            }
-        });
-        calculateButton.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                calculateButtonKeyPressed(evt);
             }
         });
 
@@ -397,11 +365,6 @@ public class Calculator extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-
-    private void outputTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_outputTextFieldActionPerformed
-
-    }//GEN-LAST:event_outputTextFieldActionPerformed
 
     private void checkBasicOperation(String operation) {
         basicContext.changeState(operation);
@@ -491,28 +454,12 @@ public class Calculator extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_basicOperationComboBoxActionPerformed
 
-    private void inputButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputButtonActionPerformed
-        // TODO add your handling code here:
-        readFromInputTextField();
-
-
-    }//GEN-LAST:event_inputButtonActionPerformed
-
-    private void inputButtonKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_inputButtonKeyPressed
-        // TODO add your handling code here:
-
-    }//GEN-LAST:event_inputButtonKeyPressed
-
     private void memoryComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_memoryComboBoxActionPerformed
         String operation = (String) memoryComboBox.getSelectedItem();
         if (!"Memory operation".equals(operation)) {
             checkMemoryOperation(operation);
         }
     }//GEN-LAST:event_memoryComboBoxActionPerformed
-
-    private void inputTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputTextFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_inputTextFieldActionPerformed
 
     private void inputTextFieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_inputTextFieldKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
@@ -546,8 +493,6 @@ public class Calculator extends javax.swing.JFrame {
     }//GEN-LAST:event_inputTextFieldKeyPressed
 
     private void variablesListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_variablesListValueChanged
-        // TODO add your handling code here:
-
         if (evt.getValueIsAdjusting() == false) {
 
             if (variablesList.getSelectedIndex() == -1) {
@@ -562,13 +507,11 @@ public class Calculator extends javax.swing.JFrame {
     }//GEN-LAST:event_variablesListValueChanged
 
     private void variablesComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_variablesComboBoxActionPerformed
-
         String operation = (String) variablesComboBox.getSelectedItem();
         if (!"Variables operation".equals(operation) && variablesList.getSelectedIndex() != -1) {
             char variable_char = variablesList.getSelectedValue().charAt(0);
             checkVariableOperation(operation, variable_char);
         }
-
     }//GEN-LAST:event_variablesComboBoxActionPerformed
 
     private void operationDefineButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_operationDefineButtonActionPerformed
@@ -632,16 +575,11 @@ public class Calculator extends javax.swing.JFrame {
                     }
                 }
             } else {
+                
                 JOptionPane.showMessageDialog(p, "INVALID OPERATION", "ERROR", JOptionPane.WARNING_MESSAGE);
-
             }
-
         }
     }//GEN-LAST:event_operationDefineButtonActionPerformed
-
-    private void variablesTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_variablesTextFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_variablesTextFieldActionPerformed
 
     private void calculateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_calculateButtonActionPerformed
         // TODO add your handling code here:
@@ -682,10 +620,6 @@ public class Calculator extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_calculateButtonActionPerformed
-
-    private void calculateButtonKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_calculateButtonKeyPressed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_calculateButtonKeyPressed
 
     /**
      * @param args the command line arguments
