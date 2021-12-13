@@ -182,6 +182,11 @@ public class Calculator extends javax.swing.JFrame {
         inputButton.setBackground(new java.awt.Color(61, 122, 166));
         inputButton.setFont(new java.awt.Font("Consolas", 0, 11)); // NOI18N
         inputButton.setText("Insert");
+        inputButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                inputButtonActionPerformed(evt);
+            }
+        });
 
         tabTabbedPane.setForeground(new java.awt.Color(255, 153, 0));
         tabTabbedPane.setFont(new java.awt.Font("Consolas", 0, 12)); // NOI18N
@@ -270,6 +275,7 @@ public class Calculator extends javax.swing.JFrame {
                 "Operations", "Functions"
             }
         ));
+        operationTable.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
         operationTable.setGridColor(new java.awt.Color(102, 102, 102));
         jScrollPane1.setViewportView(operationTable);
 
@@ -323,13 +329,13 @@ public class Calculator extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(10, 10, 10)
                         .addComponent(tabTabbedPane, javax.swing.GroupLayout.PREFERRED_SIZE, 307, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 243, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 292, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 188, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addComponent(calculateButton)
-                                .addGap(18, 18, 18)
-                                .addComponent(operationDefineButton))))
+                                .addGap(38, 38, 38)
+                                .addComponent(operationDefineButton))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 347, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(12, 12, 12)
                         .addComponent(basicOperationComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -573,6 +579,8 @@ public class Calculator extends javax.swing.JFrame {
                     matching++;
                 } else if (s.compareTo("over") == 0) {
                     matching++;
+                } else if (s.compareTo("sqrt") == 0) {
+                    matching++;
                 } else if (matchNumber.matches()) {
                     matching++;
                 }
@@ -631,6 +639,8 @@ public class Calculator extends javax.swing.JFrame {
                     checkMemoryOperation(s);
                 } else if (s.compareTo("over") == 0) {
                     checkMemoryOperation(s);
+                } else if (s.compareTo("sqrt") == 0) {
+                    checkBasicOperation(s);
                 } else if (matchNumber.matches()) {
                     controller.insertNumber(stack, s);
                 }
@@ -638,6 +648,11 @@ public class Calculator extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_calculateButtonActionPerformed
+
+    private void inputButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inputButtonActionPerformed
+
+        readFromInputTextField();
+    }//GEN-LAST:event_inputButtonActionPerformed
 
     /**
      * @param args the command line arguments

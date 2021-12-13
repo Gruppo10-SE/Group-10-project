@@ -1,0 +1,149 @@
+@startuml
+annotation java.lang.Override
+annotation java.lang.SuppressWarnings
+class controller.CalculatorUtility
+class controller.state.basic.Addition
+class controller.state.basic.BasicOperationContext
+class controller.state.basic.Division
+class controller.state.basic.InvertSign
+class controller.state.basic.Multiplication
+class controller.state.basic.SquareRoot
+class controller.state.basic.Subtraction
+class controller.state.memory.Clear
+class controller.state.memory.Drop
+class controller.state.memory.Dup
+class controller.state.memory.MemoryOperationContext
+class controller.state.memory.Over
+class controller.state.memory.Swap
+class controller.state.variable.MinusVariable
+class controller.state.variable.PlusVariable
+class controller.state.variable.StackToVariable
+class controller.state.variable.VariableOperationContext
+class controller.state.variable.VariableToStack
+class java.awt.GridLayout
+class java.awt.event.KeyEvent
+class java.lang.Double
+class java.lang.Exception
+class java.util.ArrayList
+class java.util.LinkedHashMap
+class java.util.List
+class java.util.Map
+class java.util.Objects
+class java.util.Set
+class javax.swing.JFrame
+class javax.swing.ListSelectionModel
+class javax.swing.table.DefaultTableModel
+class model.CartesianComplex
+class model.StackDataStructure
+class model.UserDefinedOperations
+class model.Variables
+class view.Calculator
+interface controller.state.basic.BasicOperationState
+interface controller.state.memory.MemoryOperationState
+interface controller.state.variable.VariableOperationState
+controller.CalculatorUtility ..> model.CartesianComplex
+controller.CalculatorUtility ..> model.StackDataStructure
+controller.CalculatorUtility ..> model.UserDefinedOperations
+controller.CalculatorUtility ..> model.Variables
+controller.state.basic.Addition ..> java.lang.Override
+controller.state.basic.Addition ..> model.CartesianComplex
+controller.state.basic.Addition ..> model.StackDataStructure
+controller.state.basic.Addition --|> controller.state.basic.BasicOperationState
+controller.state.basic.BasicOperationContext ..> java.lang.Override
+controller.state.basic.BasicOperationContext ..> model.StackDataStructure
+controller.state.basic.BasicOperationContext --|> controller.state.basic.BasicOperationState
+controller.state.basic.Division ..> java.lang.Override
+controller.state.basic.Division ..> model.CartesianComplex
+controller.state.basic.Division ..> model.StackDataStructure
+controller.state.basic.Division --|> controller.state.basic.BasicOperationState
+controller.state.basic.InvertSign ..> java.lang.Override
+controller.state.basic.InvertSign ..> model.CartesianComplex
+controller.state.basic.InvertSign ..> model.StackDataStructure
+controller.state.basic.InvertSign --|> controller.state.basic.BasicOperationState
+controller.state.basic.Multiplication ..> java.lang.Override
+controller.state.basic.Multiplication ..> model.CartesianComplex
+controller.state.basic.Multiplication ..> model.StackDataStructure
+controller.state.basic.Multiplication --|> controller.state.basic.BasicOperationState
+controller.state.basic.SquareRoot ..> java.lang.Override
+controller.state.basic.SquareRoot ..> model.CartesianComplex
+controller.state.basic.SquareRoot ..> model.StackDataStructure
+controller.state.basic.SquareRoot --|> controller.state.basic.BasicOperationState
+controller.state.basic.Subtraction ..> java.lang.Override
+controller.state.basic.Subtraction ..> model.CartesianComplex
+controller.state.basic.Subtraction ..> model.StackDataStructure
+controller.state.basic.Subtraction --|> controller.state.basic.BasicOperationState
+controller.state.memory.Clear ..> java.lang.Override
+controller.state.memory.Clear ..> model.StackDataStructure
+controller.state.memory.Clear --|> controller.state.memory.MemoryOperationState
+controller.state.memory.Drop ..> java.lang.Override
+controller.state.memory.Drop ..> model.StackDataStructure
+controller.state.memory.Drop --|> controller.state.memory.MemoryOperationState
+controller.state.memory.Dup ..> java.lang.Override
+controller.state.memory.Dup ..> model.StackDataStructure
+controller.state.memory.Dup --|> controller.state.memory.MemoryOperationState
+controller.state.memory.MemoryOperationContext ..> java.lang.Override
+controller.state.memory.MemoryOperationContext ..> model.StackDataStructure
+controller.state.memory.MemoryOperationContext --|> controller.state.memory.MemoryOperationState
+controller.state.memory.Over ..> java.lang.Override
+controller.state.memory.Over ..> model.StackDataStructure
+controller.state.memory.Over --|> controller.state.memory.MemoryOperationState
+controller.state.memory.Swap ..> java.lang.Override
+controller.state.memory.Swap ..> model.StackDataStructure
+controller.state.memory.Swap --|> controller.state.memory.MemoryOperationState
+controller.state.variable.MinusVariable ..> java.lang.Override
+controller.state.variable.MinusVariable ..> model.CartesianComplex
+controller.state.variable.MinusVariable ..> model.StackDataStructure
+controller.state.variable.MinusVariable ..> model.Variables
+controller.state.variable.MinusVariable --|> controller.state.variable.VariableOperationState
+controller.state.variable.PlusVariable ..> java.lang.Override
+controller.state.variable.PlusVariable ..> model.CartesianComplex
+controller.state.variable.PlusVariable ..> model.StackDataStructure
+controller.state.variable.PlusVariable ..> model.Variables
+controller.state.variable.PlusVariable --|> controller.state.variable.VariableOperationState
+controller.state.variable.StackToVariable ..> java.lang.Override
+controller.state.variable.StackToVariable ..> model.CartesianComplex
+controller.state.variable.StackToVariable ..> model.StackDataStructure
+controller.state.variable.StackToVariable ..> model.Variables
+controller.state.variable.StackToVariable --|> controller.state.variable.VariableOperationState
+controller.state.variable.VariableOperationContext ..> java.lang.Override
+controller.state.variable.VariableOperationContext ..> model.CartesianComplex
+controller.state.variable.VariableOperationContext ..> model.StackDataStructure
+controller.state.variable.VariableOperationContext ..> model.Variables
+controller.state.variable.VariableOperationContext --|> controller.state.variable.VariableOperationState
+controller.state.variable.VariableToStack ..> java.lang.Override
+controller.state.variable.VariableToStack ..> model.CartesianComplex
+controller.state.variable.VariableToStack ..> model.StackDataStructure
+controller.state.variable.VariableToStack ..> model.Variables
+controller.state.variable.VariableToStack --|> controller.state.variable.VariableOperationState
+model.CartesianComplex ..> java.lang.Override
+model.CartesianComplex ..> java.lang.Double
+model.CartesianComplex ..> java.lang.Exception
+model.StackDataStructure ..> java.lang.Override
+model.StackDataStructure ..> java.util.ArrayList
+model.StackDataStructure ..> java.util.List
+model.UserDefinedOperations ..> java.lang.Override
+model.UserDefinedOperations ..> java.util.LinkedHashMap
+model.UserDefinedOperations ..> java.util.Map
+model.UserDefinedOperations ..> java.util.Objects
+model.UserDefinedOperations ..> java.util.Set
+model.Variables ..> java.lang.Override
+view.Calculator ..> java.lang.SuppressWarnings
+view.Calculator ..> controller.CalculatorUtility
+view.Calculator ..> controller.state.basic.BasicOperationContext
+view.Calculator ..> controller.state.memory.MemoryOperationContext
+view.Calculator ..> controller.state.variable.VariableOperationContext
+view.Calculator ..> java.awt.GridLayout
+view.Calculator ..> java.awt.event.KeyEvent
+view.Calculator --|> javax.swing.JFrame
+view.Calculator ..> javax.swing.ListSelectionModel
+view.Calculator ..> javax.swing.table.DefaultTableModel
+view.Calculator ..> model.StackDataStructure
+view.Calculator ..> model.UserDefinedOperations
+view.Calculator ..> model.Variables
+controller.state.basic.BasicOperationState ..> model.CartesianComplex
+controller.state.basic.BasicOperationState ..> model.StackDataStructure
+controller.state.memory.MemoryOperationState ..> model.StackDataStructure
+controller.state.variable.VariableOperationState ..> model.CartesianComplex
+controller.state.variable.VariableOperationState ..> model.StackDataStructure
+controller.state.variable.VariableOperationState ..> model.Variables
+@enduml

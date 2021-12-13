@@ -1,0 +1,30 @@
+@startuml
+annotation java.lang.Override
+class controller.state.memory.Clear
+class controller.state.memory.Drop
+class controller.state.memory.Dup
+class controller.state.memory.MemoryOperationContext
+class controller.state.memory.Over
+class controller.state.memory.Swap
+class model.StackDataStructure
+interface controller.state.memory.MemoryOperationState
+controller.state.memory.Clear ..> java.lang.Override
+controller.state.memory.Clear ..> model.StackDataStructure
+controller.state.memory.Clear --|> controller.state.memory.MemoryOperationState
+controller.state.memory.Drop ..> java.lang.Override
+controller.state.memory.Drop ..> model.StackDataStructure
+controller.state.memory.Drop --|> controller.state.memory.MemoryOperationState
+controller.state.memory.Dup ..> java.lang.Override
+controller.state.memory.Dup ..> model.StackDataStructure
+controller.state.memory.Dup --|> controller.state.memory.MemoryOperationState
+controller.state.memory.MemoryOperationContext ..> java.lang.Override
+controller.state.memory.MemoryOperationContext ..> model.StackDataStructure
+controller.state.memory.MemoryOperationContext --|> controller.state.memory.MemoryOperationState
+controller.state.memory.Over ..> java.lang.Override
+controller.state.memory.Over ..> model.StackDataStructure
+controller.state.memory.Over --|> controller.state.memory.MemoryOperationState
+controller.state.memory.Swap ..> java.lang.Override
+controller.state.memory.Swap ..> model.StackDataStructure
+controller.state.memory.Swap --|> controller.state.memory.MemoryOperationState
+controller.state.memory.MemoryOperationState ..> model.StackDataStructure
+@enduml
